@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+    />
+    <title>Pricol Employee Portal</title>
+    <meta
+      name="description"
+      content="Modern employee portal for Pricol with HR services, attendance, payroll, and more."
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Modern CDN Libraries for Enhanced UI -->
+    <!-- AOS (Animate On Scroll) for smooth animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- Font Awesome for beautiful icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Swiper.js for carousels and sliders -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- AOS for scroll animations -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Particles.js for animated background -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <!-- GSAP for advanced animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><path d='M9 14 3 20h10l6-6H9Z' fill='%236fc3e8'/><path d='M39 14h-10l6 6h10l-6-6Z' fill='%23c7e77b'/><path d='M9 34 3 28h10l6 6H9Z' fill='%23f6a31a'/><path d='M33 14 27 20l6 6 6-6-6-6Z' fill='%23e84855'/><rect x='22' y='22' width='4' height='4' rx='2' fill='%230a5fa8'/></svg>"
+    />
+  </head>
+  <body>
+    <!-- Animated Background -->
+    <div id="particles-js"></div>
+    <div class="floating-elements">
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+      <div class="floating-element"></div>
+    </div>
+
+    <!-- ===== Shell ===== -->
+    <div class="shell">
+      <!-- ===== Topbar ===== -->
+      <header class="topbar" data-aos="fade-down" data-aos-duration="800">
+        <div class="brand">
+          <div class="logo-container">
+            <img src="lmage/logo.png" alt="Pricol" class="logo" />
+            <div class="logo-glow"></div>
+          </div>
+          <div class="brand-text">
+            <div class="brand-name">Pricol Employee Portal</div>
+          </div>
+        </div>
+
+        <div class="search-container">
+          <div class="search">
+            <i class="search-icon fas fa-search"></i>
+            <input
+              type="text"
+              id="search"
+              placeholder="Search apps, people, content..."
+              class="search-input"
+            />
+            <div class="search-suggestions"></div>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="user" data-aos="zoom-in" data-aos-delay="200">
+            <div class="avatar">
+              <span>RK</span>
+              <div class="status-indicator"></div>
+            </div>
+            <div class="user-info">
+              <div class="user-name">RUBESH K R</div>
+              <div class="user-role">Welcome</div>
+            </div>
+            <div class="user-dropdown">
+              <i class="fas fa-chevron-down"></i>
+            </div>
+          </div>
+          <button class="hamburger" id="btn-nav" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- ===== Modern Side Navigation ===== -->
+      <aside class="sidenav" id="sidenav">
+        <div class="nav-card">
+          <!-- Sidebar Header -->
+          <div class="sidebar-header">
+            <div class="sidebar-user">
+              <div class="sidebar-avatar">RK</div>
+              <div class="sidebar-user-info">
+                <h3>RUBESH K R</h3>
+                <p>Software Engineer</p>
+              </div>
+            </div>
+            <div class="sidebar-search">
+              <i class="sidebar-search-icon fas fa-search"></i>
+              <input type="text" placeholder="Search menu..." />
+            </div>
+          </div>
+
+          <!-- Navigation Content -->
+          <div class="nav-content">
+            <div class="nav-title">Main</div>
+            <div class="nav-item active" data-section="dashboard">
+              <div class="nav-item-icon">
+                <i class="fas fa-tachometer-alt"></i>
+              </div>
+              <span class="nav-item-text">Dashboard</span>
+            </div>
+
+            <div class="nav-title">HR Services</div>
+            <div class="nav-item" data-section="attendance">
+              <div class="nav-item-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <span class="nav-item-text">Attendance & Time</span>
+            </div>
+            <div class="nav-item" data-section="leave">
+              <div class="nav-item-icon">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <span class="nav-item-text">Leave & Holidays</span>
+            </div>
+            <div class="nav-item" data-section="payroll">
+              <div class="nav-item-icon">
+                <i class="fas fa-credit-card"></i>
+              </div>
+              <span class="nav-item-text">Payroll</span>
+            </div>
+            <div class="nav-item" data-section="performance">
+              <div class="nav-item-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <span class="nav-item-text">Performance & Learning</span>
+            </div>
+            <div class="nav-item" data-section="travel">
+              <div class="nav-item-icon">
+                <i class="fas fa-plane"></i>
+              </div>
+              <span class="nav-item-text">Travel & Expense</span>
+            </div>
+
+            <div class="nav-title">Resources</div>
+            <div class="nav-item" data-section="knowledge">
+              <div class="nav-item-icon">
+                <i class="fas fa-book-open"></i>
+              </div>
+              <span class="nav-item-text">Knowledge & Policies</span>
+            </div>
+            <div class="nav-item" data-section="directory">
+              <div class="nav-item-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <span class="nav-item-text">Directory</span>
+            </div>
+            <div class="nav-item" data-section="about">
+              <div class="nav-item-icon">
+                <i class="fas fa-building"></i>
+              </div>
+              <span class="nav-item-text">About / Group Company</span>
+            </div>
+            <div class="nav-item" data-section="content">
+              <div class="nav-item-icon">
+                <i class="fas fa-file-alt"></i>
+              </div>
+              <span class="nav-item-text">My Content</span>
+            </div>
+          </div>
+
+          <!-- Sidebar Footer -->
+          <div class="sidebar-footer">
+            <div class="sidebar-stats">
+              <div class="stat-item">
+                <div class="stat-value">12</div>
+                <div class="stat-label">Tasks</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Alerts</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Messages</div>
+              </div>
+            </div>
+            <div class="sidebar-actions">
+              <button class="sidebar-action-btn">Settings</button>
+              <button class="sidebar-action-btn">Help</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ===== Content ===== -->
+      <main class="content" id="main-content">
+        <!-- Hero Section -->
+        <section class="hero" data-aos="fade-up" data-aos-duration="800">
+          <div class="hero-grid">
+            <!-- Welcome Card -->
+            <div
+              class="hero-card welcome-card"
+              data-aos="fade-right"
+              data-aos-delay="100"
+            >
+              <div class="card-glow"></div>
+              <div class="welcome-content">
+                <div class="welcome-header">
+                  <h2 id="dynamic-greeting">Good Afternoon, RUBESH!</h2>
+                  <p class="welcome-subtitle">
+                    Ready to make today productive?
+                  </p>
+                </div>
+                <div class="welcome-actions">
+                  <button class="action-btn primary">
+                    <i class="fas fa-play"></i>
+                    Start Day
+                  </button>
+                  <button class="action-btn secondary">
+                    <i class="fas fa-calendar-alt"></i>
+                    View Schedule
+                  </button>
+                </div>
+              </div>
+              <div class="welcome-visual">
+                <div class="floating-elements">
+                  <div class="element element-1"></div>
+                  <div class="element element-2"></div>
+                  <div class="element element-3"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Stats Card -->
+            <div
+              class="hero-card stats-card"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              <div class="stats-header">
+                <h3>Today's Overview</h3>
+                <div class="stats-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+              </div>
+              <div class="stats-grid">
+                <div class="stat-item">
+                  <div class="stat-value">3</div>
+                  <div class="stat-label">Meetings</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">5</div>
+                  <div class="stat-label">Tasks</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">2</div>
+                  <div class="stat-label">Reports</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Inspiration Card -->
+            <div
+              class="hero-card inspiration-card"
+              data-aos="fade-left"
+              data-aos-delay="300"
+            >
+              <div class="inspiration-content">
+                <div class="inspiration-icon">
+                  <i class="fas fa-lightbulb"></i>
+                </div>
+                <blockquote id="daily-thought">
+                  "Success doesn't just find you. You have to go out and get
+                  it."
+                </blockquote>
+                <div class="inspiration-author">— Pricol Team</div>
+              </div>
+              <div class="inspiration-decoration">
+                <div class="geometric-shapes">
+                  <div class="shape shape-1"></div>
+                  <div class="shape shape-2"></div>
+                  <div class="shape shape-3"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Access Card -->
+            <div
+              class="hero-card access-card"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
+              <div class="access-header">
+                <h3>Quick Access</h3>
+              </div>
+              <div class="access-buttons">
+                <button class="access-btn">
+                  <i class="fas fa-clock"></i>
+                  <span>Clock In</span>
+                </button>
+                <button class="access-btn">
+                  <i class="fas fa-file-alt"></i>
+                  <span>Submit Report</span>
+                </button>
+                <button class="access-btn">
+                  <i class="fas fa-question-circle"></i>
+                  <span>Help</span>
+                </button>
+                <button class="access-btn">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>Leave Request</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quick access apps -->
+        <section class="apps" data-aos="fade-up" data-aos-delay="200">
+          <div class="app" data-app="attendance">
+            <div class="app-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <span>Attendance</span>
+          </div>
+          <div class="app" data-app="leave">
+            <div class="app-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <span>Leave</span>
+          </div>
+          <div class="app" data-app="payroll">
+            <div class="app-icon">
+              <i class="fas fa-credit-card"></i>
+            </div>
+            <span>Payroll</span>
+          </div>
+          <div class="app" data-app="performance">
+            <div class="app-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <span>Performance</span>
+          </div>
+          <div class="app" data-app="travel">
+            <div class="app-icon">
+              <i class="fas fa-plane"></i>
+            </div>
+            <span>Travel</span>
+          </div>
+          <div class="app" data-app="directory">
+            <div class="app-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <span>Directory</span>
+          </div>
+        </section>
+
+        <!-- Two column layout -->
+        <div class="two-col">
+          <!-- Latest Payslip -->
+          <section class="card" data-aos="fade-right" data-aos-delay="400">
+            <div class="card-title">
+              Latest Payslip
+              <a href="#" class="btn-link">View All</a>
+            </div>
+            <div style="margin-bottom: 16px">
+              <div
+                style="
+                  font-size: var(--font-size-sm);
+                  color: var(--ink-500);
+                  margin-bottom: 4px;
+                "
+              >
+                October 2023
+              </div>
+              <div
+                style="
+                  font-size: var(--font-size-2xl);
+                  font-weight: var(--font-weight-bold);
+                  color: var(--brand-600);
+                  line-height: var(--line-height-tight);
+                "
+              >
+                ₹45,250
+              </div>
+            </div>
+            <button class="btn-chip">
+              <i class="fas fa-download"></i>
+              Download
+            </button>
+            <div
+              style="
+                margin-top: 16px;
+                font-size: var(--font-size-xs);
+                color: var(--ink-400);
+              "
+            >
+              <a href="#" style="color: var(--brand-600); text-decoration: none"
+                >View Payslip History</a
+              >
+              •
+              <a href="#" style="color: var(--brand-600); text-decoration: none"
+                >Tax Documents</a
+              >
+            </div>
+          </section>
+
+          <!-- Today's Attendance -->
+          <section class="card" data-aos="fade-left" data-aos-delay="400">
+            <div class="card-title">
+              Today's Attendance
+              <a href="#" class="btn-link">View Details</a>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                margin-bottom: 16px;
+              "
+            >
+              <div>
+                <div
+                  style="
+                    font-size: var(--font-size-xs);
+                    color: var(--ink-500);
+                    margin-bottom: 4px;
+                  "
+                >
+                  Clock In
+                </div>
+                <div
+                  style="
+                    font-size: var(--font-size-lg);
+                    font-weight: var(--font-weight-bold);
+                    color: var(--accent-green);
+                    line-height: var(--line-height-tight);
+                  "
+                >
+                  09:15 AM
+                </div>
+              </div>
+              <div>
+                <div
+                  style="
+                    font-size: var(--font-size-xs);
+                    color: var(--ink-500);
+                    margin-bottom: 4px;
+                  "
+                >
+                  Hours Today
+                </div>
+                <div
+                  style="
+                    font-size: var(--font-size-lg);
+                    font-weight: var(--font-weight-bold);
+                    color: var(--brand-600);
+                    line-height: var(--line-height-tight);
+                  "
+                >
+                  7h 45m
+                </div>
+              </div>
+            </div>
+            <button class="btn-chip">
+              <i class="fas fa-clock"></i>
+              Clock Out
+            </button>
+          </section>
+        </div>
+
+        <!-- Leave Balance -->
+        <section class="card" data-aos="fade-up" data-aos-delay="600">
+          <div class="card-title">
+            Leave Balance
+            <a href="#" class="btn-link">Apply Leave</a>
+          </div>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+              gap: 16px;
+            "
+          >
+            <div
+              style="
+                text-align: center;
+                padding: 16px;
+                background: rgba(11, 115, 182, 0.05);
+                border-radius: 12px;
+              "
+            >
+              <div
+                style="
+                  font-size: var(--font-size-2xl);
+                  font-weight: var(--font-weight-bold);
+                  color: var(--brand-600);
+                  line-height: var(--line-height-tight);
+                "
+              >
+                12
+              </div>
+              <div
+                style="
+                  font-size: var(--font-size-xs);
+                  color: var(--ink-500);
+                  margin-top: 4px;
+                "
+              >
+                Casual Leave
+              </div>
+            </div>
+            <div
+              style="
+                text-align: center;
+                padding: 16px;
+                background: rgba(11, 115, 182, 0.05);
+                border-radius: 12px;
+              "
+            >
+              <div
+                style="
+                  font-size: var(--font-size-2xl);
+                  font-weight: var(--font-weight-bold);
+                  color: var(--brand-600);
+                  line-height: var(--line-height-tight);
+                "
+              >
+                5
+              </div>
+              <div
+                style="
+                  font-size: var(--font-size-xs);
+                  color: var(--ink-500);
+                  margin-top: 4px;
+                "
+              >
+                Sick Leave
+              </div>
+            </div>
+            <div
+              style="
+                text-align: center;
+                padding: 16px;
+                background: rgba(11, 115, 182, 0.05);
+                border-radius: 12px;
+              "
+            >
+              <div
+                style="
+                  font-size: var(--font-size-2xl);
+                  font-weight: var(--font-weight-bold);
+                  color: var(--brand-600);
+                  line-height: var(--line-height-tight);
+                "
+              >
+                21
+              </div>
+              <div
+                style="
+                  font-size: var(--font-size-xs);
+                  color: var(--ink-500);
+                  margin-top: 4px;
+                "
+              >
+                Earned Leave
+              </div>
+            </div>
+            <div
+              style="
+                text-align: center;
+                padding: 16px;
+                background: rgba(11, 115, 182, 0.05);
+                border-radius: 12px;
+              "
+            >
+              <div
+                style="
+                  font-size: var(--font-size-2xl);
+                  font-weight: var(--font-weight-bold);
+                  color: var(--brand-600);
+                  line-height: var(--line-height-tight);
+                "
+              >
+                3
+              </div>
+              <div
+                style="
+                  font-size: var(--font-size-xs);
+                  color: var(--ink-500);
+                  margin-top: 4px;
+                "
+              >
+                Comp Off
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              margin-top: 16px;
+              padding: 12px;
+              background: rgba(246, 163, 26, 0.1);
+              border-radius: var(--radius-sm);
+              border-left: 3px solid var(--accent-yellow);
+              position: relative;
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -2px;
+                right: -2px;
+                width: 0;
+                height: 0;
+                border-left: 6px solid var(--accent-yellow);
+                border-top: 6px solid var(--accent-yellow);
+                border-right: 6px solid transparent;
+                border-bottom: 6px solid transparent;
+              "
+            ></div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <span
+                style="
+                  font-size: var(--font-size-sm);
+                  font-weight: var(--font-weight-medium);
+                  color: var(--ink-500);
+                  line-height: var(--line-height-tight);
+                "
+                >Next Holiday</span
+              >
+              <span
+                style="
+                  font-size: var(--font-size-sm);
+                  font-weight: var(--font-weight-bold);
+                  color: var(--accent-yellow);
+                  line-height: var(--line-height-tight);
+                "
+                >Dec 25</span
+              >
+            </div>
+            <div
+              style="
+                font-size: var(--font-size-xs);
+                font-weight: var(--font-weight-normal);
+                color: var(--ink-400);
+                margin-top: 2px;
+                line-height: var(--line-height-tight);
+              "
+            >
+              Christmas Day
+            </div>
+          </div>
+        </section>
+
+        <!-- Calendar -->
+        <section class="calendar" data-aos="fade-up" data-aos-delay="800">
+          <div class="calendar-header">
+            <div class="calendar-month">November 2023</div>
+            <div class="calendar-nav">
+              <button><i class="fas fa-chevron-left"></i></button>
+              <button><i class="fas fa-chevron-right"></i></button>
+            </div>
+          </div>
+          <div class="calendar-grid">
+            <div class="dow">Sun</div>
+            <div class="dow">Mon</div>
+            <div class="dow">Tue</div>
+            <div class="dow">Wed</div>
+            <div class="dow">Thu</div>
+            <div class="dow">Fri</div>
+            <div class="dow">Sat</div>
+            <div class="date other-month">29</div>
+            <div class="date other-month">30</div>
+            <div class="date other-month">31</div>
+            <div class="date">1</div>
+            <div class="date">2</div>
+            <div class="date">3</div>
+            <div class="date">4</div>
+            <div class="date">5</div>
+            <div class="date">6</div>
+            <div class="date">7</div>
+            <div class="date">8</div>
+            <div class="date">9</div>
+            <div class="date">10</div>
+            <div class="date">11</div>
+            <div class="date">12</div>
+            <div class="date">13</div>
+            <div class="date">14</div>
+            <div class="date">15</div>
+            <div class="date">16</div>
+            <div class="date">17</div>
+            <div class="date">18</div>
+            <div class="date">19</div>
+            <div class="date">20</div>
+            <div class="date">21</div>
+            <div class="date">22</div>
+            <div class="date">23</div>
+            <div class="date">24</div>
+            <div class="date">25</div>
+            <div class="date">26</div>
+            <div class="date">27</div>
+            <div class="date">28</div>
+            <div class="date">29</div>
+            <div class="date">30</div>
+            <div class="date other-month">1</div>
+            <div class="date other-month">2</div>
+            <div class="date other-month">3</div>
+            <div class="date other-month">4</div>
+            <div class="date other-month">5</div>
+            <div class="date other-month">6</div>
+            <div class="date other-month">7</div>
+            <div class="date other-month">8</div>
+          </div>
+        </section>
+
+        <!-- My Applications -->
+        <section class="card" data-aos="fade-up" data-aos-delay="1000">
+          <div class="card-title">
+            My Applications
+            <a href="#" class="btn-link">View All</a>
+          </div>
+          <div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 0;
+                border-bottom: 1px solid var(--ink-100);
+              "
+            >
+              <div>
+                <div
+                  style="
+                    font-size: var(--font-size-sm);
+                    font-weight: var(--font-weight-semibold);
+                    color: var(--ink-700);
+                    line-height: var(--line-height-tight);
+                  "
+                >
+                  Leave Application
+                </div>
+                <div
+                  style="
+                    font-size: var(--font-size-xs);
+                    color: var(--ink-400);
+                    margin-top: 2px;
+                  "
+                >
+                  Applied on Nov 15, 2023
+                </div>
+              </div>
+              <span class="role">Pending</span>
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 0;
+                border-bottom: 1px solid var(--ink-100);
+              "
+            >
+              <div>
+                <div
+                  style="
+                    font-size: var(--font-size-sm);
+                    font-weight: var(--font-weight-semibold);
+                    color: var(--ink-700);
+                    line-height: var(--line-height-tight);
+                  "
+                >
+                  Travel Request
+                </div>
+                <div
+                  style="
+                    font-size: var(--font-size-xs);
+                    color: var(--ink-400);
+                    margin-top: 2px;
+                  "
+                >
+                  Applied on Nov 10, 2023
+                </div>
+              </div>
+              <span class="role">Approved</span>
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 0;
+              "
+            >
+              <div>
+                <div
+                  style="
+                    font-size: var(--font-size-sm);
+                    font-weight: var(--font-weight-semibold);
+                    color: var(--ink-700);
+                    line-height: var(--line-height-tight);
+                  "
+                >
+                  Expense Claim
+                </div>
+                <div
+                  style="
+                    font-size: var(--font-size-xs);
+                    color: var(--ink-400);
+                    margin-top: 2px;
+                  "
+                >
+                  Applied on Nov 8, 2023
+                </div>
+              </div>
+              <span class="role">Under Review</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- My Content -->
+        <section class="card" data-aos="fade-up" data-aos-delay="1200">
+          <div class="card-title">
+            My Content
+            <a href="#" class="btn-link">View All</a>
+          </div>
+          <div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 0;
+                border-bottom: 1px solid var(--ink-100);
+              "
+            >
+              <div>
+                <div
+                  style="
+                    font-size: var(--font-size-sm);
+                    font-weight: var(--font-weight-semibold);
+                    color: var(--ink-700);
+                    line-height: var(--line-height-tight);
+                  "
+                >
+                  Company Newsletter
+                </div>
+                <div
+                  style="
+                    font-size: var(--font-size-xs);
+                    color: var(--ink-400);
+                    margin-top: 2px;
+                  "
+                >
+                  Published on Nov 20, 2023
+                </div>
+              </div>
+              <span class="role">New</span>
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 0;
+                border-bottom: 1px solid var(--ink-100);
+              "
+            >
+              <div>
+                <div
+                  style="
+                    font-size: var(--font-size-sm);
+                    font-weight: var(--font-weight-semibold);
+                    color: var(--ink-700);
+                    line-height: var(--line-height-tight);
+                  "
+                >
+                  HR Policy Update
+                </div>
+                <div
+                  style="
+                    font-size: var(--font-size-xs);
+                    color: var(--ink-400);
+                    margin-top: 2px;
+                  "
+                >
+                  Published on Nov 18, 2023
+                </div>
+              </div>
+              <span class="role">Updated</span>
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 0;
+              "
+            >
+              <div>
+                <div
+                  style="
+                    font-size: var(--font-size-sm);
+                    font-weight: var(--font-weight-semibold);
+                    color: var(--ink-700);
+                    line-height: var(--line-height-tight);
+                  "
+                >
+                  Training Materials
+                </div>
+                <div
+                  style="
+                    font-size: var(--font-size-xs);
+                    color: var(--ink-400);
+                    margin-top: 2px;
+                  "
+                >
+                  Published on Nov 15, 2023
+                </div>
+              </div>
+              <span class="role">Available</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- Mobile Quick Action Dock -->
+    <div class="quick-dock">
+      <div class="quick-dock-items">
+        <div class="quick-dock-item">
+          <div class="quick-dock-icon">
+            <i class="fas fa-home"></i>
+          </div>
+          <div class="quick-dock-label">Home</div>
+        </div>
+        <div class="quick-dock-item">
+          <div class="quick-dock-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="quick-dock-label">Attendance</div>
+        </div>
+        <div class="quick-dock-item">
+          <div class="quick-dock-icon">
+            <i class="fas fa-calendar"></i>
+          </div>
+          <div class="quick-dock-label">Leave</div>
+        </div>
+        <div class="quick-dock-item">
+          <div class="quick-dock-icon">
+            <i class="fas fa-credit-card"></i>
+          </div>
+          <div class="quick-dock-label">Payroll</div>
+        </div>
+        <div class="quick-dock-item">
+          <div class="quick-dock-icon">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="quick-dock-label">Profile</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
