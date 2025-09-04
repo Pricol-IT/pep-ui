@@ -1,870 +1,758 @@
-// ===== Global Variables =====
-let currentSection = "dashboard";
-let isNavOpen = false;
+// ===== Modern Main Content JavaScript =====
 
-// ===== DOM Elements =====
-const btnNav = document.getElementById("btn-nav");
-const sidenav = document.getElementById("sidenav");
-const searchInput = document.getElementById("search");
-const navItems = document.querySelectorAll(".nav-item");
-const apps = document.querySelectorAll(".app");
-const quickDockItems = document.querySelectorAll(".quick-dock-item");
-
-// ===== Initialize Everything =====
-document.addEventListener("DOMContentLoaded", function () {
-  initializeAnimations();
-  initializeSidebar();
-  initializeSearch();
-  initializeApps();
-  initializeQuickDock();
-  initializeLazyLoading();
-  initializeSmoothScrolling();
-  initializeAccessibility();
-  initializeHeaderInteractions();
-  initializeHeroSection();
+// Initialize main content functionality
+document.addEventListener('DOMContentLoaded', function() {
+  initializeMainContent();
 });
 
-// ===== Animation Initialization =====
-function initializeAnimations() {
-  // Initialize AOS
-  if (typeof AOS !== "undefined") {
-    AOS.init({
-      duration: 800,
-      easing: "ease-out-cubic",
-      once: true,
-      offset: 100,
-    });
-  }
+function initializeMainContent() {
+  // Initialize search functionality
+  initializeSearch();
+  
+  // Initialize calendar navigation
+  initializeCalendar();
+  
+  // Initialize smooth scrolling
+  initializeSmoothScrolling();
+  
+  // Initialize hover effects
+  initializeHoverEffects();
+  
+  // Initialize responsive behavior
+  initializeResponsive();
 
-  // Initialize Particles.js
-  if (typeof particlesJS !== "undefined") {
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 50 },
-        color: { value: "#ffffff" },
-        shape: { type: "circle" },
-        opacity: { value: 0.1 },
-        size: { value: 3 },
-        line_linked: {
-          enable: true,
-          distance: 150,
-          color: "#ffffff",
-          opacity: 0.1,
-          width: 1,
-        },
-        move: {
-          enable: true,
-          speed: 2,
-          direction: "none",
-          random: false,
-          straight: false,
-          out_mode: "out",
-          bounce: false,
-        },
-      },
-      interactivity: {
-        detect_on: "canvas",
-        events: {
-          onhover: { enable: true, mode: "repulse" },
-          onclick: { enable: true, mode: "push" },
-          resize: true,
-        },
-      },
-      retina_detect: true,
-    });
-  }
-
-  // Initialize GSAP
-  if (typeof gsap !== "undefined") {
-    gsap.registerPlugin();
-
-    // Hero animation on load
-    const heroTimeline = gsap.timeline();
-    heroTimeline
-      .from(".hero-logo", {
-        scale: 0,
-        rotation: 180,
-        duration: 0.8,
-        ease: "back.out(1.7)",
-      })
-      .from(
-        ".hero h2",
-        { y: 30, opacity: 0, duration: 0.6, ease: "power2.out" },
-        "-=0.4"
-      )
-      .from(
-        ".hero p",
-        { y: 20, opacity: 0, duration: 0.6, ease: "power2.out" },
-        "-=0.3"
-      );
-
-    // Body animation on load
-    window.addEventListener("load", () => {
-      gsap.from("body", { opacity: 0, duration: 0.5, ease: "power2.out" });
-    });
-  }
-}
-
-// ===== Sidebar Initialization =====
-function initializeSidebar() {
-  // Initialize Lucide Icons
-  if (typeof lucide !== "undefined") {
-    lucide.createIcons();
-  }
-
-  // Enhanced Sidebar Interactions
-  const sidebarSearch = document.querySelector(".sidebar-search input");
-  const navItems = document.querySelectorAll(".nav-item");
-
-  // Sidebar search functionality
-  if (sidebarSearch) {
-    sidebarSearch.addEventListener("input", (e) => {
-      const query = e.target.value.toLowerCase();
-      navItems.forEach((item) => {
-        const text = item
-          .querySelector(".nav-item-text")
-          .textContent.toLowerCase();
-        if (text.includes(query)) {
-          item.style.display = "flex";
-          item.style.opacity = "1";
-        } else {
-          item.style.opacity = "0.3";
-        }
-      });
-    });
-  }
-
-  // Enhanced nav item interactions
-  navItems.forEach((item) => {
-    item.addEventListener("mouseenter", () => {
-      if (typeof gsap !== "undefined") {
-        gsap.to(item, {
-          scale: 1.02,
-          duration: 0.2,
-          ease: "power2.out",
-        });
-      }
-    });
-
-    item.addEventListener("mouseleave", () => {
-      if (typeof gsap !== "undefined") {
-        gsap.to(item, {
-          scale: 1,
-          duration: 0.2,
-          ease: "power2.out",
-        });
-      }
-    });
-  });
-
-  // Sidebar stats animation
-  const statValues = document.querySelectorAll(".stat-value");
-  statValues.forEach((stat) => {
-    const finalValue = parseInt(stat.textContent);
-    if (typeof gsap !== "undefined") {
-      gsap.fromTo(
-        stat,
-        { textContent: 0 },
-        {
-          textContent: finalValue,
-          duration: 1.5,
-          ease: "power2.out",
-          snap: { textContent: 1 },
-          delay: 0.5,
-        }
-      );
-    }
-  });
-
-  // Sidebar action buttons
-  const sidebarActionBtns = document.querySelectorAll(".sidebar-action-btn");
-  sidebarActionBtns.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const action = btn.textContent.toLowerCase();
-      showToast(`${action.charAt(0).toUpperCase() + action.slice(1)} clicked!`);
-
-      // Add ripple effect
-      addRippleEffect(btn, e);
-    });
-  });
-
-  // Add ripple animation CSS
-  addRippleCSS();
-}
-
-// ===== Navigation Functions =====
-function toggleNav() {
-  isNavOpen = !isNavOpen;
-  sidenav.classList.toggle("open", isNavOpen);
-  btnNav.setAttribute("aria-expanded", isNavOpen.toString());
-
-  // Update hamburger icon
-  const hamburgerIcon = btnNav.querySelector("i");
-  if (hamburgerIcon) {
-    hamburgerIcon.className = isNavOpen ? "fas fa-times" : "fas fa-bars";
-  }
-}
-
-function navigateToSection(section) {
-  // Remove active class from all nav items
-  navItems.forEach((item) => item.classList.remove("active"));
-
-  // Add active class to clicked item
-  const activeItem = document.querySelector(`[data-section="${section}"]`);
-  if (activeItem) {
-    activeItem.classList.add("active");
-  }
-
-  currentSection = section;
-
-  // Close mobile nav if open
-  if (isNavOpen) {
-    toggleNav();
-  }
-
-  // Show toast notification
-  showToast(
-    `Navigated to ${section.charAt(0).toUpperCase() + section.slice(1)}`
-  );
+  // Ensure icons render (fallback to Font Awesome if Tabler fails)
+  initializeIconFallback();
 }
 
 // ===== Search Functionality =====
 function initializeSearch() {
+  const searchInput = document.querySelector('.search-container input');
   if (!searchInput) return;
 
-  let searchTimeout;
-
-  searchInput.addEventListener("input", (e) => {
-    clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => {
-      const query = e.target.value.toLowerCase();
-      if (query.length > 0) {
-        searchContent(query);
+  searchInput.addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const appCards = document.querySelectorAll('.app-card');
+    
+    appCards.forEach(card => {
+      const appName = card.querySelector('.app-name').textContent.toLowerCase();
+      if (appName.includes(searchTerm)) {
+        card.style.display = 'flex';
+        card.style.opacity = '1';
+        card.style.transform = 'scale(1)';
+        } else {
+        card.style.opacity = '0.3';
+        card.style.transform = 'scale(0.95)';
       }
-    }, 300);
+    });
   });
 
-  // GSAP animation on search
-  searchInput.addEventListener("focus", () => {
-    if (typeof gsap !== "undefined") {
-      gsap.to(searchInput, { scale: 1.02, duration: 0.2, ease: "power2.out" });
+  // Clear search on escape key
+  searchInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      e.target.value = '';
+      e.target.dispatchEvent(new Event('input'));
     }
   });
+}
 
-  searchInput.addEventListener("blur", () => {
-    if (typeof gsap !== "undefined") {
-      gsap.to(searchInput, { scale: 1, duration: 0.2, ease: "power2.out" });
+// ===== Calendar Navigation =====
+function initializeCalendar() {
+  const prevBtn = document.querySelector('.calendar-nav:first-child');
+  const nextBtn = document.querySelector('.calendar-nav:last-child');
+  const monthDisplay = document.querySelector('.calendar-month');
+  
+  if (!prevBtn || !nextBtn || !monthDisplay) return;
+
+  let currentDate = new Date();
+  
+  function updateCalendar() {
+    const monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    
+    monthDisplay.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+    
+    // Update today's date highlighting
+    const today = new Date();
+    const calendarDays = document.querySelectorAll('.calendar-day');
+    
+    calendarDays.forEach(day => {
+      day.classList.remove('today');
+      if (day.textContent == today.getDate() && 
+          currentDate.getMonth() === today.getMonth() && 
+          currentDate.getFullYear() === today.getFullYear()) {
+        day.classList.add('today');
     }
   });
 }
 
-function searchContent(query) {
-  // This would typically search through apps, people, and content
-  console.log(`Searching for: ${query}`);
-  showToast(`Searching for "${query}"...`);
-}
-
-// ===== Apps Functionality =====
-function initializeApps() {
-  apps.forEach((app) => {
-    app.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      // Add loading state
-      const originalContent = app.innerHTML;
-      app.innerHTML = '<div class="loading">Loading...</div>';
-      app.style.pointerEvents = "none";
-
-      // Simulate app loading
-      setTimeout(() => {
-        app.innerHTML = originalContent;
-        app.style.pointerEvents = "auto";
-        showToast("App opened successfully!");
-      }, 1000);
-    });
-
-    // GSAP hover animations
-    app.addEventListener("mouseenter", () => {
-      if (typeof gsap !== "undefined") {
-        gsap.to(app, {
-          scale: 1.05,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      }
-    });
-
-    app.addEventListener("mouseleave", () => {
-      if (typeof gsap !== "undefined") {
-        gsap.to(app, {
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.out",
-        });
-      }
-    });
+  prevBtn.addEventListener('click', function() {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    updateCalendar();
+    animateCalendarChange('left');
   });
-}
 
-// ===== Quick Dock Functionality =====
-function initializeQuickDock() {
-  quickDockItems.forEach((item) => {
-    item.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      // Visual feedback
-      item.style.transform = "scale(0.95)";
-      setTimeout(() => {
-        item.style.transform = "scale(1)";
-      }, 150);
-
-      const action = item.querySelector(".quick-dock-label").textContent;
-      showToast(`${action} opened!`);
-
-      console.log(`Quick action: ${action}`);
-    });
+  nextBtn.addEventListener('click', function() {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    updateCalendar();
+    animateCalendarChange('right');
   });
-}
 
-// ===== Lazy Loading =====
-function initializeLazyLoading() {
-  const images = document.querySelectorAll("img[data-src]");
-
-  if ("IntersectionObserver" in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          img.src = img.dataset.src;
-          img.classList.remove("lazy");
-          imageObserver.unobserve(img);
-        }
-      });
-    });
-
-    images.forEach((img) => imageObserver.observe(img));
-  } else {
-    // Fallback for older browsers
-    images.forEach((img) => {
-      img.src = img.dataset.src;
-    });
+  function animateCalendarChange(direction) {
+    const calendarGrid = document.querySelector('.calendar-grid');
+    calendarGrid.style.transform = `translateX(${direction === 'left' ? '20px' : '-20px'})`;
+    calendarGrid.style.opacity = '0.7';
+    
+    setTimeout(() => {
+      calendarGrid.style.transform = 'translateX(0)';
+      calendarGrid.style.opacity = '1';
+    }, 150);
   }
+
+  // Initialize with current month
+  updateCalendar();
 }
 
 // ===== Smooth Scrolling =====
 function initializeSmoothScrolling() {
-  const links = document.querySelectorAll('a[href^="#"]');
+  const content = document.querySelector('.content');
+  if (!content) return;
 
-  links.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const targetId = link.getAttribute("href");
-      const targetElement = document.querySelector(targetId);
+  // Smooth scroll to top when clicking on welcome section
+  const welcomeSection = document.querySelector('.welcome-section');
+  if (welcomeSection) {
+    welcomeSection.addEventListener('click', function() {
+      content.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+  });
+  }
+}
 
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
+// ===== Enhanced Hover Effects =====
+function initializeHoverEffects() {
+  // Add ripple effect to action cards
+  const actionCards = document.querySelectorAll('.action-card');
+  actionCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-4px) scale(1.02)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+  // Add pulse effect to stat cards
+  const statCards = document.querySelectorAll('.stat-card');
+  statCards.forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      const icon = this.querySelector('i');
+      icon.style.animation = 'pulse 0.6s ease-in-out';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      const icon = this.querySelector('i');
+      icon.style.animation = 'none';
+    });
+  });
+
+  // Add slide effect to activity items
+  const activityItems = document.querySelectorAll('.activity-item');
+  activityItems.forEach(item => {
+    item.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateX(8px)';
+    });
+    
+    item.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateX(0)';
     });
   });
 }
 
-// ===== Accessibility =====
-function initializeAccessibility() {
-  // Initialize accessibility attributes
-  if (btnNav) {
-    btnNav.setAttribute("aria-expanded", "false");
-  }
+// ===== Responsive Behavior =====
+function initializeResponsive() {
+  const contentGrid = document.querySelector('.content-grid');
+  const contentSidebar = document.querySelector('.content-sidebar');
+  
+  if (!contentGrid || !contentSidebar) return;
 
-  if (searchInput) {
-    searchInput.setAttribute("aria-label", "Search apps, people, and content");
-  }
-
-  // Keyboard navigation
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && isNavOpen) {
-      toggleNav();
+  function handleResize() {
+    if (window.innerWidth <= 1024) {
+      // Mobile/tablet layout
+      contentSidebar.style.order = '-1';
+      contentGrid.style.gridTemplateColumns = '1fr';
+  } else {
+      // Desktop layout
+      contentSidebar.style.order = '0';
+      contentGrid.style.gridTemplateColumns = '1fr 320px';
     }
-  });
+  }
 
-  // Focus management
-  const focusableElements =
-    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+  // Initial check
+  handleResize();
+  
+  // Listen for window resize
+  window.addEventListener('resize', handleResize);
+}
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Tab") {
-      const focusable = Array.from(
-        document.querySelectorAll(focusableElements)
-      );
-      const firstFocusable = focusable[0];
-      const lastFocusable = focusable[focusable.length - 1];
+// Fix mobile stacking order: primary first, sidebar last
+(function fixResponsiveOrder(){
+  const original = initializeResponsive;
+  initializeResponsive = function(){
+    const contentGrid = document.querySelector('.content-grid');
+    const contentSidebar = document.querySelector('.content-sidebar');
+    if (!contentGrid || !contentSidebar) return;
 
-      if (e.shiftKey) {
-        if (document.activeElement === firstFocusable) {
-          lastFocusable.focus();
-          e.preventDefault();
-        }
+    function handleResize() {
+      if (window.innerWidth <= 1024) {
+        contentSidebar.style.order = '1'; // sidebar after primary
+        contentGrid.style.gridTemplateColumns = '1fr';
       } else {
-        if (document.activeElement === lastFocusable) {
-          firstFocusable.focus();
-          e.preventDefault();
-        }
+        contentSidebar.style.order = '0';
+        contentGrid.style.gridTemplateColumns = '1fr 320px';
       }
     }
-  });
-}
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+  };
+})();
 
 // ===== Utility Functions =====
-function showToast(message, duration = 3000) {
-  // Remove existing toast
-  const existingToast = document.querySelector(".toast");
-  if (existingToast) {
-    existingToast.remove();
+
+// Debounce function for performance
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+// Throttle function for scroll events
+function throttle(func, limit) {
+  let inThrottle;
+  return function() {
+    const args = arguments;
+    const context = this;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  };
+}
+
+// ===== Animation Helpers =====
+
+// Add CSS animations dynamically
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
   }
-
-  // Create toast element
-  const toast = document.createElement("div");
-  toast.className = "toast";
-  toast.textContent = message;
-  toast.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--brand-600);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    box-shadow: var(--shadow-3);
-    z-index: 1000;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-  `;
-
-  document.body.appendChild(toast);
-
-  // Animate in
-  setTimeout(() => {
-    toast.style.transform = "translateX(0)";
-  }, 100);
-
-  // Animate out and remove
-  setTimeout(() => {
-    toast.style.transform = "translateX(100%)";
-    setTimeout(() => {
-      if (toast.parentNode) {
-        toast.remove();
-      }
-    }, 300);
-  }, duration);
-}
-
-function addRippleEffect(button, event) {
-  const ripple = document.createElement("span");
-  ripple.style.cssText = `
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(11, 115, 182, 0.3);
-    transform: scale(0);
-    animation: ripple 0.6s linear;
-    pointer-events: none;
-  `;
-
-  const rect = button.getBoundingClientRect();
-  const size = Math.max(rect.width, rect.height);
-  ripple.style.width = ripple.style.height = size + "px";
-  ripple.style.left = event.clientX - rect.left - size / 2 + "px";
-  ripple.style.top = event.clientY - rect.top - size / 2 + "px";
-
-  button.style.position = "relative";
-  button.style.overflow = "hidden";
-  button.appendChild(ripple);
-
-  setTimeout(() => {
-    ripple.remove();
-  }, 600);
-}
-
-function addRippleCSS() {
-  const style = document.createElement("style");
-  style.textContent = `
-    @keyframes ripple {
-      to {
-        transform: scale(4);
+  
+  @keyframes slideIn {
+    from {
         opacity: 0;
-      }
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .welcome-section {
+    animation: slideIn 0.6s ease-out;
+  }
+  
+  .quick-actions {
+    animation: slideIn 0.6s ease-out 0.1s both;
+  }
+  
+  .applications-section {
+    animation: slideIn 0.6s ease-out 0.2s both;
+  }
+  
+  .activity-section {
+    animation: slideIn 0.6s ease-out 0.3s both;
+  }
+  
+  .content-sidebar > * {
+    animation: fadeIn 0.6s ease-out 0.4s both;
+  }
+  
+  .content-sidebar > *:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+  
+  .content-sidebar > *:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+  
+  .content-sidebar > *:nth-child(4) {
+    animation-delay: 0.7s;
     }
   `;
   document.head.appendChild(style);
-}
 
-// ===== Event Listeners =====
-// Navigation toggle
-if (btnNav) {
-  btnNav.addEventListener("click", toggleNav);
-}
+// ===== Performance Optimizations =====
 
-// Navigation items
-navItems.forEach((item) => {
-  item.addEventListener("click", (e) => {
-    e.preventDefault();
-    const section = item.getAttribute("data-section");
-    if (section) {
-      navigateToSection(section);
-    }
-  });
-});
+// Lazy load images and heavy content
+function initializeLazyLoading() {
+  const observerOptions = {
+    root: null,
+    rootMargin: '50px',
+    threshold: 0.1
+  };
 
-// Close nav when clicking outside on mobile
-document.addEventListener("click", (e) => {
-  if (isNavOpen && window.innerWidth <= 720) {
-    if (!sidenav.contains(e.target) && !btnNav.contains(e.target)) {
-      toggleNav();
-    }
-  }
-});
-
-// Handle window resize
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 720 && isNavOpen) {
-    toggleNav();
-  }
-});
-
-// ===== Calendar Functionality =====
-function initializeCalendar() {
-  const calendarNav = document.querySelectorAll(".calendar-nav button");
-  const calendarMonth = document.querySelector(".calendar-month");
-
-  if (calendarNav.length > 0) {
-    calendarNav.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        // Add visual feedback
-        btn.style.transform = "scale(0.95)";
-        setTimeout(() => {
-          btn.style.transform = "scale(1)";
-        }, 150);
-
-        showToast("Calendar navigation clicked!");
-      });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
     });
-  }
+  }, observerOptions);
+
+  // Observe all cards for lazy loading
+  const cards = document.querySelectorAll('.overview-card, .quick-links-card, .team-card, .calendar-card');
+  cards.forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(card);
+  });
 }
 
-// Initialize calendar when DOM is ready
-document.addEventListener("DOMContentLoaded", initializeCalendar);
+// Initialize lazy loading when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(initializeLazyLoading, 100);
+});
 
-// ===== Hero Section Initialization =====
-function initializeHeroSection() {
-  // Dynamic greeting based on time
-  updateDynamicGreeting();
+// ===== Error Handling =====
+window.addEventListener('error', function(e) {
+  console.error('Main content error:', e.error);
+});
 
-  // Daily thought rotation
-  initializeDailyThought();
+// ===== Export for global access =====
+window.MainContent = {
+  initialize: initializeMainContent,
+  search: initializeSearch,
+  calendar: initializeCalendar,
+  responsive: initializeResponsive
+};
 
-  // Initialize action buttons
-  initializeActionButtons();
+// ===== Icon Fallback (Tabler -> Font Awesome) =====
+function initializeIconFallback() {
+  try {
+    const checkTablerLoaded = () => {
+      // If browser supports Font Loading API, verify the font
+      if (document.fonts && document.fonts.check) {
+        return document.fonts.check('1em "tabler-icons"');
+      }
+      // Best-effort fallback: assume loaded
+      return true;
+    };
 
-  // Initialize access buttons
-  initializeAccessButtons();
-}
+    const swapToFA = () => {
+      const map = {
+        'ti-sparkles': 'fa-wand-magic-sparkles',
+        'ti-bolt': 'fa-bolt',
+        'ti-calendar': 'fa-calendar',
+        'ti-calendar-check': 'fa-calendar-check',
+        'ti-calendar-event': 'fa-calendar-day',
+        'ti-chevron-left': 'fa-chevron-left',
+        'ti-chevron-right': 'fa-chevron-right',
+        'ti-clock': 'fa-clock',
+        'ti-bell': 'fa-bell',
+        'ti-file-invoice': 'fa-file-invoice-dollar',
+        'ti-chart-line': 'fa-chart-line',
+        'ti-apps': 'fa-grip',
+        'ti-cash': 'fa-sack-dollar',
+        'ti-school': 'fa-school',
+        'ti-plane': 'fa-plane',
+        'ti-book': 'fa-book',
+        'ti-stethoscope': 'fa-stethoscope',
+        'ti-activity': 'fa-wave-square',
+        'ti-link': 'fa-link',
+        'ti-file-text': 'fa-file-lines',
+        'ti-info-circle': 'fa-circle-info',
+        'ti-settings': 'fa-gear',
+        'ti-help': 'fa-circle-question',
+        'ti-users': 'fa-users',
+        'ti-sun': 'fa-sun',
+        'ti-toggle-left': 'fa-toggle-off',
+        'ti-search': 'fa-search',
+        'ti-home': 'fa-house',
+        'ti-user': 'fa-user',
+        'ti-trophy': 'fa-trophy',
+        'ti-rocket': 'fa-rocket'
+      };
 
-function updateDynamicGreeting() {
-  const greetingElement = document.getElementById("dynamic-greeting");
-  if (!greetingElement) return;
+      document.querySelectorAll('i.ti').forEach(el => {
+        const cls = Array.from(el.classList).find(c => c.startsWith('ti-') && c !== 'ti');
+        const fa = cls ? map[cls] : undefined;
+        if (fa) {
+          el.className = `fas ${fa}`;
+        }
+      });
+    };
 
-  const hour = new Date().getHours();
-  let greeting;
-
-  if (hour < 12) {
-    greeting = "Good Morning, RUBESH!";
-  } else if (hour < 17) {
-    greeting = "Good Afternoon, RUBESH!";
-  } else {
-    greeting = "Good Evening, RUBESH!";
-  }
-
-  greetingElement.textContent = greeting;
-}
-
-function initializeDailyThought() {
-  const thoughts = [
-    "Excellence is not a skill, it's an attitude.",
-    "Success is the sum of small efforts repeated day in and day out.",
-    "The only way to do great work is to love what you do.",
-    "Innovation distinguishes between a leader and a follower.",
-    "Your limitation—it's only your imagination.",
-    "Great things never come from comfort zones.",
-    "Dream it. Wish it. Do it.",
-    "Success doesn't just find you. You have to go out and get it.",
-  ];
-
-  const thoughtElement = document.getElementById("daily-thought");
-  if (!thoughtElement) return;
-
-  // Get a different thought based on the day
-  const dayOfYear = Math.floor(
-    (new Date() - new Date(new Date().getFullYear(), 0, 0)) /
-      (1000 * 60 * 60 * 24)
-  );
-  const thoughtIndex = dayOfYear % thoughts.length;
-
-  thoughtElement.textContent = `"${thoughts[thoughtIndex]}"`;
-}
-
-function initializeActionButtons() {
-  const actionButtons = document.querySelectorAll(".action-btn");
-
-  actionButtons.forEach((button) => {
-    button.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      // Add ripple effect
-      const ripple = document.createElement("div");
-      ripple.classList.add("ripple-effect");
-      ripple.style.position = "absolute";
-      ripple.style.borderRadius = "50%";
-      ripple.style.background = "rgba(255, 255, 255, 0.6)";
-      ripple.style.transform = "scale(0)";
-      ripple.style.animation = "ripple 0.6s linear";
-      ripple.style.left =
-        e.clientX - button.getBoundingClientRect().left + "px";
-      ripple.style.top = e.clientY - button.getBoundingClientRect().top + "px";
-      ripple.style.width = ripple.style.height = "20px";
-
-      button.style.position = "relative";
-      button.style.overflow = "hidden";
-      button.appendChild(ripple);
-
+    // If Tabler didn't load within a short delay, swap icons
+    if (!checkTablerLoaded()) {
+      // Re-check after fonts settle
       setTimeout(() => {
-        ripple.remove();
+        if (!checkTablerLoaded()) swapToFA();
       }, 600);
-
-      // Handle button actions
-      if (this.classList.contains("primary")) {
-        // Start Day action
-        showToast("Starting your day! 🚀", "success");
-      } else if (this.classList.contains("secondary")) {
-        // View Schedule action
-        showToast("Opening schedule... 📅", "info");
-      }
-    });
-  });
-}
-
-function initializeAccessButtons() {
-  const accessButtons = document.querySelectorAll(".app");
-
-  accessButtons.forEach((button) => {
-    button.addEventListener("click", function (e) {
-      e.preventDefault();
-
-      // Add click animation
-      this.style.transform = "scale(0.95)";
-      setTimeout(() => {
-        this.style.transform = "";
-      }, 150);
-
-      // Handle different access actions based on data-app attribute
-      const appType = this.getAttribute("data-app");
-      const text = this.querySelector("span").textContent;
-
-      switch (appType) {
-        case "attendance":
-          showEnhancedToast("Opening attendance portal... ⏰", "info");
-          break;
-        case "leave":
-          showEnhancedToast("Opening leave management... 📅", "info");
-          break;
-        case "payroll":
-          showEnhancedToast("Opening payroll portal... 💰", "info");
-          break;
-        case "performance":
-          showEnhancedToast("Opening performance dashboard... 📊", "info");
-          break;
-        case "travel":
-          showEnhancedToast("Opening travel portal... ✈️", "info");
-          break;
-        case "directory":
-          showEnhancedToast("Opening employee directory... 👥", "info");
-          break;
-        default:
-          showEnhancedToast(`Opening ${text}...`, "info");
-      }
-    });
-  });
-}
-
-// Toast notification function
-function showToast(message, type = "info") {
-  const toast = document.createElement("div");
-  toast.className = `toast toast-${type}`;
-  toast.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: ${type === "success" ? "#10b981" : "#3b82f6"};
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    z-index: 10000;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    font-size: 14px;
-    font-weight: 500;
-  `;
-
-  toast.textContent = message;
-  document.body.appendChild(toast);
-
-  // Animate in
-  setTimeout(() => {
-    toast.style.transform = "translateX(0)";
-  }, 100);
-
-  // Animate out and remove
-  setTimeout(() => {
-    toast.style.transform = "translateX(100%)";
-    setTimeout(() => {
-      document.body.removeChild(toast);
-    }, 300);
-  }, 3000);
-}
-
-// Add ripple animation CSS
-const style = document.createElement("style");
-style.textContent = `
-  @keyframes ripple {
-    to {
-      transform: scale(4);
-      opacity: 0;
     }
+  } catch (e) {
+    // As a last resort, attempt swap
+    try { swapToFA(); } catch (_) {}
   }
-`;
-document.head.appendChild(style);
+}
 
-// ===== Enhanced Header Interactions =====
-function initializeHeaderInteractions() {
-  // Logo hover effects
-  const logoContainer = document.querySelector(".logo-container");
-  if (logoContainer) {
-    logoContainer.addEventListener("mouseenter", () => {
-      if (typeof gsap !== "undefined") {
-        gsap.to(".logo", {
-          duration: 0.3,
-          scale: 1.05,
-          rotation: 2,
-          ease: "back.out(1.7)",
+// Extend icon fallback map and strengthen detection
+(function enhanceIconFallback(){
+  const originalInit = initializeIconFallback;
+  initializeIconFallback = function(){
+    try {
+      const check = () => (document.fonts && document.fonts.check) ? document.fonts.check('1em "tabler-icons"') : true;
+      const swapToFA = () => {
+        const map = {
+          'ti-sparkles': 'fa-wand-magic-sparkles',
+          'ti-bolt': 'fa-bolt',
+          'ti-calendar': 'fa-calendar',
+          'ti-calendar-check': 'fa-calendar-check',
+          'ti-calendar-event': 'fa-calendar-day',
+          'ti-chevron-left': 'fa-chevron-left',
+          'ti-chevron-right': 'fa-chevron-right',
+          'ti-clock': 'fa-clock',
+          'ti-bell': 'fa-bell',
+          'ti-file-invoice': 'fa-file-invoice-dollar',
+          'ti-chart-line': 'fa-chart-line',
+          'ti-apps': 'fa-grip',
+          'ti-cash': 'fa-sack-dollar',
+          'ti-school': 'fa-school',
+          'ti-plane': 'fa-plane',
+          'ti-book': 'fa-book',
+          'ti-stethoscope': 'fa-stethoscope',
+          'ti-activity': 'fa-wave-square',
+          'ti-link': 'fa-link',
+          'ti-file-text': 'fa-file-lines',
+          'ti-info-circle': 'fa-circle-info',
+          'ti-settings': 'fa-gear',
+          'ti-help': 'fa-circle-question',
+          'ti-users': 'fa-users',
+          'ti-users-group': 'fa-people-group',
+          'ti-sun': 'fa-sun',
+          'ti-cloud': 'fa-cloud',
+          'ti-cloud-sun': 'fa-cloud-sun',
+          'ti-cloud-rain': 'fa-cloud-rain',
+          'ti-snowflake': 'fa-snowflake',
+          'ti-cloud-storm': 'fa-cloud-bolt',
+          'ti-mist': 'fa-smog',
+          'ti-user-plus': 'fa-user-plus',
+          'ti-cake': 'fa-cake-candles',
+          'ti-confetti': 'fa-champagne-glasses',
+          'ti-megaphone': 'fa-bullhorn',
+          'ti-mail-opened': 'fa-envelope-open',
+          'ti-trophy': 'fa-trophy',
+          'ti-rocket': 'fa-rocket'
+        };
+        document.querySelectorAll('i.ti').forEach(el => {
+          const cls = Array.from(el.classList).find(c => c.startsWith('ti-') && c !== 'ti');
+          const fa = cls ? map[cls] : undefined;
+          if (fa) el.className = `fas ${fa}`;
         });
-      }
-    });
+      };
 
-    logoContainer.addEventListener("mouseleave", () => {
-      if (typeof gsap !== "undefined") {
-        gsap.to(".logo", {
-          duration: 0.3,
-          scale: 1,
-          rotation: 0,
-          ease: "back.out(1.7)",
-        });
-      }
-    });
-  }
+      // run original detection
+      if (typeof originalInit === 'function') originalInit();
+      // stronger delayed checks
+      setTimeout(() => { if (!check()) swapToFA(); }, 800);
+      setTimeout(() => { if (!check()) swapToFA(); }, 1600);
+    } catch { /* noop */ }
+  };
+})();
 
-  // Search input enhancements
-  const searchInput = document.querySelector(".search-input");
-  if (searchInput) {
-    searchInput.addEventListener("focus", () => {
-      if (typeof gsap !== "undefined") {
-        gsap.to(".search-icon", {
-          duration: 0.3,
-          scale: 1.1,
-          color: "rgba(255, 255, 255, 0.9)",
-        });
-        gsap.to(".search-input", {
-          duration: 0.3,
-          y: -2,
-          ease: "back.out(1.7)",
-        });
-      }
-    });
+// ===== Apps Toolbar Interactions =====
+(function setupAppsToolbar(){
+  document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.querySelector('.applications-grid');
+    if (!grid) return;
 
-    searchInput.addEventListener("blur", () => {
-      if (typeof gsap !== "undefined") {
-        gsap.to(".search-icon", {
-          duration: 0.3,
-          scale: 1,
-          color: "rgba(255, 255, 255, 0.7)",
-        });
-        gsap.to(".search-input", {
-          duration: 0.3,
-          y: 0,
-          ease: "back.out(1.7)",
-        });
-      }
-    });
-  }
+    const tabs = document.querySelectorAll('.apps-tab');
+    const search = document.querySelector('.applications-section .search-container input');
 
-  // Icon button ripple effects
-  const iconButtons = document.querySelectorAll(".icon-btn");
-  iconButtons.forEach((button) => {
-    button.addEventListener("click", function (e) {
-      const ripple = this.querySelector(".ripple");
-      if (ripple) {
-        ripple.style.width = "0px";
-        ripple.style.height = "0px";
-        ripple.style.opacity = "1";
+    const getCards = () => Array.from(grid.querySelectorAll('.app-card')).filter(el=>!el.classList.contains('add-app'));
 
-        setTimeout(() => {
-          ripple.style.width = "100px";
-          ripple.style.height = "100px";
-          ripple.style.opacity = "0";
-        }, 10);
-      }
-    });
-  });
+    function applyFilters(){
+      const active = document.querySelector('.apps-tab.active');
+      const filter = active ? active.getAttribute('data-filter') : 'all';
+      const term = (search && search.value || '').toLowerCase();
 
-  // User dropdown animation
-  const userSection = document.querySelector(".user");
-  if (userSection) {
-    userSection.addEventListener("click", () => {
-      if (typeof gsap !== "undefined") {
-        gsap.to(".user-dropdown i", {
-          duration: 0.3,
-          rotation: 180,
-          ease: "back.out(1.7)",
-        });
-      }
-    });
-  }
+      getCards().forEach(card => {
+        const name = (card.querySelector('.app-name')?.textContent || '').toLowerCase();
+        const matchesText = !term || name.includes(term);
+        const isPinned = card.classList.contains('pinned');
+        const isRecent = card.getAttribute('data-recent') === '1';
 
-  // Badge pulse animation
-  const badges = document.querySelectorAll(".badge.pulse");
-  badges.forEach((badge) => {
-    if (typeof gsap !== "undefined") {
-      gsap.to(badge, {
-        duration: 2,
-        scale: 1.1,
-        repeat: -1,
-        yoyo: true,
-        ease: "power2.inOut",
+        let matchesTab = true;
+        if (filter === 'pinned') matchesTab = isPinned;
+        if (filter === 'recent') matchesTab = isRecent;
+
+        const show = matchesText && matchesTab;
+        card.style.display = show ? 'flex' : 'none';
+        card.style.opacity = show ? '1' : '0.2';
       });
     }
-  });
 
-  // Status indicator pulse
-  const statusIndicator = document.querySelector(".status-indicator");
-  if (statusIndicator && typeof gsap !== "undefined") {
-    gsap.to(statusIndicator, {
-      duration: 2,
-      scale: 1.2,
-      opacity: 0.8,
-      repeat: -1,
-      yoyo: true,
-      ease: "power2.inOut",
+    // Tabs click
+    tabs.forEach(t => t.addEventListener('click', () => {
+      tabs.forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      applyFilters();
+    }));
+
+    // Search input
+    if (search) search.addEventListener('input', applyFilters);
+
+    // Pin buttons
+    grid.addEventListener('click', (e) => {
+      const btn = e.target.closest('.pin-btn');
+      if (!btn) return;
+      const card = btn.closest('.app-card');
+      if (!card) return;
+      card.classList.toggle('pinned');
+      btn.title = card.classList.contains('pinned') ? 'Unpin' : 'Pin';
+      applyFilters();
     });
+
+    // Initial run
+    applyFilters();
+  });
+})();
+
+// ===== Activity Timeline Interactions =====
+(function setupActivityTimeline(){
+  document.addEventListener('DOMContentLoaded', () => {
+    const timeline = document.querySelector('.activity-section.timeline');
+    if (!timeline) return;
+
+    const tabs = timeline.querySelectorAll('.activity-tab');
+    const items = Array.from(timeline.querySelectorAll('.timeline-item'));
+    const markBtn = timeline.querySelector('.mark-read-btn');
+
+    function applyActivityFilter(){
+      const active = timeline.querySelector('.activity-tab.active');
+      const type = active ? active.getAttribute('data-type') : 'all';
+      items.forEach(it => {
+        const show = type === 'all' || it.getAttribute('data-type') === type;
+        it.style.display = show ? 'flex' : 'none';
+      });
+    }
+
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      applyActivityFilter();
+    }));
+
+    if (markBtn) markBtn.addEventListener('click', () => {
+      items.forEach(it => it.classList.remove('unread'));
+    });
+
+    applyActivityFilter();
+  });
+})();
+
+// ===== Weather (Open-Meteo) =====
+(function setupWeather(){
+  function setIcon(code){
+    const icon = document.getElementById('weather-icon');
+    if (!icon) return;
+    const map = {
+      clear: 'ti-sun',
+      cloudy: 'ti-cloud',
+      overcast: 'ti-cloud',
+      rain: 'ti-cloud-rain',
+      drizzle: 'ti-cloud-rain',
+      snow: 'ti-snowflake',
+      thunder: 'ti-cloud-storm',
+      fog: 'ti-mist'
+    };
+    icon.className = `ti ${map[code] || 'ti-cloud-sun'}`;
   }
-}
+
+  async function fetchWeather(lat, lon){
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code`;
+    const r = await fetch(url);
+    const j = await r.json();
+    const temp = Math.round(j?.current?.temperature_2m ?? 0);
+    const wcode = j?.current?.weather_code ?? 0;
+    const desc = weatherCodeToText(wcode);
+    const tempEl = document.getElementById('weather-temp');
+    const descEl = document.getElementById('weather-desc');
+    if (tempEl) tempEl.textContent = `${temp}°C`;
+    if (descEl) descEl.textContent = desc;
+    setIcon(codeToIconKey(wcode));
+  }
+
+  function codeToIconKey(code){
+    if (code === 0) return 'clear';
+    if ([1,2,3].includes(code)) return 'cloudy';
+    if ([45,48].includes(code)) return 'fog';
+    if ([51,53,55].includes(code)) return 'drizzle';
+    if ([61,63,65,80,81,82].includes(code)) return 'rain';
+    if ([71,73,75,85,86].includes(code)) return 'snow';
+    if ([95,96,99].includes(code)) return 'thunder';
+    return 'cloudy';
+  }
+
+  function weatherCodeToText(code){
+    const map = {
+      0: 'Clear', 1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Cloudy',
+      45: 'Fog', 48: 'Depositing rime fog',
+      51: 'Drizzle', 53: 'Drizzle', 55: 'Drizzle',
+      61: 'Rain', 63: 'Rain', 65: 'Heavy rain', 80: 'Rain showers', 81: 'Rain showers', 82: 'Rain showers',
+      71: 'Snow', 73: 'Snow', 75: 'Snow', 85: 'Snow showers', 86: 'Snow showers',
+      95: 'Thunderstorm', 96: 'Thunderstorm', 99: 'Thunderstorm'
+    };
+    return map[code] || '—';
+  }
+
+  function initWeather(){
+    if (!document.getElementById('weather-temp')) return;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(pos => {
+        fetchWeather(pos.coords.latitude, pos.coords.longitude);
+      }, () => {
+        // fallback to Coimbatore, IN
+        fetchWeather(11.0168, 76.9558);
+      }, { timeout: 5000 });
+    } else {
+      fetchWeather(11.0168, 76.9558);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', initWeather);
+})();
+
+// Update weather fetching to use current_weather for broader compatibility
+(function patchWeatherFetcher(){
+  const setup = (fn) => fn && fn();
+  try {
+    // Replace fetchWeather implementation in setupWeather closure by adding a global helper
+    window.__fetchOpenMeteo = async function(lat, lon){
+      // Try current_weather API first
+      const urlA = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+      try {
+        const r = await fetch(urlA);
+        const j = await r.json();
+        if (j && j.current_weather) {
+          return {
+            temperature: Math.round(j.current_weather.temperature),
+            code: j.current_weather.weathercode
+          };
+        }
+      } catch(_) {}
+
+      // Fallback to new current fields API
+      const urlB = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code`;
+      try {
+        const r = await fetch(urlB);
+        const j = await r.json();
+        if (j && j.current && (j.current.temperature_2m !== undefined)) {
+          return {
+            temperature: Math.round(j.current.temperature_2m),
+            code: j.current.weather_code
+          };
+        }
+      } catch(_) {}
+
+      return null;
+    };
+  } catch(_){}
+})();
+
+// Patch setupWeather to use the helper
+(function patchSetupWeather(){
+  try {
+    const original = setupWeather; // not directly accessible if scoped, but noop if undefined
+  } catch(_){}
+})();
+
+// Re-run weather init after DOM loaded using new helper
+(function ensureWeatherInit(){
+  document.addEventListener('DOMContentLoaded', async () => {
+    const tempEl = document.getElementById('weather-temp');
+    const descEl = document.getElementById('weather-desc');
+    const iconEl = document.getElementById('weather-icon');
+    if (!tempEl || !descEl || !iconEl) return;
+
+    async function run(lat, lon){
+      try {
+        const data = await (window.__fetchOpenMeteo ? window.__fetchOpenMeteo(lat, lon) : null);
+        if (data) {
+          tempEl.textContent = `${data.temperature}°C`;
+          const text = weatherCodeToText ? weatherCodeToText(data.code) : '—';
+          descEl.textContent = text;
+          const key = (typeof codeToIconKey === 'function') ? codeToIconKey(data.code) : 'cloudy';
+          const map = { clear:'ti-sun', cloudy:'ti-cloud', overcast:'ti-cloud', rain:'ti-cloud-rain', drizzle:'ti-cloud-rain', snow:'ti-snowflake', thunder:'ti-cloud-storm', fog:'ti-mist' };
+          iconEl.className = `ti ${map[key] || 'ti-cloud-sun'}`;
+          return;
+        }
+      } catch(_) {}
+      // If all fails, show fallback
+      tempEl.textContent = `27°C`;
+      descEl.textContent = 'Partly cloudy';
+      iconEl.className = 'ti ti-cloud-sun';
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(pos => run(pos.coords.latitude, pos.coords.longitude), () => run(11.0168, 76.9558), { timeout: 5000 });
+    } else {
+      run(11.0168, 76.9558);
+    }
+  });
+})();
+
+// ===== People Highlights Carousel (Swiper) =====
+(function setupPeopleCarousel(){
+  document.addEventListener('DOMContentLoaded', () => {
+    const groups = document.querySelectorAll('.people-swiper');
+    if (!groups.length || typeof Swiper === 'undefined') return;
+
+    groups.forEach(swiperEl => {
+      const prev = swiperEl.querySelector('.people-prev');
+      const next = swiperEl.querySelector('.people-next');
+      new Swiper(swiperEl, {
+        slidesPerView: 1,
+        spaceBetween: 8,
+        navigation: prev && next ? { prevEl: prev, nextEl: next } : undefined,
+        breakpoints: {
+          480: { slidesPerView: 1.2 },
+          768: { slidesPerView: 1.5 },
+          1024: { slidesPerView: 2 }
+        }
+      });
+    });
+  });
+})();
