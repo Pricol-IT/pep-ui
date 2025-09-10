@@ -21,6 +21,9 @@ function initializeMainContent() {
   // Initialize responsive behavior
   initializeResponsive();
 
+  // Initialize mobile navigation
+  initializeMobileNavigation();
+
   // Ensure icons render (fallback to Font Awesome if Tabler fails)
   initializeIconFallback();
 }
@@ -197,6 +200,81 @@ function initializeResponsive() {
   
   // Listen for window resize
   window.addEventListener('resize', handleResize);
+}
+
+// ===== Mobile Navigation =====
+function initializeMobileNavigation() {
+  const hamburger = document.getElementById('btn-nav');
+  const sidenav = document.getElementById('sidenav');
+  const overlay = document.createElement('div');
+  
+  if (!hamburger || !sidenav) return;
+
+  // Create overlay element
+  overlay.className = 'sidebar-overlay';
+  document.body.appendChild(overlay);
+
+  // Toggle sidebar function
+  function toggleSidebar() {
+    const isOpen = sidenav.classList.contains('open');
+    
+    if (isOpen) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  }
+
+  function openSidebar() {
+    sidenav.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    
+    // Update hamburger icon
+    hamburger.innerHTML = '<i class="fas fa-times"></i>';
+  }
+
+  function closeSidebar() {
+    sidenav.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    
+    // Update hamburger icon
+    hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+  }
+
+  // Event listeners
+  hamburger.addEventListener('click', toggleSidebar);
+  overlay.addEventListener('click', closeSidebar);
+
+  // Close sidebar when clicking on nav items (mobile)
+  const navItems = sidenav.querySelectorAll('.nav-item');
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      if (window.innerWidth <= 1024) {
+        closeSidebar();
+      }
+    });
+  });
+
+  // Close sidebar on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sidenav.classList.contains('open')) {
+      closeSidebar();
+    }
+  });
+
+  // Handle window resize
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1024) {
+      closeSidebar();
+    }
+  });
+
+  // Initial state
+  if (window.innerWidth <= 1024) {
+    hamburger.style.display = 'block';
+  }
 }
 
 // Fix mobile stacking order: primary first, sidebar last
