@@ -2179,6 +2179,110 @@ body {
   }
 }
 
+/* Enhanced Mobile Responsive Styles */
+@media (max-width: 1024px) {
+  .topbar-overview {
+    display: none; /* Hide overview on tablets */
+  }
+
+  .hamburger {
+    font-size: 18px;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0 10px;
+    height: 56px;
+  }
+
+  .brand {
+    padding: 6px 8px;
+  }
+
+  .brand-name {
+    font-size: 0.8rem;
+  }
+
+  .topbar-actions {
+    gap: 6px;
+  }
+
+  .user {
+    padding: 4px 8px;
+    gap: 4px;
+  }
+
+  .hamburger {
+    font-size: 16px;
+    padding: 4px;
+  }
+}
+
+/* Enhanced Sidebar Mobile Styles */
+@media (max-width: 1024px) {
+  .sidenav {
+    width: 280px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidenav.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidenav {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .nav-card {
+    padding: 16px;
+  }
+
+  .sidebar-header {
+    padding: 12px 0;
+  }
+
+  .sidebar-user-info h3 {
+    font-size: 16px;
+  }
+
+  .sidebar-user-info p {
+    font-size: 12px;
+  }
+
+  .nav-item {
+    padding: 12px 16px;
+    margin: 4px 0;
+  }
+
+  .nav-item-text {
+    font-size: 14px;
+  }
+}
+
 /* Additional mobile improvements */
 @media (max-width: 575.98px) {
   .content {
@@ -6848,22 +6952,27 @@ body {
     grid-template-rows: auto auto auto auto auto;
     gap: 16px;
     padding: 16px;
+    margin: 10px;
   }
 
   .welcome-header-section {
     grid-column: 1;
     grid-row: 1;
+    text-align: center;
   }
 
   .emp-code-section {
     grid-column: 1;
     grid-row: 2;
+    justify-content: center;
+    text-align: center;
   }
 
   .profile-column {
     grid-column: 1;
     grid-row: 3;
     justify-content: center;
+    display: flex;
   }
 
   .content-column-1 {
@@ -6877,6 +6986,85 @@ body {
   }
 
   .profile-image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+  }
+
+  .welcome-header h2 {
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+
+  .role-subtitle {
+    font-size: 13px;
+    margin-bottom: 0;
+  }
+
+  .emp-code-section {
+    padding: 10px 12px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .emp-label {
+    font-size: 12px;
+  }
+
+  .emp-code {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .contact-item {
+    padding: 8px 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .contact-label {
+    min-width: auto;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .contact-value {
+    font-size: 13px;
+    word-break: break-all;
+  }
+
+  .copy-btn {
+    width: 24px;
+    height: 24px;
+    align-self: flex-end;
+    margin-top: -8px;
+  }
+
+  .copy-btn i {
+    font-size: 12px;
+  }
+
+  .copy-btn-small {
+    width: 20px;
+    height: 20px;
+    align-self: flex-end;
+    margin-top: -6px;
+  }
+
+  .copy-btn-small i {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome-card {
+    padding: 12px;
+    gap: 12px;
+    margin: 8px;
+  }
+
+  .profile-image img {
     width: 70px;
     height: 70px;
     border-radius: 10px;
@@ -6884,68 +7072,18 @@ body {
 
   .welcome-header h2 {
     font-size: 20px;
+    margin-bottom: 3px;
   }
 
   .role-subtitle {
     font-size: 12px;
+    margin-bottom: 0;
   }
 
   .emp-code-section {
-    padding: 8px 12px;
-  }
-
-  .contact-item {
-    padding: 6px 8px;
-  }
-
-  .contact-label {
-    min-width: 50px;
-    font-size: 11px;
-  }
-
-  .contact-value {
-    font-size: 12px;
-  }
-
-  .copy-btn {
-    width: 22px;
-    height: 22px;
-  }
-
-  .copy-btn i {
-    font-size: 11px;
-  }
-}
-
-@media (max-width: 480px) {
-  .welcome-card {
-    padding: 14px;
-    gap: 12px;
-  }
-
-  .profile-image img {
-    width: 60px;
-    height: 60px;
-    border-radius: 8px;
-  }
-
-  .status-indicator {
-    width: 12px;
-    height: 12px;
-    bottom: 4px;
-    right: 4px;
-  }
-
-  .welcome-header h2 {
-    font-size: 18px;
-  }
-
-  .role-subtitle {
-    font-size: 11px;
-  }
-
-  .emp-code-section {
-    padding: 6px 10px;
+    padding: 8px 10px;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .emp-label {
@@ -6953,37 +7091,47 @@ body {
   }
 
   .emp-code {
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: 700;
   }
 
   .contact-item {
-    padding: 5px 6px;
+    padding: 6px 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
   }
 
   .contact-label {
-    min-width: 45px;
-    font-size: 10px;
+    min-width: auto;
+    font-size: 11px;
+    font-weight: 600;
   }
 
   .contact-value {
-    font-size: 11px;
+    font-size: 12px;
+    word-break: break-all;
   }
 
   .copy-btn {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
+    align-self: flex-end;
+    margin-top: -6px;
   }
 
   .copy-btn i {
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .copy-btn-small {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
+    align-self: flex-end;
+    margin-top: -4px;
   }
 
   .copy-btn-small i {
-    font-size: 8px;
+    font-size: 9px;
   }
 }
