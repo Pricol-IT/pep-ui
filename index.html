@@ -31,7 +31,7 @@
     />
 
     <!-- Tabler Icons (outline, modern) -->
-    <link rel="stylesheet" href="https://unpkg.com/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -83,25 +83,26 @@
             <img src="lmage/logo.png" alt="Pricol" class="logo" />
             <div class="logo-glow"></div>
           </div>
-          <div class="brand-text">
+          <!-- <div class="brand-text">
             <div class="brand-name">Pricol Employee Portal</div>
-          </div>
-        </div>
-
-        <div class="search-container">
-          <div class="search">
-            <i class="search-icon fas fa-search"></i>
-            <input
-              type="text"
-              id="search"
-              placeholder="Search apps, people, content..."
-              class="search-input"
-            />
-            <div class="search-suggestions"></div>
-          </div>
+          </div> -->
         </div>
 
         <div class="topbar-actions">
+          <div class="topbar-overview">
+            <div class="tov-item">
+              <i class="ti ti-calendar"></i>
+              <span id="tov-date">December 15, 2024</span>
+            </div>
+            <div class="tov-item">
+              <i class="ti ti-sun"></i>
+              <span id="tov-day">Sunday</span>
+            </div>
+            <div class="tov-item">
+              <i class="ti ti-temperature"></i>
+              <span id="tov-weather">--°C</span>
+            </div>
+          </div>
           <div class="user">
             <div class="avatar">
               <span>RK</span>
@@ -246,33 +247,68 @@
             <!-- Left Column - Primary Content -->
             <div class="content-primary">
               
-              <!-- Welcome Section -->
-              <div class="welcome-section">
-                <div class="welcome-header">
-                  <h1 class="welcome-title"><i class="ti ti-sparkles"></i> Welcome back, Rubesh!</h1>
-                  <p class="welcome-subtitle">Here's what's happening today</p>
+              <!-- Single Card Welcome Section -->
+                <div class="welcome-card">
+                  <!-- Top Row: Welcome Header -->
+                  <div class="welcome-header-section">
+                    <div class="welcome-header">
+                      <h2>Welcome back, Rubesh!</h2>
+                      <p class="role-subtitle">Developer • Information Technology</p>
+                    </div>
+                  </div>
+                  
+                  <!-- Top Row: Employee Code -->
+                  <div class="emp-code-section">
+                    <span class="emp-label">Employee Code:</span>
+                    <span class="emp-code">PCS0662</span>
+                    <button class="copy-btn" onclick="copyEmpCode()" title="Copy Employee Code">
+                      <i class="ti ti-copy"></i>
+                    </button>
+                  </div>
+                  
+                  <!-- Bottom Row: Profile Image -->
+                  <div class="profile-column">
+                    <div class="profile-image">
+                      <img src="https://lms.mypricol.net.in/pluginfile.php/58/user/icon/space/f1?rev=143" alt="Imanuel Stephan" />
+                    </div>
+                  </div>
+                  
+                  <!-- Bottom Row: Column 1 -->
+                  <div class="content-column-1">
+                    <div class="contact-info">
+                      <div class="contact-item">
+                        <span class="contact-label">Email:</span>
+                        <span class="contact-value">rubesh.ramesh@pricol.com</span>
+                        <button class="copy-btn-small" onclick="copyToClipboard('imanuel.stephan@pricol.com')" title="Copy Email">
+                          <i class="ti ti-copy"></i>
+                        </button>
+                      </div>
+                      
+                      <div class="contact-item">
+                        <span class="contact-label">Phone:</span>
+                        <span class="contact-value">7548811151</span>
+                        <button class="copy-btn-small" onclick="copyToClipboard('7548811151')" title="Copy Phone">
+                          <i class="ti ti-copy"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Bottom Row: Column 2 -->
+                  <div class="content-column-2">
+                    <div class="contact-info">
+                      <div class="contact-item">
+                        <span class="contact-label">Company:</span>
+                        <span class="contact-value">PRICOL HOLDINGS LIMITED</span>
+                      </div>
+                      
+                      <div class="contact-item">
+                        <span class="contact-label">Location:</span>
+                        <span class="contact-value">Pricol Holdings Private Limited...</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="highlights-ribbon">
-                  <div class="highlight">
-                    <i class="ti ti-megaphone"></i>
-                    <div class="h-text">
-                      <strong>Announcement:</strong> Company Townhall at 4:00 PM
-                </div>
-              </div>
-                  <div class="highlight">
-                    <i class="ti ti-trophy"></i>
-                    <div class="h-text">
-                      <strong>Leaderboard:</strong> You are top 5 in attendance
-                </div>
-              </div>
-                  <div class="highlight">
-                    <i class="ti ti-rocket"></i>
-                    <div class="h-text">
-                      <strong>Quick tip:</strong> Use Ctrl + K to search faster
-                </div>
-                </div>
-              </div>
-            </div>
 
               <!-- Quick Actions (Action Strip) -->
               <div class="action-strip">
@@ -417,29 +453,53 @@
             <!-- Right Column - Sidebar Content -->
             <div class="content-sidebar">
               
-              <!-- Today's Overview -->
-              <div class="overview-card">
+              
+              <div class="team-card">
                 <h3 class="card-title">
-                  <i class="ti ti-calendar"></i>
-                  Today's Overview
+                  <i class="ti ti-users-group"></i>
+                  People Highlights
                 </h3>
-                <div class="overview-content">
-                  <div class="overview-item">
-                    <span class="overview-label"><i class="ti ti-calendar-event"></i> Date</span>
-                    <span class="overview-value">December 15, 2024</span>
-          </div>
-                  <div class="overview-item">
-                    <span class="overview-label"><i class="ti ti-sun"></i> Day</span>
-                    <span class="overview-value">Sunday</span>
-              </div>
-                  <div class="overview-item weather">
-                    <span class="overview-label"><i id="weather-icon" class="ti ti-cloud-sun"></i> Weather</span>
-                    <span class="overview-value">
-                      <span id="weather-temp">--°C</span>
-                      <span id="weather-desc" class="weather-desc">Loading...</span>
-                    </span>
-              </div>
-            </div>
+                <div class="people-groups">
+                  <div class="people-group">
+                    <div class="people-group-title"> New Joiners</div>
+                    <div class="people-list">
+                      <div class="person-row">
+                        <div class="person-avatar">NV</div>
+                        <div class="person-info">
+                          <div class="person-name">Naveen V</div>
+                          <div class="person-meta">Frontend | Joined today</div>
+                        </div>
+                      </div>
+                      <div class="person-row">
+                        <div class="person-avatar">SP</div>
+                        <div class="person-info">
+                          <div class="person-name">Sonia Paul</div>
+                          <div class="person-meta">HR | Joined this week</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="people-group">
+                    <div class="people-group-title"> Birthdays</div>
+                    <div class="people-list">
+                      <div class="person-row">
+                        <div class="person-avatar">SK</div>
+                        <div class="person-info">
+                          <div class="person-name">Siddharth Kumar</div>
+                          <div class="person-meta">Today • Send wishes</div>
+                        </div>
+                      </div>
+                      <div class="person-row">
+                        <div class="person-avatar">AS</div>
+                        <div class="person-info">
+                          <div class="person-name">Akhil Sharma</div>
+                          <div class="person-meta">Tomorrow • Tool Room</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <!-- Quick Links -->
@@ -465,58 +525,10 @@
                     <i class="ti ti-help"></i>
                     <span>Help & Support</span>
                   </a>
-              </div>
-            </div>
-
-              <!-- People Highlights -->
-              <div class="team-card">
-                <h3 class="card-title">
-                  <i class="ti ti-users-group"></i>
-                  People Highlights
-                </h3>
-                <div class="people-groups">
-                  <div class="people-group">
-                    <div class="people-group-title"> New Joiners</div>
-                    <div class="people-list">
-                      <div class="person-row">
-                        <div class="person-avatar">NV</div>
-                        <div class="person-info">
-                          <div class="person-name">Naveen V</div>
-                          <div class="person-meta">Frontend | Joined today</div>
-              </div>
-            </div>
-                      <div class="person-row">
-                        <div class="person-avatar">SP</div>
-                        <div class="person-info">
-                          <div class="person-name">Sonia Paul</div>
-                          <div class="person-meta">HR | Joined this week</div>
-              </div>
-            </div>
-            </div>
-          </div>
-
-                  <div class="people-group">
-                    <div class="people-group-title"> Birthdays</div>
-                    <div class="people-list">
-                      <div class="person-row">
-                        <div class="person-avatar">SK</div>
-                        <div class="person-info">
-                          <div class="person-name">Siddharth Kumar</div>
-                          <div class="person-meta">Today • Send wishes</div>
-            </div>
-          </div>
-                      <div class="person-row">
-                        <div class="person-avatar">AS</div>
-                        <div class="person-info">
-                          <div class="person-name">Akhil Sharma</div>
-                          <div class="person-meta">Tomorrow • Tool Room</div>
-                </div>
-              </div>
-                </div>
-              </div>
                 </div>
               </div>
 
+              
               <!-- Mini Calendar -->
               <div class="calendar-card">
                 <h3 class="card-title">
