@@ -33,7 +33,7 @@ const Applications = () => {
                         <button className={`apps-tab ${filter === 'pinned' ? 'active' : ''}`} onClick={() => setFilter('pinned')}>Pinned</button>
                         <button className={`apps-tab ${filter === 'recent' ? 'active' : ''}`} onClick={() => setFilter('recent')}>Recent</button>
                     </div>
-                    <div className="search-container">
+                    <div className="app-search-container">
                         <i className="ti ti-search"></i>
                         <input
                             type="search"

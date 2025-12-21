@@ -9,39 +9,56 @@ import QuickDock from './components/QuickDock'
 import AnnouncementBar from './components/AnnouncementBar'
 import './index.css'
 
-function App() {
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { AuthProvider, useAuth } from './context/AuthContext'
+import ProfilePage from './components/ProfilePage'
+import './index.css'
+
+function AppContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { user } = useAuth();
 
   return (
-    <div className="shell">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+    <Router>
+      <div className="shell">
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="main-layout">
+        <div className="main-layout">
+          <main className="content" id="main-content">
+            <div className="content-container">
+              <Routes>
+                <Route path="/" element={
+                  <div className="content-grid">
+                    {/* Left Column - Primary Content */}
+                    <div className="content-primary">
+                      <AnnouncementBar />
+                      <WelcomeCard />
 
+                      <Applications />
+                      <ActivityTimeline />
+                    </div>
 
-        <main className="content" id="main-content">
-          <div className="content-container">
-            <div className="content-grid">
-
-              {/* Left Column - Primary Content */}
-              <div className="content-primary">
-                <AnnouncementBar />
-                <WelcomeCard />
-
-                <Applications />
-                <ActivityTimeline />
-              </div>
-
-              {/* Right Column - Sidebar Content */}
-              <RightSidebar />
-
+                    {/* Right Column - Sidebar Content */}
+                    <RightSidebar />
+                  </div>
+                } />
+                <Route path="/profile" element={<ProfilePage />} />
+              </Routes>
             </div>
-          </div>
-        </main>
-      </div>
+          </main>
+        </div>
 
-      <QuickDock />
-    </div>
+        <QuickDock />
+      </div>
+    </Router>
+  )
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   )
 }
 

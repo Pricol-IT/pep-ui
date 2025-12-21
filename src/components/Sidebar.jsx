@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Sidebar = ({ isOpen, onClose }) => {
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
     const [activeSection, setActiveSection] = useState('dashboard');
     const [showUserMenu, setShowUserMenu] = useState(false);
 
@@ -24,7 +28,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                     {/* Sidebar Header */}
                     <div className="sidebar-header">
                         <div className="brand" style={{ padding: '0 0 10px 0', minWidth: 'auto', display: 'flex', justifyContent: 'center' }}>
-                            <div className="logo-container">
+                            <div className="logo-container" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
                                 <img src="/lmage/logo.png" alt="Pricol" className="logo" />
                             </div>
                         </div>
@@ -40,7 +44,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                         <div className="nav-title">Main</div>
                         <div
                             className={`nav-item ${activeSection === 'dashboard' ? 'active' : ''}`}
-                            onClick={() => handleNavClick('dashboard')}
+                            onClick={() => { handleNavClick('dashboard'); navigate('/'); }}
                         >
                             <div className="nav-item-icon">
                                 <i className="fas fa-tachometer-alt"></i>
@@ -81,11 +85,11 @@ const Sidebar = ({ isOpen, onClose }) => {
                     <div className="sidebar-footer">
                         <div className="nav-user" onClick={toggleUserMenu}>
                             <div className="nav-user-avatar">
-                                <img src="https://lms.mypricol.net.in/pluginfile.php/58/user/icon/space/f1?rev=143" alt="Rubesh" />
+                                <img src={user?.avatar || `https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=0f84cf&color=fff`} alt={user?.name} />
                             </div>
                             <div className="nav-user-info">
-                                <div className="nav-user-name">RUBESH K R</div>
-                                <div className="nav-user-email">rubesh.kr@pricol.com</div>
+                                <div className="nav-user-name">{user?.name || 'User'}</div>
+                                <div className="nav-user-email">{user?.email}</div>
                             </div>
                             <div className="nav-user-chevron">
                                 <i className="fas fa-expand-alt" style={{ transform: 'rotate(45deg)', fontSize: '10px', opacity: 0.5 }}></i>
@@ -95,15 +99,15 @@ const Sidebar = ({ isOpen, onClose }) => {
                                 <div className="user-menu-dropdown" onClick={(e) => e.stopPropagation()}>
                                     <div className="user-menu-header">
                                         <div className="user-menu-avatar">
-                                            <img src="https://lms.mypricol.net.in/pluginfile.php/58/user/icon/space/f1?rev=143" alt="Rubesh" />
+                                            <img src={user?.avatar || `https://ui-avatars.com/api/?name=${user?.name || 'User'}&background=0f84cf&color=fff`} alt={user?.name} />
                                         </div>
                                         <div className="user-menu-info">
-                                            <div className="user-menu-name">RUBESH K R</div>
-                                            <div className="user-menu-email">rubesh.kr@pricol.com</div>
+                                            <div className="user-menu-name">{user?.name}</div>
+                                            <div className="user-menu-email">{user?.email}</div>
                                         </div>
                                     </div>
                                     <div className="user-menu-divider"></div>
-                                    <div className="user-menu-item">
+                                    <div className="user-menu-item" onClick={() => { navigate('/profile'); setShowUserMenu(false); }}>
                                         <i className="far fa-user"></i>
                                         <span>My Profile</span>
                                     </div>
@@ -112,7 +116,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                                         <span>Settings</span>
                                     </div>
                                     <div className="user-menu-divider"></div>
-                                    <div className="user-menu-item logout">
+                                    <div className="user-menu-item logout" onClick={logout}>
                                         <i className="fas fa-sign-out-alt"></i>
                                         <span>Log out</span>
                                     </div>
