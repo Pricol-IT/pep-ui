@@ -12,6 +12,28 @@ const RightSidebar = () => {
                 onClose={() => setLocationModalOpen(false)}
             />
 
+            {/* Location Card */}
+            <div className="location-card" onClick={() => setLocationModalOpen(true)} style={{ marginBottom: '20px' }}>
+                <div className="location-card-inner">
+                    <img src="/lmage/CTC.png" alt="Corporate Tech Center" className="location-bg" />
+                    <div className="location-overlay">
+                        <div className="location-header">
+                            <div className="weather-badge">
+                                <i className="ti ti-sun"></i>
+                                <span>28°C</span>
+                            </div>
+                        </div>
+                        <div className="location-info">
+                            <div className="location-city">
+                                <i className="ti ti-map-pin"></i>
+                                Coimbatore
+                            </div>
+                            <div className="location-name">Corporate Technology Center</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* Birthdays */}
             <div className="team-card" style={{ marginBottom: '20px' }}>
                 <h3 className="card-title">
@@ -60,53 +82,9 @@ const RightSidebar = () => {
                 </div>
             </div>
 
-            {/* Location Card */}
-            <div className="location-card" onClick={() => setLocationModalOpen(true)}>
-                <div className="location-card-inner">
-                    <img src="/lmage/CTC.png" alt="Corporate Tech Center" className="location-bg" />
-                    <div className="location-overlay">
-                        <div className="location-header">
-                            <div className="weather-badge">
-                                <i className="ti ti-sun"></i>
-                                <span>28°C</span>
-                            </div>
-                        </div>
-                        <div className="location-info">
-                            <div className="location-city">
-                                <i className="ti ti-map-pin"></i>
-                                Coimbatore
-                            </div>
-                            <div className="location-name">Corporate Technology Center</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            {/* Quick Links */}
-            <div className="quick-links-card">
-                <h3 className="card-title">
-                    <i className="ti ti-link"></i>
-                    Quick Links
-                </h3>
-                <div className="links-list">
-                    <a href="#" className="link-item">
-                        <i className="ti ti-file-text"></i>
-                        <span>Employee Handbook</span>
-                    </a>
-                    <a href="#" className="link-item">
-                        <i className="ti ti-info-circle"></i>
-                        <span>Company Policies</span>
-                    </a>
-                    <a href="#" className="link-item">
-                        <i className="ti ti-settings"></i>
-                        <span>Settings</span>
-                    </a>
-                    <a href="#" className="link-item">
-                        <i className="ti ti-help"></i>
-                        <span>Help & Support</span>
-                    </a>
-                </div>
-            </div>
+
+
 
             {/* Mini Calendar */}
             <CalendarWidget />

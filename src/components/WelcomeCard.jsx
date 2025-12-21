@@ -50,20 +50,7 @@ const WelcomeCard = () => {
                 </div>
             </div>
 
-            {/* Bottom Row: Column 2 */}
-            <div className="content-column-2">
-                <div className="contact-info">
-                    <div className="contact-item">
-                        <span className="contact-label">Company:</span>
-                        <span className="contact-value">PRICOL HOLDINGS LIMITED</span>
-                    </div>
 
-                    <div className="contact-item">
-                        <span className="contact-label">Location:</span>
-                        <span className="contact-value">Pricol Holdings Private Limited...</span>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 };

@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 
 const Sidebar = ({ isOpen, onClose }) => {
     const [activeSection, setActiveSection] = useState('dashboard');
+    const [showUserMenu, setShowUserMenu] = useState(false);
 
     const handleNavClick = (section) => {
         setActiveSection(section);
         if (window.innerWidth <= 1024) {
             onClose();
         }
+    };
+
+    const toggleUserMenu = () => {
+        setShowUserMenu(!showUserMenu);
     };
 
     return (
@@ -18,7 +23,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                 <div className="nav-card">
                     {/* Sidebar Header */}
                     <div className="sidebar-header">
-                        <div className="brand" style={{ padding: '0 0 20px 0', minWidth: 'auto', display: 'flex', justifyContent: 'center' }}>
+                        <div className="brand" style={{ padding: '0 0 10px 0', minWidth: 'auto', display: 'flex', justifyContent: 'center' }}>
                             <div className="logo-container">
                                 <img src="/lmage/logo.png" alt="Pricol" className="logo" />
                             </div>
@@ -74,23 +79,45 @@ const Sidebar = ({ isOpen, onClose }) => {
 
                     {/* Sidebar Footer */}
                     <div className="sidebar-footer">
-                        <div className="sidebar-stats">
-                            <div className="stat-item">
-                                <div className="stat-value">12</div>
-                                <div className="stat-label">Tasks</div>
+                        <div className="nav-user" onClick={toggleUserMenu}>
+                            <div className="nav-user-avatar">
+                                <img src="https://lms.mypricol.net.in/pluginfile.php/58/user/icon/space/f1?rev=143" alt="Rubesh" />
                             </div>
-                            <div className="stat-item">
-                                <div className="stat-value">3</div>
-                                <div className="stat-label">Alerts</div>
+                            <div className="nav-user-info">
+                                <div className="nav-user-name">RUBESH K R</div>
+                                <div className="nav-user-email">rubesh.kr@pricol.com</div>
                             </div>
-                            <div className="stat-item">
-                                <div className="stat-value">8</div>
-                                <div className="stat-label">Messages</div>
+                            <div className="nav-user-chevron">
+                                <i className="fas fa-expand-alt" style={{ transform: 'rotate(45deg)', fontSize: '10px', opacity: 0.5 }}></i>
                             </div>
-                        </div>
-                        <div className="sidebar-actions">
-                            <button className="sidebar-action-btn">Settings</button>
-                            <button className="sidebar-action-btn">Help</button>
+
+                            {showUserMenu && (
+                                <div className="user-menu-dropdown" onClick={(e) => e.stopPropagation()}>
+                                    <div className="user-menu-header">
+                                        <div className="user-menu-avatar">
+                                            <img src="https://lms.mypricol.net.in/pluginfile.php/58/user/icon/space/f1?rev=143" alt="Rubesh" />
+                                        </div>
+                                        <div className="user-menu-info">
+                                            <div className="user-menu-name">RUBESH K R</div>
+                                            <div className="user-menu-email">rubesh.kr@pricol.com</div>
+                                        </div>
+                                    </div>
+                                    <div className="user-menu-divider"></div>
+                                    <div className="user-menu-item">
+                                        <i className="far fa-user"></i>
+                                        <span>My Profile</span>
+                                    </div>
+                                    <div className="user-menu-item">
+                                        <i className="fas fa-cog"></i>
+                                        <span>Settings</span>
+                                    </div>
+                                    <div className="user-menu-divider"></div>
+                                    <div className="user-menu-item logout">
+                                        <i className="fas fa-sign-out-alt"></i>
+                                        <span>Log out</span>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
