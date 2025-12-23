@@ -32,7 +32,10 @@ function AppContent() {
               <Routes>
                 <Route path="/" element={
                   <div className="content-grid">
-                    {/* Left Column - Primary Content */}
+                    {/* Left Column (Grid 4) */}
+                    <RightSidebar />
+
+                    {/* Right Column (Grid 8) */}
                     <div className="content-primary">
                       <AnnouncementBar />
                       <WelcomeCard />
@@ -42,12 +45,8 @@ function AppContent() {
                         <TodoWidget />
                       </div>
 
-                      <Applications />
                       <ActivityTimeline />
                     </div>
-
-                    {/* Right Column - Sidebar Content */}
-                    <RightSidebar />
                   </div>
                 } />
                 <Route path="/profile" element={<ProfilePage />} />

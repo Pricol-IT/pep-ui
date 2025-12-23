@@ -4534,7 +4534,7 @@ body {
 .content-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 
 /* ===== Sidebar Cards ===== */
@@ -6400,23 +6400,25 @@ body {
 /* Small laptops */
 @media (min-width: 769px) and (max-width: 1024px) {
   .content-grid {
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 4fr 8fr;
     gap: 16px;
   }
 
   .applications-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
   }
 }
 
 /* Desktops */
 @media (min-width: 1025px) {
   .content-grid {
-    grid-template-columns: 1fr 320px;
+    grid-template-columns: 4fr 8fr;
   }
 
   .applications-grid {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
   }
 }
 
@@ -7196,101 +7198,95 @@ body {
 }
 
 /* ===== Location Card 3D ===== */
-.location-card {
-  position: relative;
-  border-radius: 20px;
-  margin-bottom: 24px;
-  height: 180px;
-  perspective: 1000px;
-  /* Enable 3D space */
-  cursor: pointer;
-}
-
-.location-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
+/* ===== Modern Location Card ===== */
+.location-card-modern {
+  background: white;
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-  transform-style: preserve-3d;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 0px;
 }
 
+.location-card-modern:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(8, 91, 152, 0.12);
+  border-color: rgba(11, 115, 182, 0.1);
+}
 
+.location-image-box {
+  position: relative;
+  height: 140px;
+  width: 100%;
+  overflow: hidden;
+}
 
-.location-bg {
+.location-img-main {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
-  transform: translateZ(0);
-  /* Fix for some browsers */
 }
 
-/* Parallax effect on hover */
+.location-card-modern:hover .location-img-main {
+  transform: scale(1.08);
+}
 
-
-.location-overlay {
+.weather-chip-floating {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.6) 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 16px;
-  color: white;
-  transform: translateZ(20px);
-  /* Bring overlay forward in 3D space */
-  pointer-events: none;
-  /* Let clicks pass through if needed */
-}
-
-.location-header {
-  display: flex;
-  justify-content: flex-end;
-  transform: translateZ(30px);
-  /* Bring header even more forward */
-}
-
-.weather-badge {
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(8px);
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
   padding: 6px 12px;
-  border-radius: 12px;
+  border-radius: 50px;
   display: flex;
   align-items: center;
   gap: 6px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.weather-badge i {
-  color: #fbbf24;
-  font-size: 1.1rem;
-}
-
-.location-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  transform: translateZ(30px);
-  /* Bring info forward */
-}
-
-.location-city {
-  font-size: 1.1rem;
   font-weight: 700;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-size: 0.85rem;
+  color: var(--ink-800);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  z-index: 2;
+}
+
+.weather-chip-floating i {
+  color: #f6a31a;
+  font-size: 1rem;
+}
+
+.location-content-box {
+  padding: 12px 16px;
+  background: white;
+}
+
+.location-city-info {
   display: flex;
   align-items: center;
   gap: 6px;
+  margin-bottom: 4px;
+}
+
+.location-city-info i {
+  color: var(--brand-600);
+  font-size: 1rem;
+}
+
+.location-city-info span {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--ink-900);
+  letter-spacing: -0.01em;
+}
+
+.location-facility-name {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--ink-500);
+  line-height: 1.3;
 }
 
 
@@ -7313,13 +7309,22 @@ body {
 
 .location-modal-card {
   width: 100%;
-  max-width: 450px;
+  max-width: 900px;
   background: white;
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
   position: relative;
+  display: flex;
+  flex-direction: row;
   animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 768px) {
+  .location-modal-card {
+    flex-direction: column;
+    max-width: 450px;
+  }
 }
 
 .location-modal-close {
@@ -7347,8 +7352,17 @@ body {
 }
 
 .location-modal-hero {
-  height: 180px;
+  width: 45%;
   position: relative;
+  min-height: 400px;
+}
+
+@media (max-width: 768px) {
+  .location-modal-hero {
+    width: 100%;
+    height: 180px;
+    min-height: auto;
+  }
 }
 
 .location-modal-hero img {
@@ -7357,40 +7371,49 @@ body {
   object-fit: cover;
 }
 
-.location-modal-hero-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-  color: white;
+
+.location-modal-header-text {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
 }
 
-.location-modal-hero-overlay h2 {
-  font-size: 1.25rem;
+.location-modal-header-text h2 {
+  font-size: 1.5rem;
   margin: 0;
-  font-weight: 700;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: 800;
+  color: var(--ink-900);
 }
 
 .hq-badge {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(4px);
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  background: var(--brand-50, #f0f9ff);
+  color: var(--brand-600);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  font-weight: 800;
   text-transform: uppercase;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.5px;
+  border: 1px solid var(--brand-100, #e0f2fe);
+  white-space: nowrap;
 }
 
 .location-modal-body {
-  padding: 24px;
+  width: 55%;
+  padding: 32px;
   background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .location-modal-body {
+    width: 100%;
+    padding: 24px;
+  }
 }
 
 .address-box {
@@ -7820,8 +7843,8 @@ body {
 
 .applications-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
 }
 
 .app-card {
@@ -7829,15 +7852,16 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 16px 12px;
-  border-radius: 16px;
+  gap: 8px;
+  padding: 12px 8px;
+  border-radius: 12px;
   border: 1px solid var(--ink-100, #f1f5f9);
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   background: white;
   position: relative;
   overflow: hidden;
+  min-height: 90px;
 }
 
 .app-card::before {
@@ -7846,15 +7870,15 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
+  height: 3px;
   background: linear-gradient(90deg, var(--brand-400, #38bdf8), var(--brand-600, #0284c7));
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .app-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px -8px rgba(0, 0, 0, 0.1);
   border-color: transparent;
 }
 
@@ -7863,16 +7887,16 @@ body {
 }
 
 .app-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   background: linear-gradient(135deg, var(--brand-600, #0284c7), var(--brand-800, #075985));
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 1.4rem;
-  box-shadow: 0 8px 16px rgba(2, 132, 199, 0.2);
+  font-size: 1.1rem;
+  box-shadow: 0 4px 8px rgba(2, 132, 199, 0.2);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   overflow: hidden;
@@ -7892,8 +7916,8 @@ body {
 }
 
 .app-card:hover .app-icon {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 12px 24px rgba(2, 132, 199, 0.3);
+  transform: scale(1.1);
+  box-shadow: 0 8px 16px rgba(2, 132, 199, 0.3);
 }
 
 .app-card:hover .app-icon::after {
@@ -7901,11 +7925,12 @@ body {
 }
 
 .app-name {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--ink-700, #334155);
   text-align: center;
   transition: color 0.2s ease;
+  line-height: 1.2;
 }
 
 .app-card:hover .app-name {

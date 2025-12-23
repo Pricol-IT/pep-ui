@@ -12,13 +12,14 @@ const LocationModal = ({ isOpen, onClose }) => {
 
                 <div className="location-modal-hero">
                     <img src="/lmage/CTC.png" alt="Corporate Technology Center" />
-                    <div className="location-modal-hero-overlay">
-                        <h2>Corporate Technology Center</h2>
-                        <span className="hq-badge">Headquarters</span>
-                    </div>
                 </div>
 
                 <div className="location-modal-body">
+                    <div className="location-modal-header-text">
+                        <h2>Corporate Technology Center</h2>
+                        <span className="hq-badge">Headquarters</span>
+                    </div>
+
                     <div className="address-box">
                         <div className="address-icon">
                             <i className="ti ti-map-pin-filled"></i>
