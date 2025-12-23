@@ -7,11 +7,14 @@ import ActivityTimeline from './components/ActivityTimeline'
 import RightSidebar from './components/RightSidebar'
 import QuickDock from './components/QuickDock'
 import AnnouncementBar from './components/AnnouncementBar'
+import CalendarWidget from './components/CalendarWidget'
+import TodoWidget from './components/TodoWidget'
 import './index.css'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import ProfilePage from './components/ProfilePage'
+import BirthdayPage from './components/BirthdayPage'
 import './index.css'
 
 function AppContent() {
@@ -34,6 +37,11 @@ function AppContent() {
                       <AnnouncementBar />
                       <WelcomeCard />
 
+                      <div className="dashboard-widgets-grid">
+                        <CalendarWidget />
+                        <TodoWidget />
+                      </div>
+
                       <Applications />
                       <ActivityTimeline />
                     </div>
@@ -43,6 +51,7 @@ function AppContent() {
                   </div>
                 } />
                 <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/birthdays" element={<BirthdayPage />} />
               </Routes>
             </div>
           </main>

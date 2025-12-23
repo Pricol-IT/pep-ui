@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 
 const appsData = [
-    { name: 'Payroll', icon: 'cash', pinned: true, recent: false },
-    { name: 'Time Track', icon: 'clock', pinned: true, recent: true },
+    { name: 'Payroll', icon: 'wallet', pinned: true, recent: false },
     { name: 'LMS', icon: 'school', pinned: false, recent: false },
-    { name: 'PMS', icon: 'chart-line', pinned: false, recent: true },
-    { name: 'Travel', icon: 'plane', pinned: false, recent: false },
-    { name: 'Knowledge', icon: 'book', pinned: false, recent: false },
-    { name: 'Medi-claim', icon: 'stethoscope', pinned: true, recent: false },
+    { name: 'PMS', icon: 'presentation-analytics', pinned: false, recent: true },
+    { name: 'Travel', icon: 'plane-tilt', pinned: false, recent: false },
+    { name: 'Knowledge', icon: 'book-2', pinned: false, recent: false },
+    { name: 'Medi-claim', icon: 'medical-cross', pinned: true, recent: false },
 ];
 
 const Applications = () => {

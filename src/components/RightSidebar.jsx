@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import CalendarWidget from './CalendarWidget';
 import LocationModal from './LocationModal';
+import BirthdayWidget from './BirthdayWidget';
 
 const RightSidebar = () => {
     const [isLocationModalOpen, setLocationModalOpen] = useState(false);
@@ -34,60 +34,10 @@ const RightSidebar = () => {
                 </div>
             </div>
 
-            {/* Birthdays */}
-            <div className="team-card" style={{ marginBottom: '20px' }}>
-                <h3 className="card-title">
-                    <i className="ti ti-cake"></i>
-                    Birthdays
-                </h3>
-                <div className="people-list">
-                    <div className="person-row">
-                        <div className="person-avatar">SK</div>
-                        <div className="person-info">
-                            <div className="person-name">Siddharth Kumar</div>
-                            <div className="person-meta">Today • Send wishes</div>
-                        </div>
-                    </div>
-                    <div className="person-row">
-                        <div className="person-avatar">AS</div>
-                        <div className="person-info">
-                            <div className="person-name">Akhil Sharma</div>
-                            <div className="person-meta">Tomorrow • Tool Room</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {/* Birthdays Widget */}
+            <BirthdayWidget />
 
             {/* New Joiners */}
-            <div className="team-card" style={{ marginBottom: '20px' }}>
-                <h3 className="card-title">
-                    <i className="ti ti-user-plus"></i>
-                    New Joiners
-                </h3>
-                <div className="people-list">
-                    <div className="person-row">
-                        <div className="person-avatar">NV</div>
-                        <div className="person-info">
-                            <div className="person-name">Naveen V</div>
-                            <div className="person-meta">Frontend | Joined today</div>
-                        </div>
-                    </div>
-                    <div className="person-row">
-                        <div className="person-avatar">SP</div>
-                        <div className="person-info">
-                            <div className="person-name">Sonia Paul</div>
-                            <div className="person-meta">HR | Joined this week</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
-            {/* Mini Calendar */}
-            <CalendarWidget />
 
         </div>
     );

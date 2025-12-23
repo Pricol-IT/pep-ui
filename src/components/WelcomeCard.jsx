@@ -1,56 +1,47 @@
-import React from 'react';
+import { useAuth } from '../context/AuthContext';
 
 const WelcomeCard = () => {
-    const copyToClipboard = (text) => {
-        navigator.clipboard.writeText(text).then(() => {
-            // Could add a toast here
-            alert('Copied to clipboard!');
-        }).catch(err => {
-            console.error('Failed to copy matches', err);
-        });
+    const { user } = useAuth();
+
+    // Time-sensitive greeting helper
+    const getTimeGreeting = () => {
+        const hour = new Date().getHours();
+        if (hour >= 5 && hour < 12) return "Good Morning";
+        if (hour >= 12 && hour < 17) return "Good Afternoon";
+        return "Good Evening";
     };
 
     return (
-        <div className="welcome-card">
-            {/* Top Row: Welcome Header */}
-            <div className="welcome-header-section">
-                <div className="welcome-header">
-                    <h2>Welcome back, Rubesh!</h2>
-                    <p className="role-subtitle">Developer • Information Technology</p>
+        <div className="welcome-container">
+            {/* 6/12 width */}
+            <div className="welcome-message-only">
+                <h2>
+                    {getTimeGreeting()},<br />
+                    {user?.name || 'Rubesh K R'}! Welcome back!
+                </h2>
+            </div>
+
+            {/* 3/12 width */}
+            <div className="stat-card-mini">
+                <div className="stat-icon-circle blue">
+                    <i className="ti ti-calendar-time"></i>
+                </div>
+                <div className="stat-content">
+                    <span className="stat-value">09:30 AM</span>
+                    <span className="stat-label">Today's Check-in</span>
                 </div>
             </div>
 
-
-
-            {/* Bottom Row: Profile Image */}
-            <div className="profile-column">
-                <div className="profile-image">
-                    <img src="https://lms.mypricol.net.in/pluginfile.php/58/user/icon/space/f1?rev=143" alt="Imanuel Stephan" />
+            {/* 3/12 width */}
+            <div className="stat-card-mini">
+                <div className="stat-icon-circle orange">
+                    <i className="ti ti-list-check"></i>
+                </div>
+                <div className="stat-content">
+                    <span className="stat-value">12 <small>/ 28</small></span>
+                    <span className="stat-label">Tasks Overview</span>
                 </div>
             </div>
-
-            {/* Bottom Row: Column 1 */}
-            <div className="content-column-1">
-                <div className="contact-info">
-                    <div className="contact-item">
-                        <span className="contact-label">Email:</span>
-                        <span className="contact-value">rubesh.ramesh@pricol.com</span>
-                        <button className="copy-btn-small" onClick={() => copyToClipboard('rubesh.ramesh@pricol.com')} title="Copy Email">
-                            <i className="ti ti-copy"></i>
-                        </button>
-                    </div>
-
-                    <div className="contact-item">
-                        <span className="contact-label">Phone:</span>
-                        <span className="contact-value">7548811151</span>
-                        <button className="copy-btn-small" onClick={() => copyToClipboard('7548811151')} title="Copy Phone">
-                            <i className="ti ti-copy"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-
         </div>
     );
 };

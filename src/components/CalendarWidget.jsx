@@ -53,31 +53,54 @@ const CalendarWidget = () => {
 
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+    const meetings = [
+        { id: 1, title: 'Project Sync with SAP Team', time: '10:30 AM', type: 'office' },
+        { id: 2, title: 'Client Monthly Review', time: '02:00 PM', type: 'online' },
+    ];
+
     return (
         <div className="calendar-card">
-            <h3 className="card-title">
-                <i className="ti ti-calendar"></i>
-                Calendar
-            </h3>
-            <div className="calendar-header">
-                <button className="calendar-nav" onClick={handlePrevMonth}>
-                    <i className="ti ti-chevron-left"></i>
-                </button>
-                <span className="calendar-month">{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}</span>
-                <button className="calendar-nav" onClick={handleNextMonth}>
-                    <i className="ti ti-chevron-right"></i>
-                </button>
-            </div>
-            <div className="calendar-grid">
-                <div className="calendar-day-header">Sun</div>
-                <div className="calendar-day-header">Mon</div>
-                <div className="calendar-day-header">Tue</div>
-                <div className="calendar-day-header">Wed</div>
-                <div className="calendar-day-header">Thu</div>
-                <div className="calendar-day-header">Fri</div>
-                <div className="calendar-day-header">Sat</div>
+            <div className="calendar-main-view">
+                <h3 className="card-title">
+                    <i className="ti ti-calendar"></i>
+                    Calendar
+                </h3>
+                <div className="calendar-header">
+                    <button className="calendar-nav" onClick={handlePrevMonth}>
+                        <i className="ti ti-chevron-left"></i>
+                    </button>
+                    <span className="calendar-month">{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}</span>
+                    <button className="calendar-nav" onClick={handleNextMonth}>
+                        <i className="ti ti-chevron-right"></i>
+                    </button>
+                </div>
+                <div className="calendar-grid">
+                    <div className="calendar-day-header">Sun</div>
+                    <div className="calendar-day-header">Mon</div>
+                    <div className="calendar-day-header">Tue</div>
+                    <div className="calendar-day-header">Wed</div>
+                    <div className="calendar-day-header">Thu</div>
+                    <div className="calendar-day-header">Fri</div>
+                    <div className="calendar-day-header">Sat</div>
 
-                {renderCalendarDays()}
+                    {renderCalendarDays()}
+                </div>
+            </div>
+
+            <div className="upcoming-events-section">
+                <div className="section-label-mini">Upcoming Events</div>
+                <div className="meetings-list">
+                    {meetings.map((meeting) => (
+                        <div key={meeting.id} className="meeting-item">
+                            <div className={`meeting-dot ${meeting.type}`}></div>
+                            <div className="meeting-info">
+                                <span className="meeting-time">{meeting.time}</span>
+                                <span className="meeting-title">{meeting.title}</span>
+                            </div>
+                            <a href="#" className="mom-btn" onClick={(e) => e.stopPropagation()}>MoM</a>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );

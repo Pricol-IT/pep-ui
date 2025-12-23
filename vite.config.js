@@ -15,6 +15,11 @@ export default defineConfig({
         target: 'http://localhost:8000',
         changeOrigin: true,
         credentials: true
+      },
+      '/tasks': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        credentials: true
       }
     }
   }
