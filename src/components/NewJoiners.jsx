@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 const joinersData = [
-    { id: 1, name: 'Naveen V', meta: 'Frontend | Joined today', avatar: 'NV' },
-    { id: 2, name: 'Sonia Paul', meta: 'HR | Joined this week', avatar: 'SP' },
-    { id: 3, name: 'Rahul M', meta: 'Design | Joined this week', avatar: 'RM' },
+    { id: 1, name: 'Naveen V', dept: 'Frontend', joinedDate: 'Joined today', avatar: 'NV' },
+    { id: 2, name: 'Sonia Paul', dept: 'HR', joinedDate: 'Joined this week', avatar: 'SP' },
+    { id: 3, name: 'Rahul M', dept: 'Design', joinedDate: 'Joined this week', avatar: 'RM' },
 ];
 
 const JoinerCard = ({ person }) => (
@@ -13,7 +13,8 @@ const JoinerCard = ({ person }) => (
         </div>
         <div className="person-info">
             <div className="person-name">{person.name}</div>
-            <div className="person-meta">{person.meta}</div>
+            <div className="person-dept" style={{ fontSize: '11px', color: 'var(--brand-600)', fontWeight: '600', marginTop: '2px' }}>{person.dept}</div>
+            <div className="person-meta">{person.joinedDate}</div>
         </div>
         <div className="card-action-hint" style={{ opacity: 0.1 }}>
             <i className="ti ti-user-check"></i>

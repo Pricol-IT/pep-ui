@@ -3,14 +3,14 @@ import BirthdayMessageModal from './BirthdayMessageModal';
 import { useNavigate } from 'react-router-dom';
 
 const teamBirthdays = [
-    { id: 1, name: 'Siddharth Kumar', meta: 'Today • Send wishes', avatar: 'SK', type: 'team' },
-    { id: 2, name: 'Akhil Sharma', meta: 'Tomorrow • Tool Room', avatar: 'AS', type: 'team' },
+    { id: 1, name: 'Siddharth Kumar', dept: 'SAP UI5 Team', date: 'Today', avatar: 'SK', type: 'team' },
+    { id: 2, name: 'Akhil Sharma', dept: 'Tool Room', date: 'Tomorrow', avatar: 'AS', type: 'team' },
 ];
 
 const companyBirthdays = [
-    { id: 3, name: 'Naveen V', meta: '24 Dec • Frontend', avatar: 'NV', type: 'company' },
-    { id: 4, name: 'Sonia Paul', meta: '26 Dec • HR', avatar: 'SP', type: 'company' },
-    { id: 5, name: 'Rahul M', meta: '28 Dec • Design', avatar: 'RM', type: 'company' },
+    { id: 3, name: 'Naveen V', dept: 'Frontend', date: '24 Dec', avatar: 'NV', type: 'company' },
+    { id: 4, name: 'Sonia Paul', dept: 'HR', date: '26 Dec', avatar: 'SP', type: 'company' },
+    { id: 5, name: 'Rahul M', dept: 'Design', date: '28 Dec', avatar: 'RM', type: 'company' },
 ];
 
 const BirthdayCard = ({ person, onClick }) => (
@@ -20,7 +20,8 @@ const BirthdayCard = ({ person, onClick }) => (
         </div>
         <div className="person-info">
             <div className="person-name">{person.name}</div>
-            <div className="person-meta">{person.meta}</div>
+            <div className="person-dept" style={{ fontSize: '11px', color: 'var(--brand-600)', fontWeight: '600', marginTop: '2px' }}>{person.dept}</div>
+            <div className="person-meta">{person.date} {person.type === 'team' && person.date === 'Today' ? '• Send wishes' : ''}</div>
         </div>
         <div className="card-action-hint">
             <i className="ti ti-message-plus"></i>
