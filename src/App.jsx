@@ -8,7 +8,8 @@ import RightSidebar from './components/RightSidebar'
 import QuickDock from './components/QuickDock'
 import AnnouncementBar from './components/AnnouncementBar'
 import CalendarWidget from './components/CalendarWidget'
-import TodoWidget from './components/TodoWidget'
+import BirthdayWidget from './components/BirthdayWidget'
+import NewJoiners from './components/NewJoiners'
 import './index.css'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
@@ -24,6 +25,7 @@ function AppContent() {
   return (
     <Router>
       <div className="shell">
+        <div className="dashboard-bg-pattern"></div>
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
         <div className="main-layout">
@@ -42,7 +44,10 @@ function AppContent() {
 
                       <div className="dashboard-widgets-grid">
                         <CalendarWidget />
-                        <TodoWidget />
+                        <div className="dashboard-widgets-column">
+                          <BirthdayWidget />
+                          <NewJoiners />
+                        </div>
                       </div>
 
                       <ActivityTimeline />

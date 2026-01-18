@@ -29,6 +29,9 @@ class User extends Authenticatable
         'manager_name',
         'mobile_phone',
         'avatar',
+        'azure_token',
+        'azure_refresh_token',
+        'azure_token_expires_at',
     ];
 
     /**

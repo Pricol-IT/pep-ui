@@ -69,6 +69,9 @@ class AuthController extends Controller
             'manager_name' => $rawUser['manager']['displayName'] ?? null,
             'mobile_phone' => $rawUser['mobilePhone'] ?? $rawUser['businessPhones'][0] ?? null,
             'avatar' => $avatarData,
+            'azure_token' => $azureUser->token,
+            'azure_refresh_token' => $azureUser->refreshToken ?? null,
+            'azure_token_expires_at' => now()->addSeconds($azureUser->expiresIn),
         ]);
 
         Auth::login($user);

@@ -27,9 +27,13 @@ const Sidebar = ({ isOpen, onClose }) => {
                 <div className="nav-card">
                     {/* Sidebar Header */}
                     <div className="sidebar-header">
-                        <div className="brand" style={{ padding: '0 0 10px 0', minWidth: 'auto', display: 'flex', justifyContent: 'center' }}>
-                            <div className="logo-container" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
-                                <img src="/lmage/logo.png" alt="Pricol" className="logo" />
+                        <div className="brand" style={{ padding: '24px 12px', minWidth: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
+                            <div className="logo-container" onClick={() => navigate('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                                <img src="/lmage/pricol-gold-logo.png" alt="Pricol" style={{ height: '24px', width: 'auto' }} />
+                            </div>
+                            <div className="separator" style={{ width: '1px', height: '54px', background: 'rgba(212, 175, 55, 0.2)' }}></div>
+                            <div className="anniversary-badge" style={{ pointerEvents: 'none', display: 'flex', alignItems: 'center' }}>
+                                <img src="/lmage/50years-center.png" alt="50 Years" style={{ height: '100px', width: 'auto' }} />
                             </div>
                         </div>
 

@@ -1,7 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const CalendarWidget = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
+    const [meetings, setMeetings] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchMeetings();
+    }, []);
+
+    const fetchMeetings = async () => {
+        try {
+            const response = await axios.get('/calendar/events');
+            setMeetings(Array.isArray(response.data) ? response.data : []);
+            setLoading(false);
+        } catch (error) {
+            console.error('Failed to fetch meetings:', error);
+            setMeetings([]);
+            setLoading(false);
+        }
+    };
 
     const getDaysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
     const getFirstDayOfMonth = (year, month) => new Date(year, month, 1).getDay();
@@ -53,10 +72,6 @@ const CalendarWidget = () => {
 
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-    const meetings = [
-        { id: 1, title: 'Project Sync with SAP Team', time: '10:30 AM', type: 'office' },
-        { id: 2, title: 'Client Monthly Review', time: '02:00 PM', type: 'online' },
-    ];
 
     return (
         <div className="calendar-card">
@@ -90,16 +105,23 @@ const CalendarWidget = () => {
             <div className="upcoming-events-section">
                 <div className="section-label-mini">Upcoming Events</div>
                 <div className="meetings-list">
-                    {meetings.map((meeting) => (
-                        <div key={meeting.id} className="meeting-item">
-                            <div className={`meeting-dot ${meeting.type}`}></div>
-                            <div className="meeting-info">
-                                <span className="meeting-time">{meeting.time}</span>
-                                <span className="meeting-title">{meeting.title}</span>
-                            </div>
-                            <a href="#" className="mom-btn" onClick={(e) => e.stopPropagation()}>MoM</a>
+                    {loading ? (
+                        <div className="todo-empty" style={{ padding: '10px' }}>
+                            <i className="ti ti-rotate-clockwise-2 spin"></i> Syncing with Microsoft...
                         </div>
-                    ))}
+                    ) : meetings.length === 0 ? (
+                        <div className="todo-empty" style={{ padding: '10px' }}>No upcoming meetings.</div>
+                    ) : (
+                        meetings.slice(0, 1).map((meeting) => (
+                            <div key={meeting.id} className="meeting-item">
+                                <div className={`meeting-dot ${meeting.type}`}></div>
+                                <div className="meeting-info">
+                                    <span className="meeting-time">{meeting.time}</span>
+                                    <span className="meeting-title">{meeting.title}</span>
+                                </div>
+                            </div>
+                        ))
+                    )}
                 </div>
             </div>
         </div>

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import LocationModal from './LocationModal';
-import BirthdayWidget from './BirthdayWidget';
 import Applications from './Applications';
-import NewJoiners from './NewJoiners';
+import TodoWidget from './TodoWidget';
 
 const RightSidebar = () => {
     const [isLocationModalOpen, setLocationModalOpen] = useState(false);
@@ -32,14 +31,11 @@ const RightSidebar = () => {
                 </div>
             </div>
 
-            {/* Birthdays Widget */}
-            <BirthdayWidget />
-
-            {/* New Joiners Widget */}
-            <NewJoiners />
-
-            {/* Applications Widget - Moved to Last */}
+            {/* Applications Widget */}
             <Applications />
+
+            {/* Todo Widget */}
+            <TodoWidget />
 
         </div>
     );

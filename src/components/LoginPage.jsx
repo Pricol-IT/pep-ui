@@ -7,40 +7,44 @@ const LoginPage = () => {
 
     return (
         <div className="login-page">
+            <div className="login-bg-pattern"></div>
+
             <div className="login-container">
                 <div className="login-card">
                     <div className="login-header">
-                        <img src="/lmage/logo.png" alt="Pricol Logo" className="login-logo" />
-                        <h1>Intranet Portal</h1>
-                        <p>Welcome back! Please sign in to continue.</p>
+                        <div className="hero-badge">
+                            <img src="/lmage/50years-center.png" alt="50 Years" className="badge-img" />
+                        </div>
+                        <div className="brand-wrapper">
+                            <img src="/lmage/pricol-gold-logo.png" alt="Pricol" className="brand-logo" />
+                        </div>
+                        <div className="header-text">
+                            <p>Celebrating Five Decades of Innovation & Excellence</p>
+                        </div>
                     </div>
 
                     <div className="login-body">
                         <button className="microsoft-btn" onClick={handleMicrosoftLogin}>
+                            <div className="btn-shimmer"></div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 23 23">
-                                <path fill="#f3f3f3" d="M0 0h11v11H0z" />
-                                <path fill="#f3f3f3" d="M12 0h11v11H12z" />
-                                <path fill="#f3f3f3" d="M0 12h11v11H0z" />
-                                <path fill="#f3f3f3" d="M12 12h11v11H12z" />
+                                <path fill="#d4af37" d="M0 0h11v11H0z" />
+                                <path fill="#d4af37" d="M12 0h11v11H12z" />
+                                <path fill="#d4af37" d="M0 12h11v11H0z" />
+                                <path fill="#d4af37" d="M12 12h11v11H12z" />
                             </svg>
                             <span>Sign in with Microsoft</span>
                         </button>
                     </div>
 
                     <div className="login-footer">
-                        <p>© {new Date().getFullYear()} Pricol Limited. All rights reserved.</p>
+                        <div className="footer-accent"></div>
+                        <p>© {new Date().getFullYear()} Pricol Limited</p>
                         <div className="footer-links">
-                            <a href="#">Security Policy</a>
-                            <span className="separator">•</span>
-                            <a href="#">Help Desk</a>
+                            <a href="#">Security</a>
+                            <span className="dot"></span>
+                            <a href="#">Support</a>
                         </div>
                     </div>
-                </div>
-
-                <div className="login-bg-glow"></div>
-                <div className="login-shapes">
-                    <div className="shape shape-1"></div>
-                    <div className="shape shape-2"></div>
                 </div>
             </div>
 
@@ -51,88 +55,139 @@ const LoginPage = () => {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    background: #0f172a;
+                    background: #002250;
                     overflow: hidden;
-                    position: relative;
-                    font-family: 'Poppins', sans-serif;
+                    font-family: 'Inter', -apple-system, sans-serif;
                     margin: 0;
                     padding: 0;
+                    position: relative;
+                }
+
+                .login-bg-pattern {
+                    position: absolute;
+                    inset: 0;
+                    background-image: url('/lmage/50years-pattern.png');
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    opacity: 0.05;
+                    filter: brightness(1.2);
+                    z-index: 2;
+                    pointer-events: none;
                 }
 
                 .login-container {
                     width: 100%;
-                    max-width: 420px;
-                    padding: 20px;
+                    max-width: 520px;
+                    padding: 40px;
                     z-index: 10;
+                    perspective: 1000px;
                 }
 
                 .login-card {
                     background: rgba(255, 255, 255, 0.05);
-                    backdrop-filter: blur(20px);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    border-radius: 32px;
+                    backdrop-filter: blur(40px);
+                    -webkit-backdrop-filter: blur(40px);
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                    border-radius: 40px;
                     padding: 48px 40px;
                     text-align: center;
-                    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-                    animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+                    position: relative;
                 }
 
-                .login-logo {
-                    height: 48px;
+                .hero-badge {
                     margin-bottom: 24px;
+                    display: flex;
+                    justify-content: center;
                 }
 
-                .login-header h1 {
-                    color: #fff;
-                    font-size: 28px;
-                    font-weight: 700;
-                    margin-bottom: 8px;
-                    letter-spacing: -0.02em;
+                .badge-img {
+                    height: 180px;
+                    width: auto;
                 }
 
-                .login-header p {
-                    color: rgba(255, 255, 255, 0.6);
+                .brand-wrapper {
+                    margin-bottom: 16px;
+                }
+
+                .brand-logo {
+                    height: 48px;
+                    width: auto;
+                }
+
+                .header-text p {
+                    color: rgba(255, 255, 255, 0.5);
                     font-size: 15px;
+                    font-weight: 300;
+                    letter-spacing: 0.03em;
                     margin-bottom: 40px;
+                    line-height: 1.5;
                 }
 
                 .microsoft-btn {
-                    width: 100%;
-                    padding: 14px;
+                    width: auto;
+                    min-width: 280px;
+                    margin: 0 auto;
+                    padding: 12px 32px;
                     background: #fff;
-                    color: #000;
+                    color: #d4af37;
                     border: none;
-                    border-radius: 14px;
-                    font-size: 16px;
-                    font-weight: 600;
+                    border-radius: 12px;
+                    font-size: 15px;
+                    font-weight: 400;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     gap: 12px;
                     cursor: pointer;
+                    position: relative;
+                    overflow: hidden;
                     transition: all 0.3s ease;
-                    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+                }
+
+                .btn-shimmer {
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 50%;
+                    height: 100%;
+                    background: linear-gradient(
+                        to right,
+                        transparent,
+                        rgba(255, 255, 255, 0.4),
+                        transparent
+                    );
+                    transform: skewX(-25deg);
+                    transition: 0.5s;
                 }
 
                 .microsoft-btn:hover {
                     transform: translateY(-2px);
-                    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
                     background: #f8fafc;
                 }
 
-                .microsoft-btn svg {
-                    width: 20px;
-                    height: 20px;
+                .microsoft-btn:hover .btn-shimmer {
+                    left: 150%;
+                    transition: 0.8s;
                 }
 
                 .login-footer {
                     margin-top: 40px;
+                    position: relative;
+                }
+
+                .footer-accent {
+                    width: 40px;
+                    height: 1px;
+                    background: rgba(255, 255, 255, 0.1);
+                    margin: 0 auto 24px;
                 }
 
                 .login-footer p {
-                    color: rgba(255, 255, 255, 0.4);
-                    font-size: 13px;
+                    color: rgba(255, 255, 255, 0.25);
+                    font-size: 12px;
                     margin-bottom: 12px;
+                    letter-spacing: 0.05em;
                 }
 
                 .footer-links {
@@ -143,59 +198,38 @@ const LoginPage = () => {
                 }
 
                 .footer-links a {
-                    color: rgba(255, 255, 255, 0.6);
+                    color: rgba(212, 175, 55, 0.6);
                     text-decoration: none;
-                    font-size: 13px;
+                    font-size: 12px;
+                    transition: all 0.3s ease;
                 }
 
-                .separator {
-                    color: rgba(255, 255, 255, 0.2);
+                .footer-links a:hover {
+                    color: #d4af37;
+                    text-decoration: underline;
                 }
 
-                .login-bg-glow {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 100%;
-                    height: 100%;
-                    background: radial-gradient(circle at center, rgba(15, 132, 207, 0.15) 0%, transparent 70%);
-                    pointer-events: none;
-                }
-
-                .login-shapes .shape {
-                    position: absolute;
+                .dot {
+                    width: 3px;
+                    height: 3px;
+                    background: rgba(255, 255, 255, 0.1);
                     border-radius: 50%;
-                    filter: blur(80px);
-                    z-index: 1;
-                }
-
-                .shape-1 {
-                    width: 300px;
-                    height: 300px;
-                    background: rgba(15, 132, 207, 0.2);
-                    top: -150px;
-                    right: -50px;
-                    animation: float 20s infinite alternate;
-                }
-
-                .shape-2 {
-                    width: 400px;
-                    height: 400px;
-                    background: rgba(15, 132, 207, 0.1);
-                    bottom: -200px;
-                    left: -100px;
-                    animation: float 25s infinite alternate-reverse;
-                }
-
-                @keyframes slideUp {
-                    from { opacity: 0; transform: translateY(30px); }
-                    to { opacity: 1; transform: translateY(0); }
                 }
 
                 @keyframes float {
-                    from { transform: translate(0, 0) scale(1); }
-                    to { transform: translate(50px, 50px) scale(1.1); }
+                    0% { transform: translate(0, 0); }
+                    100% { transform: translate(30px, 30px); }
+                }
+
+                @media (max-width: 480px) {
+                    .login-card {
+                        padding: 48px 32px;
+                        border-radius: 0;
+                        height: 100vh;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                    }
                 }
             `}</style>
         </div>
