@@ -17,7 +17,7 @@ class AuthController extends Controller
      */
     public function redirectToAzure()
     {
-        return Socialite::driver('azure')->redirect();
+        return Socialite::driver('azure')->stateless()->redirect();
     }
 
     /**
@@ -26,9 +26,17 @@ class AuthController extends Controller
     public function handleAzureCallback()
     {
         try {
-            $azureUser = Socialite::driver('azure')->user();
+            $azureUser = Socialite::driver('azure')->stateless()->user();
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Authentication failed: ' . $e->getMessage()], 401);
+            Log::error('Socialite Azure error: ' . $e->getMessage(), [
+                'exception' => $e,
+                'request' => request()->all()
+            ]);
+            return response()->json([
+                'error' => 'Authentication failed',
+                'details' => $e->getMessage(),
+                'hint' => 'Check laravel.log for more details'
+            ], 401);
         }
 
         $email = $azureUser->email ?? $azureUser->user['mail'] ?? $azureUser->user['userPrincipalName'];
