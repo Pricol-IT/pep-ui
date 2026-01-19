@@ -28,14 +28,17 @@ class AuthController extends Controller
         try {
             $azureUser = Socialite::driver('azure')->stateless()->user();
         } catch (\Exception $e) {
-            Log::error('Socialite Azure error: ' . $e->getMessage(), [
-                'exception' => $e,
+            $errorMsg = get_class($e) . ': ' . $e->getMessage();
+            Log::error('Socialite Azure error: ' . $errorMsg, [
+                'trace' => $e->getTraceAsString(),
                 'request' => request()->all()
             ]);
             return response()->json([
-                'error' => 'Authentication failed',
-                'details' => $e->getMessage(),
-                'hint' => 'Check laravel.log for more details'
+                'error' => 'SSO Authentication failed',
+                'exception' => get_class($e),
+                'message' => $e->getMessage(),
+                'hint' => 'Ensure AZURE_* keys in .env match your Azure App Registration exactly.',
+                'server_time' => now()->toDateTimeString()
             ], 401);
         }
 
