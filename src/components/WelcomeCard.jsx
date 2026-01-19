@@ -17,7 +17,7 @@ const WelcomeCard = () => {
             <div className="welcome-message-only">
                 <h2>
                     <span className="text-gradient-blue">{getTimeGreeting()},</span><br />
-                    <span className="text-gradient-gold">{user?.name || 'Rubesh K R'}!</span> <span className="text-gradient-blue">Welcome back!</span>
+                    <span className="text-gradient-gold">{user?.name || 'User'}!</span> <span className="text-gradient-blue">Welcome back!</span>
                 </h2>
             </div>
 

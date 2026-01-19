@@ -8,7 +8,24 @@ const Sidebar = ({ isOpen, onClose }) => {
     const [activeSection, setActiveSection] = useState('dashboard');
     const [showUserMenu, setShowUserMenu] = useState(false);
 
+    const hasAccess = (pageName) => {
+        if (!user) return false;
+        // If the user has no pageAccesses defined, they can access everything by default (standard behavior)
+        // OR you can change this to be restrictive. 
+        // Based on "after authcate only able to access the pages", we might want to ONLY allow what's in the list.
+        if (!user.page_accesses || user.page_accesses.length === 0) return true;
+
+        return user.page_accesses.some(access =>
+            access.page_name.toLowerCase() === pageName.toLowerCase() && access.can_access
+        );
+    };
+
     const handleNavClick = (section) => {
+        if (!hasAccess(section)) {
+            // Potentially show a toast or alert
+            console.log(`Access denied to ${section}`);
+            return;
+        }
         setActiveSection(section);
         if (window.innerWidth <= 1024) {
             onClose();
@@ -46,18 +63,20 @@ const Sidebar = ({ isOpen, onClose }) => {
                     {/* Navigation Content */}
                     <div className="nav-content">
                         <div className="nav-title">Main</div>
-                        <div
-                            className={`nav-item ${activeSection === 'dashboard' ? 'active' : ''}`}
-                            onClick={() => { handleNavClick('dashboard'); navigate('/'); }}
-                        >
-                            <div className="nav-item-icon">
-                                <i className="fas fa-tachometer-alt"></i>
+                        {hasAccess('dashboard') && (
+                            <div
+                                className={`nav-item ${activeSection === 'dashboard' ? 'active' : ''}`}
+                                onClick={() => { handleNavClick('dashboard'); navigate('/'); }}
+                            >
+                                <div className="nav-item-icon">
+                                    <i className="fas fa-tachometer-alt"></i>
+                                </div>
+                                <span className="nav-item-text">Dashboard</span>
                             </div>
-                            <span className="nav-item-text">Dashboard</span>
-                        </div>
+                        )}
 
                         <div className="nav-title">HR Services</div>
-                        {['attendance', 'leave', 'payroll', 'performance', 'travel'].map(section => (
+                        {['attendance', 'leave', 'payroll', 'performance', 'travel'].filter(section => hasAccess(section)).map(section => (
                             <div
                                 key={section}
                                 className={`nav-item ${activeSection === section ? 'active' : ''}`}
@@ -71,7 +90,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                         ))}
 
                         <div className="nav-title">Resources</div>
-                        {['knowledge', 'directory', 'about', 'content'].map(section => (
+                        {['knowledge', 'directory', 'about', 'content'].filter(section => hasAccess(section)).map(section => (
                             <div
                                 key={section}
                                 className={`nav-item ${activeSection === section ? 'active' : ''}`}
@@ -108,6 +127,9 @@ const Sidebar = ({ isOpen, onClose }) => {
                                         <div className="user-menu-info">
                                             <div className="user-menu-name">{user?.name}</div>
                                             <div className="user-menu-email">{user?.email}</div>
+                                            <div className="user-menu-extra" style={{ fontSize: '11px', opacity: 0.6, marginTop: '4px' }}>
+                                                {user?.job_title} {user?.department ? `• ${user.department}` : ''}
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="user-menu-divider"></div>

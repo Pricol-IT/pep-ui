@@ -56,4 +56,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the page accesses for the user.
+     */
+    public function pageAccesses()
+    {
+        return $this->hasMany(PageAccess::class);
+    }
 }
