@@ -96,7 +96,8 @@ class AuthController extends Controller
         Auth::login($user);
 
         // Redirect back to the frontend with success
-        return redirect('http://localhost:5173/?login=success');
+        $frontendUrl = env('FRONTEND_URL', 'http://localhost:5173');
+        return redirect($frontendUrl . '/?login=success');
     }
 
     /**
