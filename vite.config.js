@@ -20,6 +20,21 @@ export default defineConfig({
         target: 'http://localhost:8000',
         changeOrigin: true,
         credentials: true
+      },
+      '/birthdays': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        credentials: true
+      },
+      '/new-joiners': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        credentials: true
+      },
+      '/calendar': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        credentials: true
       }
     }
   }

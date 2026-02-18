@@ -113,6 +113,20 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'common_db' => [
+            'driver' => 'sqlsrv',
+            'host' => env('MSSQL_HOST'),
+            'port' => env('MSSQL_PORT'),
+            'database' => env('MSSQL_DATABASE'),
+            'username' => env('MSSQL_USERNAME'),
+            'password' => env('MSSQL_PASSWORD'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'encrypt' => 'no', // Set to 'yes' if Azure or required
+            'trust_server_certificate' => 'true', // Often needed for self-signed certs
+        ],
+
     ],
 
     /*

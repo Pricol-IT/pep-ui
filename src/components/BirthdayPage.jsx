@@ -1,19 +1,58 @@
-import React from 'react';
-
-const upcomingBirthdays = [
-    { id: 1, name: 'Siddharth Kumar', date: 'Today', dept: 'Tool Room', avatar: 'SK' },
-    { id: 2, name: 'Akhil Sharma', date: 'Tomorrow', dept: 'Tool Room', avatar: 'AS' },
-    { id: 3, name: 'Naveen V', date: '24 Dec', dept: 'Frontend', avatar: 'NV' },
-    { id: 4, name: 'Sonia Paul', date: '26 Dec', dept: 'HR', avatar: 'SP' },
-    { id: 5, name: 'Rahul M', date: '28 Dec', dept: 'Design', avatar: 'RM' },
-];
-
-const receivedMessages = [
-    { id: 1, from: 'Priya Dharshini', message: 'Happy Birthday! Have a great year ahead!', time: '2 hours ago' },
-    { id: 2, from: 'Arun Kumar', message: 'Wishing you a fantastic birthday filled with happiness.', time: '5 hours ago' },
-];
+import React, { useState, useEffect } from 'react';
 
 const BirthdayPage = () => {
+    const [birthdays, setBirthdays] = useState({ today: [], tomorrow: [] });
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchBirthdays = async () => {
+            try {
+                const response = await fetch('/birthdays', {
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (!response.ok) throw new Error('Failed to fetch');
+                const data = await response.json();
+                setBirthdays(data);
+            } catch (error) {
+                console.error("Error fetching birthdays:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchBirthdays();
+    }, []);
+
+    if (loading) return <div className="birthday-page"><div className="page-header">Loading...</div></div>;
+
+    const renderBirthdayList = (list, title, icon) => (
+        <div className="section-card" style={{ marginBottom: '20px' }}>
+            <h2 className="section-title">
+                <i className={`ti ${icon}`}></i>
+                {title}
+            </h2>
+            <div className="detailed-people-list">
+                {list.length > 0 ? (
+                    list.map((person, idx) => (
+                        <div className="detailed-person-row" key={`${title}-${idx}`}>
+                            <div className="person-avatar-md brand-bg">{person.initials}</div>
+                            <div className="detailed-info">
+                                <div className="p-name">{person.name}</div>
+                                <div className="p-dept">{person.designation}</div>
+                                <div className="p-company" style={{ fontSize: '11px', color: '#666' }}>{person.company}</div>
+                            </div>
+                            <div className="p-date">{person.display_date}</div>
+                            <button className="wish-btn">Send Wish</button>
+                        </div>
+                    ))
+                ) : (
+                    <div className="empty-state" style={{ padding: '20px', textAlign: 'center', color: '#888' }}>
+                        No birthdays {title.toLowerCase()}.
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+
     return (
         <div className="birthday-page">
             <div className="page-header">
@@ -21,57 +60,13 @@ const BirthdayPage = () => {
                     <i className="ti ti-cake"></i>
                     Birthdays & Wishes
                 </h1>
-                <p>Manage birthday celebrations and view your messages.</p>
+                <p>View upcoming birthdays and send your best wishes.</p>
             </div>
 
             <div className="birthday-page-grid">
-                <div className="upcoming-section">
-                    <div className="section-card">
-                        <h2 className="section-title">
-                            <i className="ti ti-calendar"></i>
-                            Upcoming Birthdays
-                        </h2>
-                        <div className="detailed-people-list">
-                            {upcomingBirthdays.map(person => (
-                                <div className="detailed-person-row" key={person.id}>
-                                    <div className="person-avatar-md">{person.avatar}</div>
-                                    <div className="detailed-info">
-                                        <div className="p-name">{person.name}</div>
-                                        <div className="p-dept">{person.dept}</div>
-                                    </div>
-                                    <div className="p-date">{person.date}</div>
-                                    <button className="wish-btn">Send Wish</button>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                <div className="messages-section">
-                    <div className="section-card">
-                        <h2 className="section-title">
-                            <i className="ti ti-message-2"></i>
-                            Messages Received
-                        </h2>
-                        <div className="received-messages-list">
-                            {receivedMessages.length > 0 ? (
-                                receivedMessages.map(msg => (
-                                    <div className="message-item" key={msg.id}>
-                                        <div className="msg-header">
-                                            <span className="msg-from">{msg.from}</span>
-                                            <span className="msg-time">{msg.time}</span>
-                                        </div>
-                                        <p className="msg-text">{msg.message}</p>
-                                    </div>
-                                ))
-                            ) : (
-                                <div className="empty-messages">
-                                    <i className="ti ti-message-off"></i>
-                                    <p>No messages received yet.</p>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                <div className="upcoming-section" style={{ gridColumn: 'span 2' }}>
+                    {renderBirthdayList(birthdays.today, "Today's Birthdays", "ti-calendar")}
+                    {renderBirthdayList(birthdays.tomorrow, "Tomorrow's Birthdays", "ti-calendar-event")}
                 </div>
             </div>
         </div>
