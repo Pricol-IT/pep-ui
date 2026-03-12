@@ -29,6 +29,7 @@ class User extends Authenticatable
         'manager_name',
         'mobile_phone',
         'avatar',
+        'role',
         'azure_token',
         'azure_refresh_token',
         'azure_token_expires_at',
@@ -63,5 +64,27 @@ class User extends Authenticatable
     public function pageAccesses()
     {
         return $this->hasMany(PageAccess::class);
+    }
+
+    /**
+     * Get the access requests for the user.
+     */
+    public function accessRequests()
+    {
+        return $this->hasMany(AccessRequest::class);
+    }
+
+    /**
+     * Check if the user has a specific role.
+     *
+     * @param string|array $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        if (is_array($role)) {
+            return in_array($this->role, $role);
+        }
+        return $this->role === $role;
     }
 }

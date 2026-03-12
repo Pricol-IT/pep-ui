@@ -1,40 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import { useTasks } from '../context/TaskContext';
 
 const TodoWidget = () => {
-    const [tasks, setTasks] = useState([]);
+    const { tasks, loading, refreshTasks } = useTasks();
     const [title, setTitle] = useState('');
-    const [projectName, setProjectName] = useState('');
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        fetchTasks();
-    }, []);
-
-    const fetchTasks = async () => {
-        try {
-            const response = await axios.get('/tasks');
-            setTasks(Array.isArray(response.data) ? response.data : []);
-            setLoading(false);
-        } catch (error) {
-            console.error('Failed to fetch tasks:', error);
-            setTasks([]);
-            setLoading(false);
-        }
-    };
 
     const addTask = async (e) => {
         e.preventDefault();
-        if (!title.trim() || !projectName.trim()) return;
+        if (!title.trim()) return;
 
         try {
-            const response = await axios.post('/tasks', {
-                title,
-                project_name: projectName
+            await axios.post('/tasks', {
+                title
             });
-            setTasks([response.data, ...tasks]);
             setTitle('');
-            setProjectName('');
+            refreshTasks();
         } catch (error) {
             console.error('Failed to add task:', error);
         }
@@ -42,10 +23,10 @@ const TodoWidget = () => {
 
     const toggleTask = async (task) => {
         try {
-            const response = await axios.put(`/tasks/${task.id}`, {
+            await axios.put(`/tasks/${task.id}`, {
                 is_completed: !task.is_completed
             });
-            setTasks(tasks.map(t => t.id === task.id ? response.data : t));
+            refreshTasks();
         } catch (error) {
             console.error('Failed to toggle task:', error);
         }
@@ -54,7 +35,7 @@ const TodoWidget = () => {
     const deleteTask = async (taskId) => {
         try {
             await axios.delete(`/tasks/${taskId}`);
-            setTasks(tasks.filter(t => t.id !== taskId));
+            refreshTasks();
         } catch (error) {
             console.error('Failed to delete task:', error);
         }
@@ -68,13 +49,6 @@ const TodoWidget = () => {
             </h3>
 
             <form onSubmit={addTask} className="todo-add-form">
-                <input
-                    type="text"
-                    placeholder="Project Name..."
-                    value={projectName}
-                    onChange={(e) => setProjectName(e.target.value)}
-                    className="todo-input project-input"
-                />
                 <div className="todo-input-group">
                     <input
                         type="text"
@@ -101,7 +75,6 @@ const TodoWidget = () => {
                                 <i className={`${task.is_completed ? 'fas fa-check-circle' : 'far fa-circle'}`}></i>
                             </div>
                             <div className="todo-content">
-                                <div className="todo-project">{task.project_name}</div>
                                 <div className="todo-title">{task.title}</div>
                             </div>
                             <button className="todo-delete" onClick={() => deleteTask(task.id)}>

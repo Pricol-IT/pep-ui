@@ -13,7 +13,16 @@ class TaskController extends Controller
      */
     public function index()
     {
+        $today = \Carbon\Carbon::today();
+        
         $tasks = Task::where('user_id', Auth::id())
+            ->where(function($query) use ($today) {
+                $query->where('is_completed', false)
+                      ->orWhere(function($subQuery) use ($today) {
+                          $subQuery->where('is_completed', true)
+                                   ->whereDate('updated_at', $today);
+                      });
+            })
             ->orderBy('created_at', 'desc')
             ->get();
             
@@ -27,13 +36,11 @@ class TaskController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'project_name' => 'required|string|max:255',
         ]);
 
         $task = Task::create([
             'user_id' => Auth::id(),
             'title' => $request->title,
-            'project_name' => $request->project_name,
             'is_completed' => false,
         ]);
 
@@ -51,11 +58,10 @@ class TaskController extends Controller
 
         $request->validate([
             'title' => 'sometimes|required|string|max:255',
-            'project_name' => 'sometimes|required|string|max:255',
             'is_completed' => 'sometimes|required|boolean',
         ]);
 
-        $task->update($request->only(['title', 'project_name', 'is_completed']));
+        $task->update($request->only(['title', 'is_completed']));
 
         return response()->json($task);
     }

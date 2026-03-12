@@ -1,0 +1,233 @@
+/* Admin Dashboard Styles */
+.admin-dashboard {
+    padding: 24px;
+    color: #fff;
+}
+
+.admin-header {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #fff;
+}
+
+/* Stats Grid */
+.admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.admin-stat-card {
+    background-color: #1e293b;
+    /* Slate 800 */
+    border: 1px solid #334155;
+    /* Slate 700 */
+    border-radius: 12px;
+    padding: 24px;
+}
+
+/* .stat-title {
+    color: #94a3b8;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 30px;
+    font-weight: 700;
+    color: #fff;
+} */
+
+/* Data Table Card */
+.admin-table-card {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 24px;
+    border-bottom: 1px solid #334155;
+}
+
+/* .card-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+} */
+
+.admin-table-container {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.admin-table th {
+    background-color: rgba(15, 23, 42, 0.5);
+    /* Slate 900/50 */
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.admin-table td {
+    padding: 16px;
+    border-bottom: 1px solid #334155;
+    color: #e2e8f0;
+    /* Slate 200 */
+}
+
+.admin-table tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-table tr:hover {
+    background-color: rgba(51, 65, 85, 0.3);
+    /* Slate 700/30 */
+}
+
+/* User Profile in Table */
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-avatar-placeholder {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #6366f1;
+    /* Indigo 500 */
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.user-name {
+    font-weight: 500;
+    color: #fff;
+}
+
+.user-email {
+    color: #94a3b8;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-role {
+    background-color: rgba(99, 102, 241, 0.1);
+    /* Indigo 500/10 */
+    color: #818cf8;
+    /* Indigo 400 */
+}
+
+/* Actions */
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.btn-action {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.btn-approve {
+    background-color: rgba(16, 185, 129, 0.1);
+    /* Emerald 500/10 */
+    color: #34d399;
+    /* Emerald 400 */
+}
+
+.btn-approve:hover {
+    background-color: rgba(16, 185, 129, 0.2);
+}
+
+.btn-reject {
+    background-color: rgba(239, 68, 68, 0.1);
+    /* Red 500/10 */
+    color: #f87171;
+    /* Red 400 */
+}
+
+.btn-reject:hover {
+    background-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Empty State */
+.empty-state {
+    padding: 48px;
+    text-align: center;
+    color: #94a3b8;
+}
+
+/* Admin Navbar */
+.admin-navbar {
+    background-color: #1e293b;
+    border-bottom: 1px solid #334155;
+    padding: 0 24px;
+    margin-bottom: 24px;
+}
+
+.admin-nav-links {
+    display: flex;
+    gap: 32px;
+}
+
+.admin-nav-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 16px 0;
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.admin-nav-item:hover {
+    color: #cbd5e1;
+}
+
+.admin-nav-item.active {
+    color: #d4af37;
+    border-bottom-color: #d4af37;
+}

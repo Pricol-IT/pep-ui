@@ -12,10 +12,15 @@ import BirthdayWidget from './components/BirthdayWidget'
 import NewJoiners from './components/NewJoiners'
 import './index.css'
 
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { TaskProvider } from './context/TaskContext'
 import ProfilePage from './components/ProfilePage'
 import BirthdayPage from './components/BirthdayPage'
+import AdminLayout from './components/admin/AdminLayout'
+import AdminDashboard from './components/admin/AdminDashboard'
+import AccessRequestStatus from './components/admin/AccessRequestStatus'
+import CompanyLocationManager from './components/admin/CompanyLocationManager'
 import './index.css'
 
 function ProtectedRoute({ children, pageName }) {
@@ -111,6 +116,12 @@ function AppContent() {
                     <BirthdayPage />
                   </ProtectedRoute>
                 } />
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route index element={<Navigate to="dashboard" replace />} />
+                  <Route path="dashboard" element={<AdminDashboard />} />
+                  <Route path="access-request" element={<AccessRequestStatus />} />
+                  <Route path="company-location" element={<CompanyLocationManager />} />
+                </Route>
               </Routes>
             </div>
           </main>
@@ -125,7 +136,9 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <TaskProvider>
+        <AppContent />
+      </TaskProvider>
     </AuthProvider>
   )
 }

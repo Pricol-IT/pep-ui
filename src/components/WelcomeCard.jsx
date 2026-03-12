@@ -1,7 +1,14 @@
 import { useAuth } from '../context/AuthContext';
+import React from 'react';
+import { useTasks } from '../context/TaskContext';
 
 const WelcomeCard = () => {
     const { user } = useAuth();
+    const { tasks } = useTasks();
+
+    // Calculate stats live from the shared tasks list
+    const completedToday = tasks.filter(t => t.is_completed).length;
+    const totalVisible = tasks.length;
 
     // Time-sensitive greeting helper
     const getTimeGreeting = () => {
@@ -38,7 +45,7 @@ const WelcomeCard = () => {
                     <i className="ti ti-list-check"></i>
                 </div>
                 <div className="stat-content">
-                    <span className="stat-value">12 <small>/ 28</small></span>
+                    <span className="stat-value">{completedToday} <small>/ {totalVisible}</small></span>
                     <span className="stat-label">Tasks Overview</span>
                 </div>
             </div>

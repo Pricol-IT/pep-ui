@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Sidebar = ({ isOpen, onClose }) => {
-    const { user, logout } = useAuth();
+    const { user, logout, isHR } = useAuth();
     const navigate = useNavigate();
     const [activeSection, setActiveSection] = useState('dashboard');
     const [showUserMenu, setShowUserMenu] = useState(false);
@@ -76,11 +76,23 @@ const Sidebar = ({ isOpen, onClose }) => {
                         )}
 
                         <div className="nav-title">HR Services</div>
-                        {['attendance', 'leave', 'payroll', 'performance', 'travel'].filter(section => hasAccess(section)).map(section => (
+                        {['leave', 'payroll', 'performance', 'travel'].filter(section => hasAccess(section)).map(section => (
                             <div
                                 key={section}
                                 className={`nav-item ${activeSection === section ? 'active' : ''}`}
-                                onClick={() => handleNavClick(section)}
+                                onClick={() => {
+                                    if (section === 'leave') {
+                                        if (typeof window.__doPostBack === 'function') {
+                                            window.__doPostBack('ctl00$ContentPlaceHolder1$lnk_timetrack', '');
+                                        } else {
+                                            console.warn('__doPostBack is not defined in this environment.');
+                                            // Fallback or alert for dev environment
+                                            alert('Time track link clicked (PostBack not available)');
+                                        }
+                                    } else {
+                                        handleNavClick(section);
+                                    }
+                                }}
                             >
                                 <div className="nav-item-icon">
                                     <i className={`fas fa-${getIconForSection(section)}`}></i>
@@ -141,6 +153,15 @@ const Sidebar = ({ isOpen, onClose }) => {
                                         <i className="fas fa-cog"></i>
                                         <span>Settings</span>
                                     </div>
+                                    {isHR && (
+                                        <>
+                                            <div className="user-menu-divider"></div>
+                                            <div className="user-menu-item" onClick={() => { navigate('/admin'); setShowUserMenu(false); }}>
+                                                <i className="fas fa-user-shield"></i>
+                                                <span>Switch to Admin</span>
+                                            </div>
+                                        </>
+                                    )}
                                     <div className="user-menu-divider"></div>
                                     <div className="user-menu-item logout" onClick={logout}>
                                         <i className="fas fa-sign-out-alt"></i>
@@ -174,7 +195,7 @@ const getIconForSection = (section) => {
 const getLabelForSection = (section) => {
     const map = {
         attendance: 'Attendance & Time',
-        leave: 'Leave & Holidays',
+        leave: 'Time track',
         payroll: 'Payroll',
         performance: 'Performance & Learning',
         travel: 'Travel & Expense',
