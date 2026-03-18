@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\TimetrackController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,6 +24,9 @@ Route::middleware('auth')->group(function () {
     // Since we are using standard web middleware with CSRF protection, 
     // but the frontend might be sending DELETE, we'll keep it simple.
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy']);
+    
+    // Timetrack Redirect
+    Route::get('/timetrack/redirect', [TimetrackController::class, 'redirect']);
     
     // Admin / Access Request Routes
     Route::get('/admin/access-request/status', [App\Http\Controllers\AdminController::class, 'checkStatus']);

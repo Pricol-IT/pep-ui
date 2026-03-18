@@ -36,6 +36,11 @@ export default defineConfig({
         changeOrigin: true,
         credentials: true
       },
+      '/timetrack': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        credentials: true
+      },
       '/admin': {
         target: 'http://localhost:8000',
         changeOrigin: true,

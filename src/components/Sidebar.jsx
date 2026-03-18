@@ -82,13 +82,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                                 className={`nav-item ${activeSection === section ? 'active' : ''}`}
                                 onClick={() => {
                                     if (section === 'leave') {
-                                        if (typeof window.__doPostBack === 'function') {
-                                            window.__doPostBack('ctl00$ContentPlaceHolder1$lnk_timetrack', '');
-                                        } else {
-                                            console.warn('__doPostBack is not defined in this environment.');
-                                            // Fallback or alert for dev environment
-                                            alert('Time track link clicked (PostBack not available)');
-                                        }
+                                        window.open('/timetrack/redirect', '_blank', 'noopener,noreferrer');
                                     } else {
                                         handleNavClick(section);
                                     }
