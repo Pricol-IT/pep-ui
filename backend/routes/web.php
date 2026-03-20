@@ -39,11 +39,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/requests/{id}/approve', [App\Http\Controllers\AdminController::class, 'approve']);
     Route::post('/admin/requests/{id}/reject', [App\Http\Controllers\AdminController::class, 'reject']);
 
-    // Companies & Locations
+    // Companies & Locations (Automated Sync)
+    Route::post('/admin/sync', [App\Http\Controllers\CompanyLocationController::class, 'syncFromCommonDb']);
     Route::get('/admin/companies', [App\Http\Controllers\CompanyLocationController::class, 'getCompanies']);
-    Route::post('/admin/companies', [App\Http\Controllers\CompanyLocationController::class, 'storeCompany']);
     Route::get('/admin/locations', [App\Http\Controllers\CompanyLocationController::class, 'getLocations']);
-    Route::post('/admin/locations', [App\Http\Controllers\CompanyLocationController::class, 'storeLocation']);
-    Route::delete('/admin/companies/{id}', [App\Http\Controllers\CompanyLocationController::class, 'deleteCompany']);
-    Route::delete('/admin/locations/{id}', [App\Http\Controllers\CompanyLocationController::class, 'deleteLocation']);
+    Route::get('/admin/branches', [App\Http\Controllers\CompanyLocationController::class, 'getBranches']);
+    Route::get('/admin/plants', [App\Http\Controllers\CompanyLocationController::class, 'getPlants']);
+    Route::get('/admin/divisions', [App\Http\Controllers\CompanyLocationController::class, 'getDivisions']);
+    Route::get('/admin/departments', [App\Http\Controllers\CompanyLocationController::class, 'getDepartments']);
 });
