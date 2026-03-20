@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use App\Traits\HasTimetrackCookies;
 
 class AuthController extends Controller
 {
+    use HasTimetrackCookies;
+
     /**
      * Redirect the user to the Azure AD authentication page.
      */
@@ -105,6 +108,9 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
+
+        // Store Timetrack cookies immediately upon sign-in
+        $this->setTimetrackCookies($user);
 
         // Redirect back to the frontend with success
         $frontendUrl = env('FRONTEND_URL', 'http://localhost:5173');

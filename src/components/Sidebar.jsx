@@ -82,7 +82,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                                 className={`nav-item ${activeSection === section ? 'active' : ''}`}
                                 onClick={() => {
                                     if (section === 'leave') {
-                                        window.open('/timetrack/redirect', '_blank', 'noopener,noreferrer');
+                                        window.open('/auth/timetrack', '_blank', 'noopener,noreferrer');
                                     } else {
                                         handleNavClick(section);
                                     }

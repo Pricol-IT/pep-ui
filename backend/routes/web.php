@@ -25,8 +25,8 @@ Route::middleware('auth')->group(function () {
     // but the frontend might be sending DELETE, we'll keep it simple.
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy']);
     
-    // Timetrack Redirect
-    Route::get('/timetrack/redirect', [TimetrackController::class, 'redirect']);
+    // Timetrack Redirect (Using /auth prefix so production Nginx proxies it to Laravel)
+    Route::get('/auth/timetrack', [TimetrackController::class, 'redirect']);
     
     // Admin / Access Request Routes
     Route::get('/admin/access-request/status', [App\Http\Controllers\AdminController::class, 'checkStatus']);
