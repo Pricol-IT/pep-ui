@@ -76,13 +76,17 @@ const Sidebar = ({ isOpen, onClose }) => {
                         )}
 
                         <div className="nav-title">HR Services</div>
-                        {['leave', 'payroll', 'performance', 'travel'].filter(section => hasAccess(section)).map(section => (
+                        {['leave', 'travel', 'it_projection'].filter(section => hasAccess(section)).map(section => (
                             <div
                                 key={section}
                                 className={`nav-item ${activeSection === section ? 'active' : ''}`}
                                 onClick={() => {
                                     if (section === 'leave') {
                                         window.open('/auth/timetrack', '_blank', 'noopener,noreferrer');
+                                    } else if (section === 'travel') {
+                                        window.open('https://smarttraveller.mypricol.in/', '_blank', 'noopener,noreferrer');
+                                    } else if (section === 'it_projection') {
+                                        window.open('https://pep.mypricol.in/it_projection/', '_blank', 'noopener,noreferrer');
                                     } else {
                                         handleNavClick(section);
                                     }
@@ -96,11 +100,17 @@ const Sidebar = ({ isOpen, onClose }) => {
                         ))}
 
                         <div className="nav-title">Resources</div>
-                        {['knowledge', 'directory', 'about', 'content'].filter(section => hasAccess(section)).map(section => (
+                        {['knowledge', 'about'].filter(section => hasAccess(section)).map(section => (
                             <div
                                 key={section}
                                 className={`nav-item ${activeSection === section ? 'active' : ''}`}
-                                onClick={() => handleNavClick(section)}
+                                onClick={() => {
+                                    if (section === 'about') {
+                                        window.open('https://pricolholdings.com/about-us', '_blank', 'noopener,noreferrer');
+                                    } else {
+                                        handleNavClick(section);
+                                    }
+                                }}
                             >
                                 <div className="nav-item-icon">
                                     <i className={`fas fa-${getIconForSection(section)}`}></i>
@@ -175,13 +185,10 @@ const getIconForSection = (section) => {
     const map = {
         attendance: 'clock',
         leave: 'calendar-alt',
-        payroll: 'credit-card',
-        performance: 'chart-line',
         travel: 'plane',
+        it_projection: 'chart-bar',
         knowledge: 'book-open',
-        directory: 'users',
-        about: 'building',
-        content: 'file-alt'
+        about: 'building'
     };
     return map[section] || 'circle';
 };
@@ -190,13 +197,10 @@ const getLabelForSection = (section) => {
     const map = {
         attendance: 'Attendance & Time',
         leave: 'Time track',
-        payroll: 'Payroll',
-        performance: 'Performance & Learning',
         travel: 'Travel & Expense',
+        it_projection: 'IT Projection',
         knowledge: 'Knowledge & Policies',
-        directory: 'Directory',
-        about: 'About / Group Company',
-        content: 'My Content'
+        about: 'About / Group Company'
     };
     return map[section] || section;
 };

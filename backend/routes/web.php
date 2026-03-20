@@ -19,8 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/tasks', [TaskController::class, 'store']);
     Route::put('/tasks/{task}', [TaskController::class, 'update']);
     Route::get('/calendar/events', [CalendarController::class, 'index']);
-    Route::get('/birthdays', [App\Http\Controllers\BirthdayController::class, 'index']);
-    Route::get('/new-joiners', [App\Http\Controllers\NewJoinerController::class, 'index']);
+    Route::prefix('api')->group(function () {
+        Route::get('/birthdays', [App\Http\Controllers\BirthdayController::class, 'index']);
+        Route::get('/new-joiners', [App\Http\Controllers\NewJoinerController::class, 'index']);
+    });
     // Since we are using standard web middleware with CSRF protection, 
     // but the frontend might be sending DELETE, we'll keep it simple.
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy']);

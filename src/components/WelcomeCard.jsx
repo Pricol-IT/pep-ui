@@ -34,7 +34,7 @@ const WelcomeCard = () => {
                     <i className="ti ti-calendar-time"></i>
                 </div>
                 <div className="stat-content">
-                    <span className="stat-value">09:30 AM</span>
+                    <span className="stat-value" style={{ fontSize: '13px', fontWeight: '500', opacity: 0.7 }}>live data will coming soon</span>
                     <span className="stat-label">Today's Check-in</span>
                 </div>
             </div>

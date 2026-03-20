@@ -7,7 +7,7 @@ const BirthdayPage = () => {
     useEffect(() => {
         const fetchBirthdays = async () => {
             try {
-                const response = await fetch('/birthdays', {
+                const response = await fetch('/api/birthdays', {
                     headers: { 'Accept': 'application/json' }
                 });
                 if (!response.ok) throw new Error('Failed to fetch');

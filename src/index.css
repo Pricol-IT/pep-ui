@@ -22,18 +22,18 @@
 
 :root {
   /* Pricol Brand Colors */
-  --brand-700: #085b98;
-  --brand-650: #0a6db0;
-  --brand-600: #0b73b6;
-  --brand-500: #0f84cf;
-  --brand-300: #5fb0e3;
+  --brand-700: #005a96;
+  --brand-650: #0066aa;
+  --brand-600: #0072bc;
+  --brand-500: #1a80c3;
+  --brand-300: #66abdb;
 
   /* Chevron X Accent Colors */
   --accent-red: #e84855;
   --accent-ltblue: #6fc3e8;
   --accent-green: #c7e77b;
-  --accent-yellow: #f6a31a;
-  --accent-dkblue: #0a5fa8;
+  --accent-yellow: #faa41a;
+  --accent-dkblue: #0072bc;
 
   /* Ink Colors */
   --ink-900: #0b1220;

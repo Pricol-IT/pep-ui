@@ -42,7 +42,7 @@ const BirthdayWidget = () => {
         const fetchBirthdays = async () => {
             try {
                 // Adjust endpoint based on your setup, e.g. /api/birthdays or just /birthdays if proxy is set
-                const response = await fetch('/birthdays', {
+                const response = await fetch('/api/birthdays', {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json',

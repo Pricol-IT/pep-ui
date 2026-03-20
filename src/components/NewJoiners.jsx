@@ -31,7 +31,7 @@ const NewJoiners = () => {
     useEffect(() => {
         const fetchJoiners = async () => {
             try {
-                const response = await fetch('/new-joiners', {
+                const response = await fetch('/api/new-joiners', {
                     headers: { 'Accept': 'application/json' }
                 });
                 if (!response.ok) throw new Error('Failed to fetch');

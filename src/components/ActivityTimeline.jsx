@@ -47,28 +47,34 @@ const ActivityTimeline = () => {
                     <i className="ti ti-activity"></i>
                     Recent Activity
                 </h2>
-                <div className="activity-toolbar">
-                    <div className="activity-filters" role="tablist">
-                        <button className={`activity-tab ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>All</button>
-                        <button className={`activity-tab ${filter === 'hr' ? 'active' : ''}`} onClick={() => setFilter('hr')}>HR</button>
-                        <button className={`activity-tab ${filter === 'system' ? 'active' : ''}`} onClick={() => setFilter('system')}>System</button>
-                        <button className={`activity-tab ${filter === 'announcements' ? 'active' : ''}`} onClick={() => setFilter('announcements')}>Announcements</button>
-                    </div>
-                    <button className="mark-read-btn" title="Mark all as read" onClick={markAllRead}>
-                        <i className="ti ti-mail-opened"></i> Mark all read
-                    </button>
-                </div>
             </div>
-            <div className="timeline-list">
-                {filteredActivities.map(item => (
-                    <div key={item.id} className={`timeline-item ${item.unread ? 'unread' : ''}`} data-type={item.type}>
-                        <div className={`timeline-dot ${item.dotClass || ''}`}></div>
-                        <div className="timeline-card">
-                            <div className="timeline-title"><i className={`ti ti-${item.icon}`}></i> {item.title}</div>
-                            <div className="timeline-meta">{item.meta}</div>
-                        </div>
+            <div className="timeline-list" style={{ 
+                display: 'flex', 
+                flexDirection: 'column',
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                minHeight: '200px', 
+                background: '#fff', 
+                borderRadius: '16px',
+                border: '1px solid #f0f0f0',
+                marginTop: '15px'
+            }}>
+                <div style={{ textAlign: 'center', color: '#999' }}>
+                    <div className="coming-soon-icon" style={{ 
+                        width: '60px', 
+                        height: '60px', 
+                        borderRadius: '50%', 
+                        background: '#f8f9fa', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center',
+                        margin: '0 auto 15px'
+                    }}>
+                        <i className="ti ti-hourglass-empty" style={{ fontSize: '28px', color: 'var(--brand-500)' }}></i>
                     </div>
-                ))}
+                    <h3 style={{ fontSize: '18px', fontWeight: '600', color: '#333', marginBottom: '8px' }}>Coming Soon</h3>
+                    <p style={{ fontSize: '14px', maxWidth: '250px', margin: '0 auto' }}>We're working on bringing your recent activities here. Stay tuned!</p>
+                </div>
             </div>
         </div>
     );

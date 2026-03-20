@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
 const appsData = [
-    { name: 'Payroll', icon: 'wallet', pinned: true, recent: false },
-    { name: 'LMS', icon: 'school', pinned: false, recent: false },
-    { name: 'PMS', icon: 'presentation-analytics', pinned: false, recent: true },
-    { name: 'Travel', icon: 'plane-tilt', pinned: false, recent: false },
-    { name: 'Knowledge', icon: 'book-2', pinned: false, recent: false },
-    { name: 'Medi-claim', icon: 'medical-cross', pinned: true, recent: false },
+    { name: 'Cafeteria', icon: 'soup', link: 'https://cafeteria.mypricol.in/' },
+    { name: 'Smart Traveller', icon: 'plane-tilt', link: 'https://smarttraveller.mypricol.in/' },
+    { name: 'LMS', icon: 'school', link: 'https://lms.mypricol.net.in/' },
+    { name: 'Time track', icon: 'history', link: 'https://pep.mypricol.in/timetrack/' },
+    { name: 'IT Projection', icon: 'chart-bar', link: 'https://pep.mypricol.in/it_projection/' },
+    { name: 'MoM', icon: 'file-description', link: 'https://minutes.mypricol.net.in/' },
 ];
 
 const Applications = () => {
@@ -14,9 +14,7 @@ const Applications = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const filteredApps = appsData.filter(app => {
-        const matchesFilter = filter === 'all' || (filter === 'pinned' && app.pinned) || (filter === 'recent' && app.recent);
-        const matchesSearch = app.name.toLowerCase().includes(searchTerm.toLowerCase());
-        return matchesFilter && matchesSearch;
+        return app.name.toLowerCase().includes(searchTerm.toLowerCase());
     });
 
     return (
@@ -27,12 +25,7 @@ const Applications = () => {
                     My Applications
                 </h2>
                 <div className="apps-toolbar">
-                    <div className="apps-tabs" role="tablist">
-                        <button className={`apps-tab ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>All</button>
-                        <button className={`apps-tab ${filter === 'pinned' ? 'active' : ''}`} onClick={() => setFilter('pinned')}>Pinned</button>
-                        <button className={`apps-tab ${filter === 'recent' ? 'active' : ''}`} onClick={() => setFilter('recent')}>Recent</button>
-                    </div>
-                    <div className="app-search-container">
+                    <div className="app-search-container" style={{ marginLeft: 0 }}>
                         <i className="ti ti-search"></i>
                         <input
                             type="search"
@@ -45,7 +38,7 @@ const Applications = () => {
             </div>
             <div className="applications-grid">
                 {filteredApps.map((app, index) => (
-                    <a href="#" className="app-card" key={index}>
+                    <a href={app.link} className="app-card" key={index} target="_blank" rel="noopener noreferrer">
                         <div className="app-icon">
                             <i className={`ti ti-${app.icon}`}></i>
                         </div>
