@@ -47,4 +47,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/plants', [App\Http\Controllers\CompanyLocationController::class, 'getPlants']);
     Route::get('/admin/divisions', [App\Http\Controllers\CompanyLocationController::class, 'getDivisions']);
     Route::get('/admin/departments', [App\Http\Controllers\CompanyLocationController::class, 'getDepartments']);
+
+    // Announcements
+    Route::get('/announcements/active', [App\Http\Controllers\AnnouncementController::class, 'getActive']);
+    Route::get('/admin/announcements', [App\Http\Controllers\AnnouncementController::class, 'index']);
+    Route::post('/admin/announcements', [App\Http\Controllers\AnnouncementController::class, 'store']);
+    Route::put('/admin/announcements/{announcement}', [App\Http\Controllers\AnnouncementController::class, 'update']);
+    Route::patch('/admin/announcements/{announcement}/toggle', [App\Http\Controllers\AnnouncementController::class, 'toggle']);
+    Route::delete('/admin/announcements/{announcement}', [App\Http\Controllers\AnnouncementController::class, 'destroy']);
 });

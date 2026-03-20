@@ -25,6 +25,12 @@ export default function AdminNavbar() {
                 >
                     Company & Locations
                 </NavLink>
+                <NavLink
+                    to="/admin/announcements"
+                    className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`}
+                >
+                    Announcements
+                </NavLink>
             </div>
         </nav>
     );

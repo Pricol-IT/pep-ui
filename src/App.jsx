@@ -21,6 +21,7 @@ import AdminLayout from './components/admin/AdminLayout'
 import AdminDashboard from './components/admin/AdminDashboard'
 import AccessRequestStatus from './components/admin/AccessRequestStatus'
 import CompanyLocationManager from './components/admin/CompanyLocationManager'
+import AnnouncementManager from './components/admin/AnnouncementManager'
 import './index.css'
 
 function ProtectedRoute({ children, pageName }) {
@@ -121,6 +122,7 @@ function AppContent() {
                   <Route path="dashboard" element={<AdminDashboard />} />
                   <Route path="access-request" element={<AccessRequestStatus />} />
                   <Route path="company-location" element={<CompanyLocationManager />} />
+                  <Route path="announcements" element={<AnnouncementManager />} />
                 </Route>
               </Routes>
             </div>
