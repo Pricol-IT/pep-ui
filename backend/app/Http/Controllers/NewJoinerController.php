@@ -28,6 +28,7 @@ class NewJoinerController extends Controller
                     'status'
                 ])
                 ->where('status', 'A')
+                ->where('employee_type_name', 'WHITE COLLAR')
                 ->whereBetween('doj', [$oneWeekAgo->format('Y-m-d'), $today->format('Y-m-d')])
                 ->orderBy('doj', 'desc')
                 ->get();

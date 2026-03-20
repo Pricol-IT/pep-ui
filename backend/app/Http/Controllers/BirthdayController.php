@@ -29,6 +29,7 @@ class BirthdayController extends Controller
                     'status'
                 ])
                 ->where('status', 'A')
+                ->where('employee_type_name', 'WHITE COLLAR')
                 ->where(function ($query) use ($today, $tomorrow) {
                     $query->whereRaw("MONTH(dob) = ? AND DAY(dob) = ?", [$today->month, $today->day])
                           ->orWhereRaw("MONTH(dob) = ? AND DAY(dob) = ?", [$tomorrow->month, $tomorrow->day]);
