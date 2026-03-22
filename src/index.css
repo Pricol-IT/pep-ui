@@ -1,24 +1,5 @@
-/* ===== Tabler Icons Fix ===== */
-.ti {
-  font-family: "tabler-icons" !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  font-variant: normal !important;
-  text-transform: none !important;
-  line-height: 1 !important;
-  -webkit-font-smoothing: antialiased !important;
-  -moz-osx-font-smoothing: grayscale !important;
-}
-
-/* ===== CSS Variables ===== */
-/* Tabler Icons Font Family */
-@font-face {
-  font-family: "tabler-icons";
-  src: url("https://unpkg.com/@tabler/icons-webfont@latest/fonts/tabler-icons.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: block;
-}
+/* Import Tabler Icons from local package */
+@import "../node_modules/@tabler/icons-webfont/dist/tabler-icons.css";
 
 :root {
   /* Pricol Brand Colors */
@@ -7164,6 +7145,15 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.announcement-message {
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: var(--line-height-base);
+  word-break: break-word;
 }
 
 .announcement-close {

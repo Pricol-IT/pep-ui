@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-    protected $fillable = ['external_id', 'name'];
+    protected $fillable = ['name', 'division_id'];
+
+    public function division()
+    {
+        return $this->belongsTo(Division::class);
+    }
 }

@@ -10,11 +10,13 @@ const AnnouncementBar = () => {
             try {
                 const res = await axios.get('/announcements/active');
                 if (res.data) {
-                    setData(res.data);
-                    // Check if dismissed for this session
-                    const isDismissed = sessionStorage.getItem(`announcement_${res.data.id}_dismissed`);
-                    if (!isDismissed) {
-                        setIsVisible(true);
+                    const actualData = Array.isArray(res.data) ? res.data[0] : res.data;
+                    if (actualData) {
+                        setData(actualData);
+                        const isDismissed = sessionStorage.getItem(`announcement_${actualData.id}_dismissed`);
+                        if (!isDismissed) {
+                            setIsVisible(true);
+                        }
                     }
                 }
             } catch (err) {
@@ -31,7 +33,7 @@ const AnnouncementBar = () => {
         }
     };
 
-    if (!isVisible || !data) return null;
+    if (!isVisible || !data || !data.content) return null;
 
     return (
         <div className="announcement-bar">
@@ -41,7 +43,7 @@ const AnnouncementBar = () => {
                 </div>
                 <div className="announcement-text">
                     <span className="badge-new">{data.badge_text || 'NEW'}</span>
-                    <span className="message">{data.content}</span>
+                    {data.content && <span className="announcement-message">{data.content}</span>}
                 </div>
             </div>
             <button className="announcement-close" onClick={handleDismiss} title="Dismiss">

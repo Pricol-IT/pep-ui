@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Branch extends Model
 {
-    protected $fillable = ['external_id', 'name'];
+    protected $fillable = ['name', 'company_id', 'location_id'];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function plants()
+    {
+        return $this->hasMany(Plant::class);
+    }
 }

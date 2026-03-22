@@ -2,14 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
-    use HasFactory;
+    protected $fillable = ['name', 'plant_id', 'company_id', 'created_by'];
 
-    protected $fillable = ['name', 'company_id', 'external_id', 'created_by'];
+    public function plant()
+    {
+        return $this->belongsTo(Plant::class);
+    }
+
+    public function divisions()
+    {
+        return $this->hasMany(Division::class);
+    }
 
     public function company()
     {

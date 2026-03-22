@@ -35,6 +35,11 @@ export default defineConfig({
         target: 'http://localhost:8000',
         changeOrigin: true,
         credentials: true
+      },
+      '/announcements': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        credentials: true
       }
     }
   }

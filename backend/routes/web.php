@@ -40,14 +40,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/requests/{id}/reject', [App\Http\Controllers\AdminController::class, 'reject']);
 
     // Companies & Locations (Automated Sync)
-    Route::post('/admin/sync', [App\Http\Controllers\CompanyLocationController::class, 'syncFromCommonDb']);
     Route::get('/admin/companies', [App\Http\Controllers\CompanyLocationController::class, 'getCompanies']);
     Route::get('/admin/locations', [App\Http\Controllers\CompanyLocationController::class, 'getLocations']);
     Route::get('/admin/branches', [App\Http\Controllers\CompanyLocationController::class, 'getBranches']);
     Route::get('/admin/plants', [App\Http\Controllers\CompanyLocationController::class, 'getPlants']);
     Route::get('/admin/divisions', [App\Http\Controllers\CompanyLocationController::class, 'getDivisions']);
     Route::get('/admin/departments', [App\Http\Controllers\CompanyLocationController::class, 'getDepartments']);
-
+    Route::post('/admin/sync', [App\Http\Controllers\CompanyLocationController::class, 'syncFromCommonDb']);
+    Route::get('/admin/sync-status', [App\Http\Controllers\CompanyLocationController::class, 'getSyncStatus']);
+    Route::get('/admin/organization', [App\Http\Controllers\CompanyLocationController::class, 'getOrganization']);
     // Announcements
     Route::get('/announcements/active', [App\Http\Controllers\AnnouncementController::class, 'getActive']);
     Route::get('/admin/announcements', [App\Http\Controllers\AnnouncementController::class, 'index']);
@@ -56,3 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/admin/announcements/{announcement}/toggle', [App\Http\Controllers\AnnouncementController::class, 'toggle']);
     Route::delete('/admin/announcements/{announcement}', [App\Http\Controllers\AnnouncementController::class, 'destroy']);
 });
+
+// Catch-all route for SPA mapping
+Route::get('/{any}', function () {
+    return view('welcome');
+})->where('any', '.*');
