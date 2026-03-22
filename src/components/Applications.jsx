@@ -38,7 +38,7 @@ const Applications = () => {
             </div>
             <div className="applications-grid">
                 {filteredApps.map((app, index) => (
-                    <a href={app.link} className="app-card" key={index} target="_blank" rel="noopener noreferrer">
+                    <a href={app.link} className="app-card" key={index} target="_blank" rel="noopener noreferrer" data-track={`App: ${app.name}`}>
                         <div className="app-icon">
                             <i className={`ti ti-${app.icon}`}></i>
                         </div>

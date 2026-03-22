@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LoginLog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
@@ -108,6 +109,12 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
+
+        // Record login event
+        LoginLog::create([
+            'user_id' => $user->id,
+            'login_at' => now(),
+        ]);
 
         // Store Timetrack cookies immediately upon sign-in
         $this->setTimetrackCookies($user);

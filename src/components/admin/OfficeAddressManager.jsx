@@ -20,7 +20,7 @@ export default function OfficeAddressManager() {
     const fetchData = async () => {
         setLoading(true);
         try {
-            const res = await axios.get('/admin/office-details');
+            const res = await axios.get('/api/admin/office-details');
             setLocations(res.data);
         } catch (err) {
             console.error(err);
@@ -63,7 +63,7 @@ export default function OfficeAddressManager() {
     const handleDelete = async (id) => {
         if (!window.confirm('Are you sure you want to delete this office?')) return;
         try {
-            await axios.delete(`/admin/office-details/${id}`);
+            await axios.delete(`/api/admin/office-details/${id}`);
             fetchData();
         } catch (err) {
             console.error(err);
@@ -74,7 +74,7 @@ export default function OfficeAddressManager() {
     const handleSave = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('/admin/office-details', {
+            await axios.post('/api/admin/office-details', {
                 ...form,
                 id: selectedOffice?.id
             });

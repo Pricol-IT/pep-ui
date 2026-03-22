@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import Sidebar from './components/Sidebar'
 import WelcomeCard from './components/WelcomeCard'
 
@@ -70,6 +71,32 @@ function ProtectedRoute({ children, pageName }) {
   return children;
 }
 
+function ClickTracker() {
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (!user) return;
+
+      const target = e.target.closest('a') || e.target.closest('[data-track]');
+      if (target) {
+        const url = target.href || target.getAttribute('data-url') || window.location.pathname;
+        const text = target.getAttribute('data-track') || target.innerText || 'unknown';
+
+        // Fire and forget click tracking
+        if (text && text !== 'unknown') {
+          axios.post('/api/track-click', { url, text }).catch(() => {});
+        }
+      }
+    };
+
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  }, [user]);
+
+  return null;
+}
+
 function AppContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { user } = useAuth();
@@ -77,6 +104,7 @@ function AppContent() {
   return (
     <Router>
       <div className="shell">
+        <ClickTracker />
         <div className="dashboard-bg-pattern"></div>
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 

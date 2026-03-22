@@ -15,7 +15,7 @@ export default function AccessRequestStatus() {
 
     const fetchStatus = async () => {
         try {
-            const res = await axios.get('/admin/access-request/status');
+            const res = await axios.get('/api/admin/access-request/status');
             setStatus(res.data ? res.data.status : 'none');
         } catch (error) {
             console.error(error);
@@ -28,7 +28,7 @@ export default function AccessRequestStatus() {
     const handleRequestAccess = async () => {
         try {
             setLoading(true);
-            await axios.post('/admin/access-request');
+            await axios.post('/api/admin/access-request');
             await fetchStatus();
         } catch (error) {
             alert('Failed to request access.');

@@ -42,7 +42,7 @@ export default function CompanyLocationManager() {
         setLoading(true);
         setError(null);
         try {
-            const endpoint = activeTab === 'organization' ? '/admin/organization' : `/admin/${activeTab}`;
+            const endpoint = activeTab === 'organization' ? '/api/admin/organization' : `/api/admin/${activeTab}`;
             const res = await axios.get(endpoint);
             setData(Array.isArray(res.data) ? res.data : []);
         } catch (err) {
@@ -55,7 +55,7 @@ export default function CompanyLocationManager() {
 
     const pollStatus = async () => {
         try {
-            const res = await axios.get('/admin/sync-status');
+            const res = await axios.get('/api/admin/sync-status');
             setSyncStatus(res.data);
             if (res.data.status === 'completed' || res.data.status === 'failed') {
                 return true; // Stop polling
@@ -81,7 +81,7 @@ export default function CompanyLocationManager() {
         }, 1000);
 
         try {
-            await axios.post('/admin/sync');
+            await axios.post('/api/admin/sync');
             fetchData();
         } catch (err) {
             console.error(err);
@@ -175,7 +175,7 @@ export default function CompanyLocationManager() {
     const handleSaveDetails = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('/admin/office-details', {
+            await axios.post('/api/admin/office-details', {
                 ...detailForm,
                 location_id: selectedLocation.id
             });

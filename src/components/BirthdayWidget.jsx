@@ -116,7 +116,7 @@ const BirthdayWidget = () => {
                         <i className="ti ti-cake"></i>
                         Birthdays
                     </h3>
-                    <button className="view-all-link" onClick={() => navigate('/birthdays')}>
+                    <button className="view-all-link" onClick={() => navigate('/birthdays')} data-track="Dashboard: Birthdays View All" data-url="/birthdays">
                         View all
                     </button>
                 </div>

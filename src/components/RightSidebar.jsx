@@ -15,8 +15,8 @@ const RightSidebar = () => {
     useEffect(() => {
         const fetchOfficeDetail = async () => {
             try {
-                const res = await axios.get('/admin/office-details');
-                const details = res.data;
+                const res = await axios.get('/api/admin/office-details');
+                const details = Array.isArray(res.data) ? res.data : [];
                 
                 if (details.length > 0) {
                     let match = details.find(d => 

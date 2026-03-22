@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
+import AnalyticsCharts from './AnalyticsCharts';
 import './admin.css';
 
 export default function AdminDashboard() {
@@ -14,7 +15,7 @@ export default function AdminDashboard() {
 
     const fetchRequests = async () => {
         try {
-            const res = await axios.get('/admin/requests');
+            const res = await axios.get('/api/admin/requests');
             setRequests(Array.isArray(res.data) ? res.data : []);
         } catch (error) {
             console.error('Failed to fetch requests', error);
@@ -26,7 +27,7 @@ export default function AdminDashboard() {
     const handleApprove = async (id) => {
         if (!confirm('Are you sure you want to approve this request? The user will become HR by default.')) return;
         try {
-            await axios.post(`/admin/requests/${id}/approve`);
+            await axios.post(`/api/admin/requests/${id}/approve`);
             fetchRequests(); // Refresh list
         } catch (error) {
             alert('Failed to approve request.');
@@ -36,7 +37,7 @@ export default function AdminDashboard() {
     const handleReject = async (id) => {
         if (!confirm('Are you sure you want to reject this request?')) return;
         try {
-            await axios.post(`/admin/requests/${id}/reject`);
+            await axios.post(`/api/admin/requests/${id}/reject`);
             fetchRequests(); // Refresh list
         } catch (error) {
             alert('Failed to reject request.');
@@ -56,6 +57,8 @@ export default function AdminDashboard() {
                 </div>
                 {/* Add more stats here later */}
             </div>
+
+            <AnalyticsCharts />
 
             <div className="admin-table-card">
                 <div className="card-header">

@@ -26,7 +26,7 @@ export default function AnnouncementManager() {
     const fetchAnnouncements = async () => {
         setLoading(true);
         try {
-            const res = await axios.get('/admin/announcements');
+            const res = await axios.get('/api/admin/announcements');
             setAnnouncements(res.data);
         } catch (err) {
             console.error(err);
@@ -49,9 +49,9 @@ export default function AnnouncementManager() {
         setError(null);
         try {
             if (isEditing) {
-                await axios.put(`/admin/announcements/${editingId}`, formData);
+                await axios.put(`/api/admin/announcements/${editingId}`, formData);
             } else {
-                await axios.post('/admin/announcements', formData);
+                await axios.post('/api/admin/announcements', formData);
             }
             resetForm();
             fetchAnnouncements();
@@ -76,7 +76,7 @@ export default function AnnouncementManager() {
 
     const handleToggle = async (ann) => {
         try {
-            await axios.patch(`/admin/announcements/${ann.id}/toggle`);
+            await axios.patch(`/api/admin/announcements/${ann.id}/toggle`);
             fetchAnnouncements();
         } catch (err) {
             console.error(err);
@@ -87,7 +87,7 @@ export default function AnnouncementManager() {
     const handleDelete = async (id) => {
         if (!window.confirm('Are you sure you want to delete this announcement?')) return;
         try {
-            await axios.delete(`/admin/announcements/${id}`);
+            await axios.delete(`/api/admin/announcements/${id}`);
             fetchAnnouncements();
         } catch (err) {
             console.error(err);

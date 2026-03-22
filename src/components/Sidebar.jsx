@@ -45,7 +45,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                     {/* Sidebar Header */}
                     <div className="sidebar-header">
                         <div className="brand" style={{ padding: '24px 12px', minWidth: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '15px' }}>
-                            <div className="logo-container" onClick={() => navigate('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                            <div className="logo-container" onClick={() => navigate('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }} data-track="Sidebar: Logo" data-url="/">
                                 <img src="/lmage/pricol-gold-logo.png" alt="Pricol" style={{ height: '24px', width: 'auto' }} />
                             </div>
                             <div className="separator" style={{ width: '1px', height: '54px', background: 'rgba(212, 175, 55, 0.2)' }}></div>
@@ -67,6 +67,8 @@ const Sidebar = ({ isOpen, onClose }) => {
                             <div
                                 className={`nav-item ${activeSection === 'dashboard' ? 'active' : ''}`}
                                 onClick={() => { handleNavClick('dashboard'); navigate('/'); }}
+                                data-track="Sidebar: Dashboard"
+                                data-url="/"
                             >
                                 <div className="nav-item-icon">
                                     <i className="fas fa-tachometer-alt"></i>
@@ -76,10 +78,12 @@ const Sidebar = ({ isOpen, onClose }) => {
                         )}
 
                         <div className="nav-title">HR Services</div>
-                        {['leave', 'travel', 'it_projection'].filter(section => hasAccess(section)).map(section => (
+                        {['leave', 'travel', 'it_projection'].filter(section => section === 'it_projection' || hasAccess(section)).map(section => (
                             <div
                                 key={section}
                                 className={`nav-item ${activeSection === section ? 'active' : ''}`}
+                                data-track={`Sidebar: ${getLabelForSection(section)}`}
+                                data-url={section === 'leave' ? '/auth/timetrack' : (section === 'travel' ? 'https://smarttraveller.mypricol.in/' : (section === 'it_projection' ? 'https://pep.mypricol.in/it_projection/' : section))}
                                 onClick={() => {
                                     if (section === 'leave') {
                                         window.open('/auth/timetrack', '_blank', 'noopener,noreferrer');
@@ -104,6 +108,8 @@ const Sidebar = ({ isOpen, onClose }) => {
                             <div
                                 key={section}
                                 className={`nav-item ${activeSection === section ? 'active' : ''}`}
+                                data-track={`Sidebar: ${getLabelForSection(section)}`}
+                                data-url={section === 'about' ? 'https://pricolholdings.com/about-us' : section}
                                 onClick={() => {
                                     if (section === 'about') {
                                         window.open('https://pricolholdings.com/about-us', '_blank', 'noopener,noreferrer');
@@ -149,7 +155,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                                         </div>
                                     </div>
                                     <div className="user-menu-divider"></div>
-                                    <div className="user-menu-item" onClick={() => { navigate('/profile'); setShowUserMenu(false); }}>
+                                    <div className="user-menu-item" onClick={() => { navigate('/profile'); setShowUserMenu(false); }} data-track="UserMenu: My Profile" data-url="/profile">
                                         <i className="far fa-user"></i>
                                         <span>My Profile</span>
                                     </div>
@@ -160,7 +166,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                                     {isHR && (
                                         <>
                                             <div className="user-menu-divider"></div>
-                                            <div className="user-menu-item" onClick={() => { navigate('/admin'); setShowUserMenu(false); }}>
+                                            <div className="user-menu-item" onClick={() => { navigate('/admin'); setShowUserMenu(false); }} data-track="UserMenu: Switch to Admin" data-url="/admin">
                                                 <i className="fas fa-user-shield"></i>
                                                 <span>Switch to Admin</span>
                                             </div>
