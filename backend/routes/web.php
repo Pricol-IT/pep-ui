@@ -49,6 +49,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/sync', [App\Http\Controllers\CompanyLocationController::class, 'syncFromCommonDb']);
     Route::get('/admin/sync-status', [App\Http\Controllers\CompanyLocationController::class, 'getSyncStatus']);
     Route::get('/admin/organization', [App\Http\Controllers\CompanyLocationController::class, 'getOrganization']);
+    
+    // Office Details
+    Route::get('/admin/office-details', [App\Http\Controllers\OfficeDetailController::class, 'index']);
+    Route::get('/admin/office-details/{locationId}', [App\Http\Controllers\OfficeDetailController::class, 'show']);
+    Route::post('/admin/office-details', [App\Http\Controllers\OfficeDetailController::class, 'store']);
+    Route::delete('/admin/office-details/{id}', [App\Http\Controllers\OfficeDetailController::class, 'destroy']);
+    Route::get('/weather', [App\Http\Controllers\OfficeDetailController::class, 'getWeather']);
     // Announcements
     Route::get('/announcements/active', [App\Http\Controllers\AnnouncementController::class, 'getActive']);
     Route::get('/admin/announcements', [App\Http\Controllers\AnnouncementController::class, 'index']);

@@ -152,7 +152,7 @@ class CompanyLocationController extends Controller
 
     public function getLocations()
     {
-        return Location::with(['plant'])->orderBy('name')->get();
+        return Location::with(['plant', 'officeDetail'])->orderBy('name')->get();
     }
 
     public function getDivisions()

@@ -147,6 +147,46 @@ export default function CompanyLocationManager() {
         );
     };
 
+    const [showDetailModal, setShowDetailModal] = useState(false);
+    const [selectedLocation, setSelectedLocation] = useState(null);
+    const [detailForm, setDetailForm] = useState({
+        office_name: '',
+        image: '',
+        address: '',
+        city: '',
+        latitude: '',
+        longitude: ''
+    });
+
+    const handleEditDetails = (location) => {
+        setSelectedLocation(location);
+        const details = location.office_detail || {};
+        setDetailForm({
+            office_name: details.office_name || '',
+            image: details.image || '',
+            address: details.address || '',
+            city: details.city || '',
+            latitude: details.latitude || '',
+            longitude: details.longitude || ''
+        });
+        setShowDetailModal(true);
+    };
+
+    const handleSaveDetails = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.post('/admin/office-details', {
+                ...detailForm,
+                location_id: selectedLocation.id
+            });
+            setShowDetailModal(false);
+            fetchData();
+        } catch (err) {
+            console.error(err);
+            alert('Failed to save details');
+        }
+    };
+
     return (
         <div className="admin-dashboard">
             <div className="admin-header-row">
@@ -236,6 +276,88 @@ export default function CompanyLocationManager() {
                     </div>
                 )}
             </div>
+
+            {showDetailModal && (
+                <div className="sync-modal-overlay">
+                    <div className="sync-modal-content" style={{ maxWidth: '500px' }}>
+                        <div className="sync-modal-header">
+                            <h2>Office Details - {selectedLocation?.name}</h2>
+                            <button className="sync-close-btn" onClick={() => setShowDetailModal(false)}>&times;</button>
+                        </div>
+                        <form onSubmit={handleSaveDetails}>
+                            <div className="sync-modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                <div className="form-group">
+                                    <label style={{ display: 'block', color: '#94a3b8', marginBottom: '0.4rem', fontSize: '0.9rem' }}>Office Name</label>
+                                    <input 
+                                        type="text" 
+                                        value={detailForm.office_name}
+                                        onChange={e => setDetailForm({...detailForm, office_name: e.target.value})}
+                                        required
+                                        placeholder="e.g. Corporate Technology Center"
+                                        style={{ width: '100%', background: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', padding: '0.6rem', borderRadius: '4px' }}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label style={{ display: 'block', color: '#94a3b8', marginBottom: '0.4rem', fontSize: '0.9rem' }}>City</label>
+                                    <input 
+                                        type="text" 
+                                        value={detailForm.city}
+                                        onChange={e => setDetailForm({...detailForm, city: e.target.value})}
+                                        placeholder="e.g. Coimbatore"
+                                        style={{ width: '100%', background: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', padding: '0.6rem', borderRadius: '4px' }}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label style={{ display: 'block', color: '#94a3b8', marginBottom: '0.4rem', fontSize: '0.9rem' }}>Address</label>
+                                    <textarea 
+                                        value={detailForm.address}
+                                        onChange={e => setDetailForm({...detailForm, address: e.target.value})}
+                                        placeholder="Full office address..."
+                                        rows="3"
+                                        style={{ width: '100%', background: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', padding: '0.6rem', borderRadius: '4px' }}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label style={{ display: 'block', color: '#94a3b8', marginBottom: '0.4rem', fontSize: '0.9rem' }}>Image Path/URL</label>
+                                    <input 
+                                        type="text" 
+                                        value={detailForm.image}
+                                        onChange={e => setDetailForm({...detailForm, image: e.target.value})}
+                                        placeholder="/lmage/CTC.png"
+                                        style={{ width: '100%', background: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', padding: '0.6rem', borderRadius: '4px' }}
+                                    />
+                                </div>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                    <div className="form-group">
+                                        <label style={{ display: 'block', color: '#94a3b8', marginBottom: '0.4rem', fontSize: '0.9rem' }}>Latitude</label>
+                                        <input 
+                                            type="number" step="any"
+                                            value={detailForm.latitude}
+                                            onChange={e => setDetailForm({...detailForm, latitude: e.target.value})}
+                                            placeholder="11.0168"
+                                            style={{ width: '100%', background: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', padding: '0.6rem', borderRadius: '4px' }}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label style={{ display: 'block', color: '#94a3b8', marginBottom: '0.4rem', fontSize: '0.9rem' }}>Longitude</label>
+                                        <input 
+                                            type="number" step="any"
+                                            value={detailForm.longitude}
+                                            onChange={e => setDetailForm({...detailForm, longitude: e.target.value})}
+                                            placeholder="76.9558"
+                                            style={{ width: '100%', background: '#0f172a', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', padding: '0.6rem', borderRadius: '4px' }}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="sync-modal-footer">
+                                <button type="button" className="btn-secondary" onClick={() => setShowDetailModal(false)} style={{ background: '#334155', color: '#fff', border: 'none', padding: '0.6rem 1rem', borderRadius: '4px', cursor: 'pointer' }}>Cancel</button>
+                                <button type="submit" className="btn-primary">Save Details</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
 
             {showModal && (
                 <div className="sync-modal-overlay">

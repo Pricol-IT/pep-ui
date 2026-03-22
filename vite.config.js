@@ -40,6 +40,11 @@ export default defineConfig({
         target: 'http://localhost:8000',
         changeOrigin: true,
         credentials: true
+      },
+      '/weather': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        credentials: true
       }
     }
   }
