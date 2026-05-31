@@ -46,15 +46,15 @@ jobs:
 
         run: |
 
-          mkdir -p "second-brain/second-brain/raw/FOLDER NAME/docs"
+          mkdir -p "second-brain/second-brain/raw/Intranet Portal/docs"
 
-          cp README.md "second-brain/second-brain/raw/FOLDER NAME/" 2>/dev/null || true
+          cp README.md "second-brain/second-brain/raw/Intranet Portal/" 2>/dev/null || true
 
-          cp CLAUDE.md "second-brain/second-brain/raw/FOLDER NAME/" 2>/dev/null || true
+          cp CLAUDE.md "second-brain/second-brain/raw/Intranet Portal/" 2>/dev/null || true
 
-          cp CHANGES.md "second-brain/second-brain/raw/FOLDER NAME/" 2>/dev/null || true
+          cp CHANGES.md "second-brain/second-brain/raw/Intranet Portal/" 2>/dev/null || true
 
-          cp docs/* "second-brain/second-brain/raw/FOLDER NAME/docs/" 2>/dev/null || true
+          cp docs/* "second-brain/second-brain/raw/Intranet Portal/docs/" 2>/dev/null || true
  
       - name: Commit and push to second brain
 
@@ -66,9 +66,9 @@ jobs:
 
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add "second-brain/raw/FOLDER NAME/"
+          git add "second-brain/raw/Intranet Portal/"
 
-          git diff --staged --quiet || git commit -m "sync: FOLDER NAME docs updated"
+          git diff --staged --quiet || git commit -m "sync: Intranet Portal docs updated"
 
           git push
  
