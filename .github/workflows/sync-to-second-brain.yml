@@ -1,0 +1,74 @@
+name: Sync docs to Second Brain
+ 
+on:
+
+  workflow_dispatch:
+
+  push:
+
+    branches: [main]
+
+    paths:
+
+      - 'README.md'
+
+      - 'CLAUDE.md'
+
+      - 'CHANGES.md'
+
+      - 'docs/**'
+ 
+jobs:
+
+  sync:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repo
+
+        uses: actions/checkout@v4
+ 
+      - name: Checkout second brain repo
+
+        uses: actions/checkout@v4
+
+        with:
+
+          repository: RubeshKR/second-brain
+
+          token: ${{ secrets.SECOND_BRAIN_TOKEN }}
+
+          path: second-brain
+ 
+      - name: Copy docs to second brain
+
+        run: |
+
+          mkdir -p "second-brain/second-brain/raw/FOLDER NAME/docs"
+
+          cp README.md "second-brain/second-brain/raw/FOLDER NAME/" 2>/dev/null || true
+
+          cp CLAUDE.md "second-brain/second-brain/raw/FOLDER NAME/" 2>/dev/null || true
+
+          cp CHANGES.md "second-brain/second-brain/raw/FOLDER NAME/" 2>/dev/null || true
+
+          cp docs/* "second-brain/second-brain/raw/FOLDER NAME/docs/" 2>/dev/null || true
+ 
+      - name: Commit and push to second brain
+
+        run: |
+
+          cd second-brain
+
+          git config user.name "github-actions[bot]"
+
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add "second-brain/raw/FOLDER NAME/"
+
+          git diff --staged --quiet || git commit -m "sync: FOLDER NAME docs updated"
+
+          git push
+ 
